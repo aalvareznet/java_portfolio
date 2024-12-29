@@ -12,10 +12,8 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(nullable = false)
     @ManyToOne
     User user;
-    @Column(nullable = false)
     @ManyToOne
     Book book;
     @Column(nullable = false)
