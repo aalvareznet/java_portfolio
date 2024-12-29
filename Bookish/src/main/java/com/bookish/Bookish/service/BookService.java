@@ -21,4 +21,6 @@ public class BookService extends BaseService<Book, Long>{
     public List<Book> findByGenre(String genre){
         return repo.findByGenre(genre);
     }
+
+    public List<Book> findByAuthor(String author) { return repo.findByAuthor(author); }
 }
