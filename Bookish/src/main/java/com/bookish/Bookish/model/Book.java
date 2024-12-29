@@ -17,9 +17,9 @@ public class Book {
     @Column(nullable = false)
     String title;
     @Column(nullable = false)
-    List<String> author;
+    String author;
     @Column(nullable = false)
-    List<String> genre;
+    String genre;
     @Column(nullable = false)
     String description;
     @Column(nullable = false, name = "average_rating")

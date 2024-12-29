@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController("/api/book")
+@RestController
+@RequestMapping("/api/book")
 public class BookController {
     @Autowired
     private BookService service;
