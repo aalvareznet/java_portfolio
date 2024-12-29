@@ -1,6 +1,8 @@
 package com.bookish.Bookish.controller;
 
 import com.bookish.Bookish.model.User;
+import com.bookish.Bookish.model.dto.UserCreationDto;
+import com.bookish.Bookish.security.SecurityConfig;
 import com.bookish.Bookish.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @Autowired
+    private SecurityConfig security;
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
@@ -32,9 +36,15 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<UserCreationDto> createUser(@RequestBody User user){
+        user.setPassword(security.passwordEncoder().encode(user.getPassword()));
         User createdUser = service.create(user);
-        return ResponseEntity.ok(createdUser);
+        UserCreationDto responseUser = new UserCreationDto(
+                createdUser.getUsername(),
+                createdUser.getEmail(),
+                createdUser.getRole()
+        );
+        return ResponseEntity.ok(responseUser);
     }
     @PutMapping
     public ResponseEntity<User> updateUser(@PathVariable Long id
