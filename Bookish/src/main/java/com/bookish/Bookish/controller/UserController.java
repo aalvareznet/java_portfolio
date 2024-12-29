@@ -15,6 +15,7 @@ public class UserController {
     @Autowired
     private UserService service;
 
+
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users = service.findAll();
@@ -41,10 +42,10 @@ public class UserController {
         Optional<User> userOptional = service.findById(id);
         if (userOptional.isPresent()){
             User userToUpdate = userOptional.get();
-            userToUpdate.setName(userDetails.getName());
+            userToUpdate.setUsername(userDetails.getUsername());
             userToUpdate.setEmail(userDetails.getEmail());
             userToUpdate.setPassword(userDetails.getPassword());
-            userToUpdate.setPreferences(userDetails.getPreferences());
+            userToUpdate.setRole(userDetails.getRole());
             User updatedUser = service.update(userToUpdate);
             return ResponseEntity.ok(updatedUser);
         } else {
