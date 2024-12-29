@@ -23,7 +23,12 @@ public class SecurityConfig {
                 request.requestMatchers("/api/book/**")
                         .permitAll()
                         .requestMatchers("/api/user/**")
+                        .authenticated()
+                        .requestMatchers("/api/bookshelf/**")
+                        .authenticated()
+                        .requestMatchers("/api/rating/**")
                         .authenticated())
+
                 .httpBasic(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable());
         return http.build();
