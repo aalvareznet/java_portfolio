@@ -2,6 +2,7 @@ package com.bookish.Bookish.controller;
 
 import com.bookish.Bookish.model.Book;
 import com.bookish.Bookish.model.Rating;
+import com.bookish.Bookish.model.dto.RatingDto;
 import com.bookish.Bookish.service.BookService;
 import com.bookish.Bookish.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +22,30 @@ public class RatingController {
     private BookService bookService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Rating>> getRatingByBook(@PathVariable Long id){
+    public ResponseEntity<List<RatingDto>> getRatingByBook(@PathVariable Long id){
         Optional<Book> book = bookService.findById(id);
+        if (book.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
         List<Rating> ratingList = ratingService.findByBook(book.get());
-        return ResponseEntity.ok(ratingList);
+
+        List<RatingDto> ratingDtoList = ratingList.stream().map(rating -> new RatingDto(
+                rating.getUser().getId(),
+                rating.getBook().getId(),
+                rating.getRating(),
+                rating.getRatingDescription()
+        )).toList();
+        return ResponseEntity.ok(ratingDtoList);
     }
 
     @PostMapping()
-    public ResponseEntity<Rating> createRating(@RequestBody Rating rating){
+    public ResponseEntity<RatingDto> createRating(@RequestBody Rating rating){
         Rating createdRating = ratingService.create(rating);
-        return ResponseEntity.ok(rating);
+        RatingDto ratingDto = new RatingDto(rating.getUser().getId()
+                                , rating.getBook().getId()
+                                , rating.getRating()
+                                , rating.getRatingDescription());
+        return ResponseEntity.ok(ratingDto);
     }
 
 }
