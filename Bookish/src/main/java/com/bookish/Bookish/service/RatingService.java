@@ -2,7 +2,9 @@ package com.bookish.Bookish.service;
 
 import com.bookish.Bookish.model.Book;
 import com.bookish.Bookish.model.Rating;
+import com.bookish.Bookish.repository.BookRepo;
 import com.bookish.Bookish.repository.RatingRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ import java.util.Optional;
 public class RatingService extends BaseService<Rating, Long>{
     @Autowired
     private RatingRepo repo;
+
+    @Autowired
+    private BookService bookService;
 
     @Override
     protected RatingRepo getRepository() {
