@@ -20,6 +20,6 @@ public class UserService extends BaseService<User, Long>{
     //Rest of methods
 
     public Optional<User> findUserByUsername(String username){
-        return repo.findUserByUsername(username);
+        return repo.findByUsername(username);
     }
 }

@@ -1,5 +1,6 @@
 package com.bookish.Bookish.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -15,35 +16,34 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(request ->
-                request.requestMatchers("/api/book/**")
-                        .permitAll()
-                        .requestMatchers("/api/user/**")
-                        .authenticated()
-                        .requestMatchers("/api/bookshelf/**")
-                        .authenticated()
-                        .requestMatchers("/api/rating/**")
-                        .authenticated())
-
-                .httpBasic(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable());
-        return http.build();
-    }
-
-    @Bean
-    public UserDetailsService testUser(PasswordEncoder passwordEncoder){
-        User.UserBuilder user = User.builder();
-        UserDetails user1 = user.username("tonyadmin")
-                .password(passwordEncoder.encode("admin123"))
-                .roles()
+        return http
+                .csrf(csrf ->
+                        csrf
+                                .disable())
+                .authorizeHttpRequests(authRequest ->
+                        authRequest.requestMatchers("/auth/**")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated())
+                .formLogin(Customizer.withDefaults())
                 .build();
-        return new InMemoryUserDetailsManager(user1);
     }
 
+//    @Bean
+//    public UserDetailsService testUser(PasswordEncoder passwordEncoder){
+//        User.UserBuilder user = User.builder();
+//        UserDetails user1 = user.username("tonyadmin")
+//                .password(passwordEncoder.encode("admin123"))
+//                .roles()
+//                .build();
+//        return new InMemoryUserDetailsManager(user1);
+//    }
+//
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
