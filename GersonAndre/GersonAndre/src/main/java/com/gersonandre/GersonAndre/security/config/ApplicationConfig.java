@@ -2,7 +2,6 @@ package com.gersonandre.GersonAndre.security.config;
 
 import com.gersonandre.GersonAndre.security.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
-    @Autowired
+
     private UserRepository userRepository;
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {

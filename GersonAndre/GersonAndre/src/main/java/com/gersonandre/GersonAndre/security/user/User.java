@@ -37,12 +37,12 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.username;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.password;
+        return this.username;
     }
 
     @Override
