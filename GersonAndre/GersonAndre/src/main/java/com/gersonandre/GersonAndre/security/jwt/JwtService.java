@@ -3,7 +3,6 @@ package com.gersonandre.GersonAndre.security.jwt;
 import com.gersonandre.GersonAndre.security.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.function.Function;
@@ -29,7 +27,8 @@ public class JwtService {
     private String getToken(HashMap<String,Object> extraClaims, User user) {
         return Jwts.builder()
                 .claims(extraClaims)
-                .claim("userId", user.getId()) //Esto es para hacer extra claims, traer mas informacion por medio del token
+                .claim("userId", user.getId())
+                .claim("role", user.getRole())//Esto es para hacer extra claims, traer mas informacion por medio del token
                 .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis()+1000*60*24))
