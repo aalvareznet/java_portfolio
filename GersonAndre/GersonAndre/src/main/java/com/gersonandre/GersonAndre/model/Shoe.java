@@ -17,7 +17,4 @@ public class Shoe {
     Long id;
     String specification;
     String leather;
-    @ManyToOne
-    @JoinColumn(name = "suit_id")
-    Suit suit;
 }

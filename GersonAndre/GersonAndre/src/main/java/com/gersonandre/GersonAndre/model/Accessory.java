@@ -16,7 +16,4 @@ public class Accessory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String specification;
-    @ManyToOne
-    @JoinColumn(name = "suit_id")
-    Suit suit;
 }

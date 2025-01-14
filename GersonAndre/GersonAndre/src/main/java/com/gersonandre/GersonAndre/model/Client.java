@@ -25,6 +25,4 @@ public class Client {
     String email;
     Date delDate;
     Date actDate;
-    @OneToMany(mappedBy = "client")
-    Set<Suit> suits;
 }

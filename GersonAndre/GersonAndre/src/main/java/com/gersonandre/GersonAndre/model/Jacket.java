@@ -28,7 +28,4 @@ public class Jacket {
     Double neckline;
     String specification;
     String fabric;
-    @ManyToOne
-    @JoinColumn(name = "suit_id")
-    Suit suit;
 }

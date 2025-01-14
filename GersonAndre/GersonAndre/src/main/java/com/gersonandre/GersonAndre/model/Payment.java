@@ -18,7 +18,4 @@ public class Payment {
     Double netAmount;
     Double taxes;
     Double totalAmount;
-    @OneToOne
-    @JoinColumn(name = "suit_id")
-    Suit suit;
 }
