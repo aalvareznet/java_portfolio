@@ -23,7 +23,4 @@ public class Pant {
     Double bottom;
     String specification;
     String fabric;
-    @ManyToOne
-    @JoinColumn(name = "suit_id")
-    Suit suit;
 }

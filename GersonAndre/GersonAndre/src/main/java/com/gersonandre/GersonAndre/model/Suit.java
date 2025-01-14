@@ -16,22 +16,37 @@ import java.util.Set;
 public class Suit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
+
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    Client client;
-    @OneToOne(mappedBy = "suit")
-    Payment payment;
-    @OneToOne(mappedBy = "suit")
-    Jacket jacket;
-    @OneToOne(mappedBy = "suit")
-    Pant pant;
-    @OneToOne(mappedBy = "suit")
-    Shirt shirt;
-    @OneToOne(mappedBy = "suit")
-    Shoe shoe;
-    @OneToOne(mappedBy = "suit")
-    Vest vest;
-    @OneToMany(mappedBy = "suit")
-    Set<Accessory> accessories;
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
+
+    @OneToOne
+    @JoinColumn(name = "payment_id", nullable = false)
+    private Payment payment;
+
+    @OneToOne
+    @JoinColumn(name = "jacket_id", nullable = false)
+    private Jacket jacket;
+
+    @OneToOne
+    @JoinColumn(name = "pant_id", nullable = false)
+    private Pant pant;
+
+    @OneToOne
+    @JoinColumn(name = "shirt_id", nullable = false)
+    private Shirt shirt;
+
+    @OneToOne
+    @JoinColumn(name = "shoe_id", nullable = false)
+    private Shoe shoe;
+
+    @OneToOne
+    @JoinColumn(name = "vest_id", nullable = false)
+    private Vest vest;
+
+    @OneToOne
+    @JoinColumn(name = "suit_accessory", nullable = false)
+    private Accessory accessories;
 }

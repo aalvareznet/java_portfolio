@@ -19,7 +19,4 @@ public class Shirt {
     Double sleeve;
     String specification;
     String fabric;
-    @ManyToOne
-    @JoinColumn(name = "suit_id")
-    Suit suit;
 }
