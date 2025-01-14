@@ -11,4 +11,5 @@ public class SuitService extends BaseService<Suit, Long>{
     protected SuitRepository getRepository() {
         return repo;
     }
+
 }
