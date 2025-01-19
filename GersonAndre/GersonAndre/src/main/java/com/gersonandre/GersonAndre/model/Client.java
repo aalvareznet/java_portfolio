@@ -1,5 +1,6 @@
 package com.gersonandre.GersonAndre.model;
 
+import com.gersonandre.GersonAndre.dto.ClientDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -12,4 +12,6 @@ public class SuitService extends BaseService<Suit, Long>{
         return repo;
     }
 
+
+
 }
