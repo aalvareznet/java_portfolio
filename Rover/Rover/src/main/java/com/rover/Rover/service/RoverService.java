@@ -2,9 +2,7 @@ package com.rover.Rover.service;
 
 import com.rover.Rover.model.RoverModel;
 import com.rover.Rover.repository.RoverRepository;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
