@@ -3,7 +3,9 @@ package com.gersonandre.GersonAndre.service;
 import com.gersonandre.GersonAndre.model.Suit;
 import com.gersonandre.GersonAndre.repository.SuitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SuitService extends BaseService<Suit, Long>{
     @Autowired
     private SuitRepository repo;

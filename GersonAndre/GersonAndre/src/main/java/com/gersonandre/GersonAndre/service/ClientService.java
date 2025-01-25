@@ -4,7 +4,9 @@ import com.gersonandre.GersonAndre.model.Client;
 import com.gersonandre.GersonAndre.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClientService extends BaseService<Client, Long>{
     @Autowired
     private ClientRepository repo;

@@ -4,7 +4,9 @@ import com.gersonandre.GersonAndre.model.Payment;
 import com.gersonandre.GersonAndre.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PaymentService extends BaseService<Payment, Long>{
     @Autowired
     private PaymentRepository repo;
