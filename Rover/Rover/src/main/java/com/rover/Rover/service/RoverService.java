@@ -10,15 +10,16 @@ import org.springframework.stereotype.Service;
 public class RoverService {
     private final int MAX_Y = 10;
     private final int MAX_X = 10;
-    private final Rover rover;
+    private Rover rover;
     private final Rover[][] arr = new Rover[MAX_Y][MAX_X];
     private final char[] directions = {'N', 'E', 'S', 'W'};
     private int pointer;
 
 
-    public void setRover(){
+    public void setRover(Rover rover){
+        this.rover = rover;
         setBorders();
-        arr[rover.getPosY()][rover.getPosY()] = rover;
+        arr[rover.getPosY()][rover.getPosX()] = rover;
         setPointerToDirection();
     }
 
@@ -52,7 +53,7 @@ public class RoverService {
     public Rover setRoverMovement(String directions){
         char[] directionsCharList;
         directionsCharList = directions.toUpperCase().toCharArray();
-        for (int i = 0; i < directionsCharList.length-1; i++) {
+        for (int i = 0; i < directionsCharList.length; i++) {
             switch (directionsCharList[i]){
                 case 'F':
                     moveRoverForward();
@@ -75,72 +76,55 @@ public class RoverService {
 
     private void moveRoverForward() {
         switch (rover.getRoverDirection()){
-            case N:
-                deletePastPosition();
-                rover.setPosX(rover.getPosX()-1);
-                setRover();
-                break;
-            case S:
-                deletePastPosition();
-                rover.setPosX(rover.getPosX()+1);
-                setRover();
-                break;
-            case E:
-                deletePastPosition();
-                rover.setPosY(rover.getPosY()+1);
-                setRover();
-                break;
-            case W:
-                deletePastPosition();
-                rover.setPosY(rover.getPosY()-1);
-                setRover();
-                break;
+            case N: rover.setPosY(rover.getPosY() - 1); break;
+            case S: rover.setPosY(rover.getPosY() + 1); break;
+            case E: rover.setPosX(rover.getPosX() + 1); break;
+            case W: rover.setPosX(rover.getPosX() - 1); break;
         }
+        setRover(this.rover);
     }
 
     private void moveRoverBack() {
         switch (rover.getRoverDirection()){
-            case N:
-                deletePastPosition();
-                rover.setPosX(rover.getPosX()+1);
-                setRover();
-                break;
-            case S:
-                deletePastPosition();
-                rover.setPosX(rover.getPosX()-1);
-                setRover();
-                break;
-            case E:
-                deletePastPosition();
-                rover.setPosY(rover.getPosY()-1);
-                setRover();
-                break;
-            case W:
-                deletePastPosition();
-                rover.setPosY(rover.getPosY()+1);
-                setRover();
-                break;
+            case N: rover.setPosY(rover.getPosY() + 1); break;
+            case S: rover.setPosY(rover.getPosY() - 1); break;
+            case E: rover.setPosX(rover.getPosX() - 1); break;
+            case W: rover.setPosX(rover.getPosX() + 1); break;
         }
+        setRover(this.rover);
     }
 
     private void turnRoverRight() {
-        pointer +=1;
-        if (pointer > 3){
-            pointer = 0;
+        this.pointer +=1;
+        if (this.pointer > 3){
+            this.pointer = 0;
         }
+        setRoverDirection();
     }
 
     private void turnRoverLeft() {
-        pointer -=1;
-        if (pointer<0){
-            pointer = 3;
+        this.pointer -=1;
+        if (this.pointer<0){
+            this.pointer = 3;
         }
+        setRoverDirection();
     }
 
     private void deletePastPosition() {
         arr[rover.getPosY()][rover.getPosX()] = null;
     }
 
+    private void setRoverDirection(){
+        if (this.pointer == 0){
+            rover.setRoverDirection(RoverDirection.N);
+        }else if (this.pointer == 1){
+            rover.setRoverDirection(RoverDirection.E);
+        } else if (this.pointer == 2){
+            rover.setRoverDirection(RoverDirection.S);
+        } else if (this.pointer == 3){
+            rover.setRoverDirection(RoverDirection.W);
+        }
+    }
 
 
 
