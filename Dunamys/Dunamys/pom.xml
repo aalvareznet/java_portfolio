@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.gersonandre</groupId>
-	<artifactId>GersonAndre</artifactId>
+	<artifactId>Dunamys</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>GersonAndre</name>
 	<description>Proyecto final para la empresa Gerson Andre</description>
