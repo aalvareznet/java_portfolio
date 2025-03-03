@@ -14,7 +14,6 @@ public class BookshelfService extends BaseService<Bookshelf, Long>{
     @Autowired
     private BookshelfRepo repo;
 
-
     @Override
     protected BookshelfRepo getRepository() {
         return repo;
