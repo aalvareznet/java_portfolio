@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Habitacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Reservacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.HabitacionRepositorio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ReservacionRepositorio;
 
+@Service
 public class ReservacionServicio extends BaseService<Reservacion, Long>{
 
     @Autowired
