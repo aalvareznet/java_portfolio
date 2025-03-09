@@ -55,7 +55,7 @@ public class ClienteControlador {
         return ResponseEntity.notFound().build();
     }
     //Buscar a un cliente por ID es una operación que puede ser realizada por los administradores
-    @GetMapping("/{userId}")
+    @GetMapping("/{id}")
     public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id){
         Optional<Cliente> cliente = servicio.findById(id);
         if(cliente.isPresent()){
