@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CrearClienteDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.auth.RegisterRequest;
@@ -21,7 +22,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServici
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 
 @RestController
-@RequestMapping("/v1/api/cliente")
+@RequestMapping("/api/v1/cliente")
 public class ClienteControlador {
     @Autowired
     private ClienteServicio servicio;
@@ -30,9 +31,8 @@ public class ClienteControlador {
     //Las cuentas solo pueden ser creadas por clientes
 
     @PostMapping
-    public ResponseEntity<Cliente> crearCliente(@RequestBody Persona persona
-                                                , @RequestBody RegisterRequest registerRequest) {
-        Cliente clienteCreado = servicio.agregarClientePersonaUsuario(persona, registerRequest);
+    public ResponseEntity<Cliente> crearCliente(@RequestBody CrearClienteDto cliente) {
+        Cliente clienteCreado = servicio.agregarClientePersonaUsuario(cliente);
         if(clienteCreado != null){
             return ResponseEntity.ok(clienteCreado);
         }
