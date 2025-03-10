@@ -31,7 +31,6 @@ public class ClienteServicio extends BaseService<Cliente, Long>{
     protected ClienteRepositorio getRepository() {
         return repo;
     }
-
     @Transactional
     public Cliente agregarClientePersonaUsuario(CrearClienteDto cliente){
         RegisterRequest registerRequest = RegisterRequest.builder()
