@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Reservacion;
-
+@Repository
 public interface ReservacionRepositorio extends JpaRepository<Reservacion, Long>{
 
     @Query("SELECT r FROM Reservacion r WHERE r.habitacion.id = :habitacionId " +

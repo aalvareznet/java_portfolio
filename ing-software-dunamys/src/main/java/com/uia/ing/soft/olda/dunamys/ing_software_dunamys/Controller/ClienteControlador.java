@@ -14,25 +14,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CrearClienteDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.auth.RegisterRequest;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServicio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.PersonaServicio;
 
 @RestController
-@RequestMapping("/v1/api/cliente")
+@RequestMapping("/api/v1/cliente")
 public class ClienteControlador {
     @Autowired
     private ClienteServicio servicio;
     @Autowired
     private LogAuditoriaServicio logServicio;
+    @Autowired
+    private PersonaServicio personaServicio;
     //Las cuentas solo pueden ser creadas por clientes
 
+    //TODO: cambiar el tipo de objeto que regresa para que sea mas adecuado, ya que regresa toda la informacion del usuario
     @PostMapping
-    public ResponseEntity<Cliente> crearCliente(@RequestBody Persona persona
-                                                , @RequestBody RegisterRequest registerRequest) {
-        Cliente clienteCreado = servicio.agregarClientePersonaUsuario(persona, registerRequest);
+    public ResponseEntity<Cliente> crearCliente(@RequestBody CrearClienteDto cliente) {
+        Cliente clienteCreado = servicio.agregarClientePersonaUsuario(cliente);
         if(clienteCreado != null){
             return ResponseEntity.ok(clienteCreado);
         }
@@ -46,11 +50,18 @@ public class ClienteControlador {
                                                      ){
         Optional<Cliente> busquedaDeCliente = servicio.findById(id);
         if(busquedaDeCliente.isPresent()){
-            Cliente clienteParaActualizar = busquedaDeCliente.get();
-            clienteParaActualizar.setPersona(persona);
-            Cliente clienteActualizado = servicio.update(clienteParaActualizar);
-            logServicio.guardarAccion(userId, "Cliente actualizado", "cliente");
-            return ResponseEntity.ok(clienteActualizado);
+            Optional<Persona> busquedaPersona = personaServicio.findById(busquedaDeCliente.get().getPersona().getId().longValue());
+            if(busquedaPersona.isPresent()){
+                Persona personaParaActualizar = busquedaPersona.get();
+                personaParaActualizar.setNombre(persona.getNombre());
+                personaParaActualizar.setPrimerApellido(persona.getPrimerApellido());
+                personaParaActualizar.setSegundoApellido(persona.getSegundoApellido());
+                personaParaActualizar.setTelefono(persona.getTelefono());
+                personaParaActualizar.setCorreo(persona.getCorreo());
+                personaParaActualizar.setPais(persona.getPais());
+                personaServicio.update(personaParaActualizar);
+                return ResponseEntity.ok(servicio.findById(id).get());
+            }
         }
         return ResponseEntity.notFound().build();
     }
@@ -76,7 +87,7 @@ public class ClienteControlador {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Cliente>> obtenerTodosLosClientes(){
         List<Cliente> clientes = servicio.findAll();
         if(clientes.size() > 0){

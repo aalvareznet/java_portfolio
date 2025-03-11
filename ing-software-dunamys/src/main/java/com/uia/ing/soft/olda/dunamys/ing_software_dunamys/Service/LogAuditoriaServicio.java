@@ -4,12 +4,14 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.LogAuditoria;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.LogAuditoriaRepositorio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.User;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.UserRepository;
 
+@Service
 public class LogAuditoriaServicio{
 
     @Autowired
