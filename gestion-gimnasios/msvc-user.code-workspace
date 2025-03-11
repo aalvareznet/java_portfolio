@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "msvc-user"
+		},
+		{
+			"path": "eureka-server"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"java.compile.nullAnalysis.mode": "disabled"
+	}
+}
