@@ -8,10 +8,10 @@
 		<version>3.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.anthony.gestion.gimnasio.msvc.usuario</groupId>
-	<artifactId>mcsv-usuario</artifactId>
+	<groupId>com.anthony.msvc.user</groupId>
+	<artifactId>msvc-user</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mcsv-usuario</name>
+	<name>msvc-user</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

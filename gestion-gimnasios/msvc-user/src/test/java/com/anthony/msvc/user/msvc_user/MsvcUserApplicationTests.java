@@ -1,10 +1,10 @@
-package com.anthony.gestion.gimnasio.msvc.usuario.mcsv_usuario;
+package com.anthony.msvc.user.msvc_user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class McsvUsuarioApplicationTests {
+class MsvcUserApplicationTests {
 
 	@Test
 	void contextLoads() {

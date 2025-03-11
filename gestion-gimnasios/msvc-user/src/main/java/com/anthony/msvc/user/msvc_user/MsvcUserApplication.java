@@ -1,13 +1,13 @@
-package com.anthony.gestion.gimnasio.msvc.usuario.mcsv_usuario;
+package com.anthony.msvc.user.msvc_user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class McsvUsuarioApplication {
+public class MsvcUserApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(McsvUsuarioApplication.class, args);
+		SpringApplication.run(MsvcUserApplication.class, args);
 	}
 
 }
