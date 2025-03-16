@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "msvc-user"
+		},
+		{
+			"path": "eureka-server"
+		},
+		{
+			"name": "msvc-profile",
+			"path": "msvc-profile"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"java.compile.nullAnalysis.mode": "disabled"
+	}
+}
