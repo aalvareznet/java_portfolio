@@ -3,6 +3,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CrearClienteDto;

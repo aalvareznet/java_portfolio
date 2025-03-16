@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CrearClienteDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.auth.RegisterRequest;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServicio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.PersonaServicio;
@@ -65,6 +64,7 @@ public class ClienteControlador {
         }
         return ResponseEntity.notFound().build();
     }
+    
     //Buscar a un cliente por ID es una operación que puede ser realizada por los administradores
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id){
