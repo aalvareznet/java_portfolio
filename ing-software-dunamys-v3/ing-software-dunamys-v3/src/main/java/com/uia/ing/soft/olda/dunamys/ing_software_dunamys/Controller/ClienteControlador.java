@@ -32,7 +32,6 @@ public class ClienteControlador {
     private PersonaServicio personaServicio;
     //Las cuentas solo pueden ser creadas por clientes
 
-    //TODO: cambiar el tipo de objeto que regresa para que sea mas adecuado, ya que regresa toda la informacion del usuario
     @PostMapping
     public ResponseEntity<Cliente> crearCliente(@RequestBody ClienteCrearDto cliente) {
         Cliente clienteCreado = servicio.agregarClientePersonaUsuario(cliente);
