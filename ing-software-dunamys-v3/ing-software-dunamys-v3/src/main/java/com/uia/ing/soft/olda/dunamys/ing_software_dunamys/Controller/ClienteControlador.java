@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CrearClienteDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServicio;
@@ -34,7 +34,7 @@ public class ClienteControlador {
 
     //TODO: cambiar el tipo de objeto que regresa para que sea mas adecuado, ya que regresa toda la informacion del usuario
     @PostMapping
-    public ResponseEntity<Cliente> crearCliente(@RequestBody CrearClienteDto cliente) {
+    public ResponseEntity<Cliente> crearCliente(@RequestBody ClienteCrearDto cliente) {
         Cliente clienteCreado = servicio.agregarClientePersonaUsuario(cliente);
         if(clienteCreado != null){
             return ResponseEntity.ok(clienteCreado);

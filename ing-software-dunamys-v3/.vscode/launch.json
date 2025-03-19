@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-IngSoftwareDunamysApplication<ing-software-dunamys>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.uia.ing.soft.olda.dunamys.ing_software_dunamys.IngSoftwareDunamysApplication",
+            "projectName": "ing-software-dunamys",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

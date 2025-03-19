@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CrearClienteDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ClienteRepositorio;
@@ -34,7 +34,7 @@ public class ClienteServicio extends BaseService<Cliente, Long> {
     }
 
     @Transactional
-    public Cliente agregarClientePersonaUsuario(CrearClienteDto cliente) {
+    public Cliente agregarClientePersonaUsuario(ClienteCrearDto cliente) {
         RegisterRequest registerRequest = RegisterRequest.builder()
                 .username(cliente.getUsername())
                 .password(cliente.getPassword())
