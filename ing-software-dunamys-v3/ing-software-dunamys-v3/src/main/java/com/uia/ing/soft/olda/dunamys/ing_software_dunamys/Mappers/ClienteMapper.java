@@ -33,6 +33,9 @@ public class ClienteMapper {
         return cliente;
     }
     public ClienteDto ConvertEntityToDTO(Cliente cliente) {
-        return modelMapper.map(cliente, ClienteDto.class);
+        ClienteDto clienteDto = modelMapper.map(cliente, ClienteDto.class);
+        clienteDto.setPersonaId(cliente.getPersona().getId());
+        clienteDto.setUsuarioId(cliente.getUsuario().getId());
+        return clienteDto;
     }
 }
