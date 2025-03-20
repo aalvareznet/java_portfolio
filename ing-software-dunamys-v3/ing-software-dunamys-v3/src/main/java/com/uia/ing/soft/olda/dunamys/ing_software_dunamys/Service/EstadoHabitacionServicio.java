@@ -7,7 +7,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoHabitacion
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.EstadoHabitacionRepositorio;
 
 @Service
-public class EstadoHabitacionServicio extends BaseService<EstadoHabitacion, Long>{
+public class EstadoHabitacionServicio extends BaseService<EstadoHabitacion, Integer>{
 
     @Autowired
     private EstadoHabitacionRepositorio repo;

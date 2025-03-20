@@ -7,7 +7,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Proveedor;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ProveedorRepositorio;
 
 @Service
-public class ProveedorServicio extends BaseService<Proveedor, Long>{
+public class ProveedorServicio extends BaseService<Proveedor, Integer>{
 
 
     @Autowired

@@ -7,7 +7,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Inventario;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.InventarioRepositorio;
 
 @Service
-public class InventarioServicio extends BaseService<Inventario, Long>{
+public class InventarioServicio extends BaseService<Inventario, Integer>{
 
     @Autowired
     private InventarioRepositorio repo;

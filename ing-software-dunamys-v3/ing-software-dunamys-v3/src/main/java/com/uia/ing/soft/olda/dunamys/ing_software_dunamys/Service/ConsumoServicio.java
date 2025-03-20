@@ -14,7 +14,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ClienteRepo
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ConsumoRepositorio;
 
 @Service
-public class ConsumoServicio extends BaseService<Consumo, Long>{
+public class ConsumoServicio extends BaseService<Consumo, Integer>{
 
     @Autowired
     private ConsumoRepositorio repo;
@@ -25,11 +25,11 @@ public class ConsumoServicio extends BaseService<Consumo, Long>{
         return repo;
     }
 
-    public List<Consumo> obtenerConsumosPorFechaYCliente(Date fecha, Long cliente){
+    public List<Consumo> obtenerConsumosPorFechaYCliente(Date fecha, Integer cliente){
         Optional<Cliente> clienteEncontrado = Optional.ofNullable(clienteRepo.findById(cliente).orElseThrow(()-> new ClientNotFoundException("No se encontro cliente con el ID " + cliente)));
         return repo.findByFechaAndCliente(fecha, clienteEncontrado.get());
     }
-    public List<Consumo> obtenerConsumosEntreFechasYCliente(Date fechaInicio, Date fechaFin, Long cliente){
+    public List<Consumo> obtenerConsumosEntreFechasYCliente(Date fechaInicio, Date fechaFin, Integer cliente){
         Optional<Cliente> clienteEncontrado = Optional.ofNullable(clienteRepo.findById(cliente).orElseThrow(()-> new ClientNotFoundException("No se encontro cliente con el ID " + cliente)));
         return repo.findByFechaBetweenAndCliente(fechaInicio, fechaFin, clienteEncontrado.get());
     }

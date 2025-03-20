@@ -46,7 +46,7 @@ public class InventarioControlador {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Inventario> obtenerInventarioPorId(@PathVariable Long id) {
+    public ResponseEntity<Inventario> obtenerInventarioPorId(@PathVariable Integer id) {
         Optional<Inventario> busquedaInventario = servicio.findById(id);
         if(busquedaInventario.isPresent()){
             return ResponseEntity.ok(busquedaInventario.get());
@@ -54,7 +54,7 @@ public class InventarioControlador {
         return ResponseEntity.notFound().build();
     }
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Inventario> actualizarInventario(@PathVariable Long id
+    public ResponseEntity<Inventario> actualizarInventario(@PathVariable Integer id
                                                         , @RequestBody Inventario inventario
                                                         , @PathVariable Integer userId) {
         Optional<Inventario> busquedaInventario = servicio.findById(id);
@@ -71,7 +71,7 @@ public class InventarioControlador {
         return ResponseEntity.notFound().build();
     }
     @PutMapping("/{id}/{cantidad}/{userId}")
-    public ResponseEntity<Inventario> agregarPedidos(@PathVariable Long id
+    public ResponseEntity<Inventario> agregarPedidos(@PathVariable Integer id
                                                     , @PathVariable Integer cantidad
                                                     , @PathVariable Integer userId) {
         Optional<Inventario> busquedaInventario = servicio.findById(id);
@@ -84,7 +84,7 @@ public class InventarioControlador {
         return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}/{userId}")
-    public ResponseEntity<String> eliminarInventario(@PathVariable Long id
+    public ResponseEntity<String> eliminarInventario(@PathVariable Integer id
                                                     , @PathVariable Integer userId){
         Optional<Inventario> busquedaInventario = servicio.findById(id);
         if(busquedaInventario.isPresent()){

@@ -38,7 +38,7 @@ public class HabitacionControlador {
     }
 
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Habitacion> actualizarHabitacion(@PathVariable Long id
+    public ResponseEntity<Habitacion> actualizarHabitacion(@PathVariable Integer id
                                                         , @RequestBody Habitacion habitacion
                                                         , @PathVariable Integer userId) {
         Optional<Habitacion> busquedaHabitacion = servicio.findById(id);
@@ -55,7 +55,7 @@ public class HabitacionControlador {
         return ResponseEntity.notFound().build();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Habitacion> obtenerHabitacion(@PathVariable Long id) {
+    public ResponseEntity<Habitacion> obtenerHabitacion(@PathVariable Integer id) {
         Optional<Habitacion> habitacion = servicio.findById(id);
         if (habitacion != null) {
             return ResponseEntity.ok(habitacion.get());
@@ -71,7 +71,7 @@ public class HabitacionControlador {
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/{id}/{userId}")
-    public ResponseEntity<Habitacion> eliminarHabitacion(@PathVariable Long id
+    public ResponseEntity<Habitacion> eliminarHabitacion(@PathVariable Integer id
                                                         , @PathVariable Integer userId) {
         Optional<Habitacion> habitacion = servicio.findById(id);
         if (habitacion.isPresent()) {

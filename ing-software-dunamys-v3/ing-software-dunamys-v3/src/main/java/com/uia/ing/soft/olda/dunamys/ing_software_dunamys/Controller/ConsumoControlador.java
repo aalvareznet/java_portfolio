@@ -38,7 +38,7 @@ public class ConsumoControlador {
     }
 
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Consumo> actualizarConsumo(@PathVariable Long id
+    public ResponseEntity<Consumo> actualizarConsumo(@PathVariable Integer id
                                                     , @RequestBody Consumo consumo
                                                     , @PathVariable Integer userId){
         Optional<Consumo> busquedaConsumo = servicio.findById(id);
@@ -63,7 +63,7 @@ public class ConsumoControlador {
         return ResponseEntity.notFound().build();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<List<Consumo>> obtenerConsumosPorFechaActualYCliente(@PathVariable Long id){
+    public ResponseEntity<List<Consumo>> obtenerConsumosPorFechaActualYCliente(@PathVariable Integer id){
         Date fecha = new Date();
         List<Consumo> consumos = servicio.obtenerConsumosPorFechaYCliente(fecha, id);
         if(consumos != null){
@@ -72,7 +72,7 @@ public class ConsumoControlador {
         return ResponseEntity.notFound().build();
     }
     @GetMapping("/{id}/{fechaInicio}/{fechaFin}")
-    public ResponseEntity<List<Consumo>> obtenerConsumosPorFechasYCliente(@PathVariable Long id
+    public ResponseEntity<List<Consumo>> obtenerConsumosPorFechasYCliente(@PathVariable Integer id
                                                                         , @PathVariable Date fechaInicio
                                                                         , @PathVariable Date fechaFin){
         List<Consumo> consumos = servicio.obtenerConsumosEntreFechasYCliente(fechaInicio, fechaFin, id);

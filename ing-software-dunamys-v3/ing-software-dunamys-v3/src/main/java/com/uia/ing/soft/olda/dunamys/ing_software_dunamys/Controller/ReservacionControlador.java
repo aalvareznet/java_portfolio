@@ -50,7 +50,7 @@ public class ReservacionControlador {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reservacion> obtenerReservacionPorId(@PathVariable Long id) {
+    public ResponseEntity<Reservacion> obtenerReservacionPorId(@PathVariable Integer id) {
         Optional<Reservacion> busquedaReservacion = servicio.findById(id);
         if (busquedaReservacion.isPresent()) {
             return ResponseEntity.ok(busquedaReservacion.get());
@@ -59,7 +59,7 @@ public class ReservacionControlador {
     }
 
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Reservacion> actualizarReservacion(@PathVariable Long id,
+    public ResponseEntity<Reservacion> actualizarReservacion(@PathVariable Integer id,
             @RequestBody Reservacion reservacion, @PathVariable Integer userId) {
         Optional<Reservacion> busquedaReservacion = servicio.findById(id);
         if (busquedaReservacion.isPresent()) {
@@ -78,7 +78,7 @@ public class ReservacionControlador {
     }
 
     @PutMapping("/{id}/cancelar/{userId}")
-    public ResponseEntity<Reservacion> cancelarReservacion(@PathVariable Long id,
+    public ResponseEntity<Reservacion> cancelarReservacion(@PathVariable Integer id,
             @RequestBody EstadoReservacion estadoReservacion, @PathVariable Integer userId) {
         Optional<Reservacion> busquedaReservacion = servicio.findById(id);
         if (busquedaReservacion.isPresent()) {

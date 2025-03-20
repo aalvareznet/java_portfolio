@@ -7,7 +7,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoReservacio
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.EstadoReservacionRepositorio;
 
 @Service
-public class EstadoReservacionServicio extends BaseService<EstadoReservacion, Long>{
+public class EstadoReservacionServicio extends BaseService<EstadoReservacion, Integer>{
 
     @Autowired
     private EstadoReservacionRepositorio repo;

@@ -38,7 +38,7 @@ public class CategoriaInventarioControlador {
 
     @DeleteMapping("/{userId}/{categoryId}")
     public ResponseEntity<String> borrarCategoria(@PathVariable Integer userId
-                                                , @PathVariable Long categoryId){
+                                                , @PathVariable Integer categoryId){
         Optional<CategoriaInventario> categoria = servicio.findById(categoryId);
         if(categoria.isPresent()){
             auditoria.guardarAccion(userId, "Categoria borrada", "categoria_inventario");

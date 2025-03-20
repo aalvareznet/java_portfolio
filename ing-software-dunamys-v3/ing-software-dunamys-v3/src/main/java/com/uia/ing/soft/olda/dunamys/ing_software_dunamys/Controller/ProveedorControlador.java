@@ -45,7 +45,7 @@ public class ProveedorControlador {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Proveedor> obtenerProveedorPorId(@PathVariable Long id){
+    public ResponseEntity<Proveedor> obtenerProveedorPorId(@PathVariable Integer id){
         Optional<Proveedor> busquedaProveedor = servicio.findById(id);
         if(busquedaProveedor.isPresent()){
             return ResponseEntity.ok(busquedaProveedor.get());
@@ -53,7 +53,7 @@ public class ProveedorControlador {
         return ResponseEntity.notFound().build();
     }
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Proveedor> actualizarProveedor(@PathVariable Long id
+    public ResponseEntity<Proveedor> actualizarProveedor(@PathVariable Integer id
                                                         , @RequestBody Proveedor proveedor
                                                         , @PathVariable Integer userId){
         Optional<Proveedor> busquedaProveedor = servicio.findById(id);
@@ -69,7 +69,7 @@ public class ProveedorControlador {
         return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}/{userId}")
-    public ResponseEntity<String> borrarProveedor(@PathVariable Long id
+    public ResponseEntity<String> borrarProveedor(@PathVariable Integer id
                                                 , @PathVariable Integer userId){
         Optional<Proveedor> busquedaProveedor = servicio.findById(id);
         if(busquedaProveedor.isPresent()){

@@ -13,7 +13,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.HabitacionR
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ReservacionRepositorio;
 
 @Service
-public class ReservacionServicio extends BaseService<Reservacion, Long>{
+public class ReservacionServicio extends BaseService<Reservacion, Integer>{
 
     @Autowired
     private ReservacionRepositorio repo;

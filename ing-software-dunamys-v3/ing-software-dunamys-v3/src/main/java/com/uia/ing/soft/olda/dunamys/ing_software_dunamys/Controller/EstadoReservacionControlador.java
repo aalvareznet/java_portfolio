@@ -34,7 +34,7 @@ public class EstadoReservacionControlador {
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/{id}/{userId}")
-    public ResponseEntity<String> eliminarEstadoReservacion(@PathVariable Long id
+    public ResponseEntity<String> eliminarEstadoReservacion(@PathVariable Integer id
                                                             , @PathVariable Integer userId){
         Optional<EstadoReservacion> estadoReservacion = servicio.findById(id);
         if (estadoReservacion.isPresent()) {

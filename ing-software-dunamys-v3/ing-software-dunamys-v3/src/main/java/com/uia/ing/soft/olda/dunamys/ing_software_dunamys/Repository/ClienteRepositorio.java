@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 
 @Repository
-public interface ClienteRepositorio extends JpaRepository<Cliente, Long>{
+public interface ClienteRepositorio extends JpaRepository<Cliente, Integer>{
 
 }

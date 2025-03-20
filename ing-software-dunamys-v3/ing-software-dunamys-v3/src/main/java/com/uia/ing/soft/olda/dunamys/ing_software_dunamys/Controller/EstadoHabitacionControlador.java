@@ -34,7 +34,7 @@ public class EstadoHabitacionControlador {
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/{id}/{userId}")
-    public ResponseEntity<String> eliminarEstadoHabitacion(@PathVariable Long id
+    public ResponseEntity<String> eliminarEstadoHabitacion(@PathVariable Integer id
                                                                     , @PathVariable Integer userId){
         Optional<EstadoHabitacion> estadoHabitacion = servicio.findById(id);
         if (estadoHabitacion.isPresent()) {

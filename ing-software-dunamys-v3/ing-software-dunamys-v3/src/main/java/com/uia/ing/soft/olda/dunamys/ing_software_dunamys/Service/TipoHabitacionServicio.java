@@ -7,7 +7,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.TipoHabitacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.TipoHabitacionRepositorio;
 
 @Service
-public class TipoHabitacionServicio extends BaseService<TipoHabitacion, Long>{
+public class TipoHabitacionServicio extends BaseService<TipoHabitacion, Integer>{
 
 
     @Autowired

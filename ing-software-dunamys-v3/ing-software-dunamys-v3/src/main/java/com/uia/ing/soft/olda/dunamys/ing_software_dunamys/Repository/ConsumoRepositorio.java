@@ -10,7 +10,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Consumo;
 
 @Repository
-public interface ConsumoRepositorio extends JpaRepository<Consumo, Long>{
+public interface ConsumoRepositorio extends JpaRepository<Consumo, Integer>{
     public List<Consumo> findByFechaAndCliente(Date date, Cliente cliente);
     public List<Consumo> findByFechaBetweenAndCliente(Date fechaInicio, Date fechaFin, Cliente cliente);
 }

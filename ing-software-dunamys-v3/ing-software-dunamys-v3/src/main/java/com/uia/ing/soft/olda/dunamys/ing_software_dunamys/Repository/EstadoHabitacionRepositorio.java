@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoHabitacion;
 
 @Repository
-public interface EstadoHabitacionRepositorio extends JpaRepository<EstadoHabitacion, Long>{
+public interface EstadoHabitacionRepositorio extends JpaRepository<EstadoHabitacion, Integer>{
 
 }

@@ -7,7 +7,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Factura;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.FacturaRepositorio;
 
 @Service
-public class FacturaServicio extends BaseService<Factura, Long>{
+public class FacturaServicio extends BaseService<Factura, Integer>{
 
     @Autowired
     private FacturaRepositorio repo;

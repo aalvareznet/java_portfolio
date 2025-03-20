@@ -42,7 +42,7 @@ public class FacturaControlador {
         }
     @Transactional
     @PostMapping("/{id}/detalle/{userId}")
-    public ResponseEntity<Factura> agregarDetalleFactura(@PathVariable Long id
+    public ResponseEntity<Factura> agregarDetalleFactura(@PathVariable Integer id
                                                         , @PathVariable Integer userId
                                                         , @RequestBody List<DetalleFactura> detalleFactura){
         Optional<Factura> factura = servicio.findById(id);
@@ -61,7 +61,7 @@ public class FacturaControlador {
         return ResponseEntity.notFound().build();
     }
     @PutMapping("/{facturaId}/{userId}") 
-    public ResponseEntity<Factura> pagarFactura(@PathVariable Long facturaId
+    public ResponseEntity<Factura> pagarFactura(@PathVariable Integer facturaId
                                                 , @PathVariable Integer userId
                                                 , @RequestBody Factura factura){
         Optional<Factura> busquedaFactura = servicio.findById(facturaId);

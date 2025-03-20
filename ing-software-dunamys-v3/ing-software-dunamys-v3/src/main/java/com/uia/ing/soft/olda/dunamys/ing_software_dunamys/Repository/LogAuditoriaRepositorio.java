@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.LogAuditoria;
 
 @Repository
-public interface LogAuditoriaRepositorio extends JpaRepository<LogAuditoria, Long>{
+public interface LogAuditoriaRepositorio extends JpaRepository<LogAuditoria, Integer>{
 
 }

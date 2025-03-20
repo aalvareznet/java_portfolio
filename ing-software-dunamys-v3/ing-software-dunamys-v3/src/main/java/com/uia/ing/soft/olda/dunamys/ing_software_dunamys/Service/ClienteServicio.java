@@ -18,7 +18,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.UserRepo
 import jakarta.transaction.Transactional;
 
 @Service
-public class ClienteServicio extends BaseService<Cliente, Long> {
+public class ClienteServicio extends BaseService<Cliente, Integer> {
 
     @Autowired
     private ClienteRepositorio repo;

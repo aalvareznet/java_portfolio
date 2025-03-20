@@ -42,13 +42,13 @@ public class ClienteControlador {
     }
     //Las cuentas pueden ser actualizadas por los clientes y por los administradores. La unica informacion que se va a poder actualizar es la informacion de la persona
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Cliente> actualizarCliente(@PathVariable Long id
+    public ResponseEntity<Cliente> actualizarCliente(@PathVariable Integer id
                                                     , @RequestBody Persona persona
                                                     , @PathVariable Integer userId
                                                      ){
         Optional<Cliente> busquedaDeCliente = servicio.findById(id);
         if(busquedaDeCliente.isPresent()){
-            Optional<Persona> busquedaPersona = personaServicio.findById(busquedaDeCliente.get().getPersona().getId().longValue());
+            Optional<Persona> busquedaPersona = personaServicio.findById((int) busquedaDeCliente.get().getPersona().getId().longValue());
             if(busquedaPersona.isPresent()){
                 Persona personaParaActualizar = busquedaPersona.get();
                 personaParaActualizar.setNombre(persona.getNombre());
@@ -66,7 +66,7 @@ public class ClienteControlador {
     
     //Buscar a un cliente por ID es una operación que puede ser realizada por los administradores
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id){
+    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Integer id){
         Optional<Cliente> cliente = servicio.findById(id);
         if(cliente.isPresent()){
             return ResponseEntity.ok(cliente.get());
@@ -76,7 +76,7 @@ public class ClienteControlador {
     //Borrar a un cliente es una operación que puede ser realizada por los administradores y por los mismos clientes
     @DeleteMapping("/{userId}/{clientId}")
     public ResponseEntity<String> borrarCliente(@PathVariable Integer userId
-                                                , @PathVariable Long clientId){
+                                                , @PathVariable Integer clientId){
         Optional<Cliente> cliente = servicio.findById(clientId);
         if(cliente.isPresent()){
             logServicio.guardarAccion(userId, "Cliente borrado", "cliente");

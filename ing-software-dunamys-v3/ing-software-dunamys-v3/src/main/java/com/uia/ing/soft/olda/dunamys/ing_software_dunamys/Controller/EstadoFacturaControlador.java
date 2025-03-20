@@ -35,7 +35,7 @@ public class EstadoFacturaControlador {
     }
     @DeleteMapping("/{userId}/{id}")
     public ResponseEntity<String> eliminarEstadoFactura(@PathVariable Integer userId
-                                                      , @PathVariable Long id){
+                                                      , @PathVariable Integer id){
         Optional<EstadoFactura> estadoFactura = servicio.findById(id);
         if (estadoFactura.isPresent()) {
             servicio.delete(id);

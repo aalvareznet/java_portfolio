@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoFactura;
 
 @Repository
-public interface EstadoFacturaRepositorio extends JpaRepository<EstadoFactura, Long>{
+public interface EstadoFacturaRepositorio extends JpaRepository<EstadoFactura, Integer>{
 
 }

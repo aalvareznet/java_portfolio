@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Proveedor;
 
 @Repository
-public interface ProveedorRepositorio extends JpaRepository<Proveedor, Long>{
+public interface ProveedorRepositorio extends JpaRepository<Proveedor, Integer>{
 
 }

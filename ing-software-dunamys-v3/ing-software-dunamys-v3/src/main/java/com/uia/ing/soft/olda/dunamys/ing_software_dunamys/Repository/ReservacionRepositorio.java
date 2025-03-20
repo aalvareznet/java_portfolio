@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Reservacion;
 @Repository
-public interface ReservacionRepositorio extends JpaRepository<Reservacion, Long>{
+public interface ReservacionRepositorio extends JpaRepository<Reservacion, Integer>{
 
     @Query("SELECT r FROM Reservacion r WHERE r.habitacion.id = :habitacionId " +
             "AND (:fechaIngreso BETWEEN r.fechaIngreso AND r.fechaSalida " +

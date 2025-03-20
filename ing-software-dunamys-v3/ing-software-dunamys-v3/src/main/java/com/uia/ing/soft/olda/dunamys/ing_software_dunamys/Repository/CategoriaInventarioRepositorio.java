@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.CategoriaInventario;
 
 @Repository
-public interface CategoriaInventarioRepositorio extends JpaRepository<CategoriaInventario, Long>{
+public interface CategoriaInventarioRepositorio extends JpaRepository<CategoriaInventario, Integer>{
 
 }

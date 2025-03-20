@@ -7,7 +7,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.TipoReservacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.TipoReservacionRepositorio;
 
 @Service
-public class TipoReservacionServicio extends BaseService<TipoReservacion, Long>{
+public class TipoReservacionServicio extends BaseService<TipoReservacion, Integer>{
 
     @Autowired
     private TipoReservacionRepositorio repo;
