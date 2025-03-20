@@ -12,7 +12,7 @@ import lombok.*;
 public class TipoReservacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "tipo_reservacion", nullable = false, length = 45)
     private String tipo;

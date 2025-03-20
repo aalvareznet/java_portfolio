@@ -3,6 +3,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Mappers;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
@@ -11,6 +12,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.User;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.UserRepository;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.PersonaServicio;
 
+@Component
 public class ClienteMapper {
     private final ModelMapper modelMapper;
     private final PersonaServicio personaServicio;

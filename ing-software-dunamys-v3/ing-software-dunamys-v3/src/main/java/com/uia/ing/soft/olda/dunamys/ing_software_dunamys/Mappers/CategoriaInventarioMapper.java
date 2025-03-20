@@ -1,10 +1,12 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Mappers;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CategoriaInventarioDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.CategoriaInventario;
 
+@Component
 public class CategoriaInventarioMapper {
 
     private final ModelMapper modelMapper;
