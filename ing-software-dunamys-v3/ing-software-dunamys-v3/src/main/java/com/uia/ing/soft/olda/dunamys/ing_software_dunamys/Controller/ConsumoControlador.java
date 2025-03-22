@@ -24,6 +24,7 @@ public class ConsumoControlador {
 
     @Autowired
     private ConsumoServicio servicio;
+    @Autowired
     private LogAuditoriaServicio auditoria;
 
     @PostMapping("/{userId}")

@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ConsumoCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Exceptions.ClientNotFoundException;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Mappers.ConsumoMapper;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Consumo;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ClienteRepositorio;
@@ -20,9 +22,17 @@ public class ConsumoServicio extends BaseService<Consumo, Integer>{
     private ConsumoRepositorio repo;
     @Autowired
     private ClienteRepositorio clienteRepo;
+    @Autowired
+    private LogAuditoriaServicio auditoria;
+    @Autowired
+    private ConsumoMapper mapper;
 
     protected ConsumoRepositorio getRepository() {
         return repo;
+    }
+
+    public ConsumoDto agregarConsumo(ConsumoCrearDto cosumoCrearDto, Integer userId){
+        
     }
 
     public List<Consumo> obtenerConsumosPorFechaYCliente(Date fecha, Integer cliente){
