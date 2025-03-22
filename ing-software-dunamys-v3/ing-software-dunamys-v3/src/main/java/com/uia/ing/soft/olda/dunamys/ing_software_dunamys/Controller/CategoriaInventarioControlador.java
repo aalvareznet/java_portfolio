@@ -1,6 +1,5 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.CategoriaInventario;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.CategoriaInventarioServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,16 +20,13 @@ public class CategoriaInventarioControlador {
 
     @Autowired
     private CategoriaInventarioServicio servicio;
-    @Autowired
-    private LogAuditoriaServicio auditoria;
 
     @PostMapping("/{userId}")
     public ResponseEntity<CategoriaInventario> agregarCategoria(@RequestBody CategoriaInventario entidad
                                                                 , @PathVariable Integer userId) {
-        CategoriaInventario categoriaResultante = servicio.create(entidad);
-        if (categoriaResultante != null) {
-            auditoria.guardarAccion(userId, "Crear nueva linea", "categoria_inventario");
-            return ResponseEntity.ok(categoriaResultante);
+        CategoriaInventario categoriaAgregada = servicio.crear(entidad, userId);
+        if(categoriaAgregada != null){
+            return ResponseEntity.ok(categoriaAgregada);
         }
         return ResponseEntity.badRequest().build();
     }
@@ -39,12 +34,10 @@ public class CategoriaInventarioControlador {
     @DeleteMapping("/{userId}/{categoryId}")
     public ResponseEntity<String> borrarCategoria(@PathVariable Integer userId
                                                 , @PathVariable Integer categoryId){
-        Optional<CategoriaInventario> categoria = servicio.findById(categoryId);
-        if(categoria.isPresent()){
-            auditoria.guardarAccion(userId, "Categoria borrada", "categoria_inventario");
-            servicio.delete(categoryId);
-            return ResponseEntity.ok("Categoria eliminada");
+        String mensaje = servicio.borrar(userId, categoryId);
+        if(mensaje.equals("Categoria eliminada")){
+            return ResponseEntity.ok(mensaje);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().body(mensaje);
     }
 }
