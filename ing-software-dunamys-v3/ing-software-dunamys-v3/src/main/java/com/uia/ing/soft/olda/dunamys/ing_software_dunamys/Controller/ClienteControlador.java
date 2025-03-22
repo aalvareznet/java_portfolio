@@ -19,7 +19,6 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServicio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.PersonaServicio;
 
 @RestController
 @RequestMapping("/api/v1/cliente")
@@ -28,8 +27,6 @@ public class ClienteControlador {
     private ClienteServicio servicio;
     @Autowired
     private LogAuditoriaServicio logServicio;
-    @Autowired
-    private PersonaServicio personaServicio;
     //Las cuentas solo pueden ser creadas por clientes
 
     @PostMapping
@@ -46,21 +43,10 @@ public class ClienteControlador {
                                                     , @RequestBody Persona persona
                                                     , @PathVariable Integer userId
                                                      ){
-        Optional<Cliente> busquedaDeCliente = servicio.findById(id);
-        if(busquedaDeCliente.isPresent()){
-            Optional<Persona> busquedaPersona = personaServicio.findById((int) busquedaDeCliente.get().getPersona().getId().longValue());
-            if(busquedaPersona.isPresent()){
-                Persona personaParaActualizar = busquedaPersona.get();
-                personaParaActualizar.setNombre(persona.getNombre());
-                personaParaActualizar.setPrimerApellido(persona.getPrimerApellido());
-                personaParaActualizar.setSegundoApellido(persona.getSegundoApellido());
-                personaParaActualizar.setTelefono(persona.getTelefono());
-                personaParaActualizar.setCorreo(persona.getCorreo());
-                personaParaActualizar.setPais(persona.getPais());
-                personaServicio.update(personaParaActualizar);
-                return ResponseEntity.ok(servicio.findById(id).get());
-            }
-        }
+        Cliente cliente = servicio.actualizar(id, persona, userId);
+        if(cliente != null){
+            return ResponseEntity.ok(cliente);
+        }   
         return ResponseEntity.notFound().build();
     }
     

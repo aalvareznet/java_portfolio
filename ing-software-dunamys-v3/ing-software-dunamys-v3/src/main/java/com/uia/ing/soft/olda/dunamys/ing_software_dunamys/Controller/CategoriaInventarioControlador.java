@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CategoriaInventarioDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.CategoriaInventario;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.CategoriaInventarioServicio;
 
@@ -22,9 +23,9 @@ public class CategoriaInventarioControlador {
     private CategoriaInventarioServicio servicio;
 
     @PostMapping("/{userId}")
-    public ResponseEntity<CategoriaInventario> agregarCategoria(@RequestBody CategoriaInventario entidad
+    public ResponseEntity<CategoriaInventarioDto> agregarCategoria(@RequestBody CategoriaInventario entidad
                                                                 , @PathVariable Integer userId) {
-        CategoriaInventario categoriaAgregada = servicio.crear(entidad, userId);
+        CategoriaInventarioDto categoriaAgregada = servicio.crear(entidad, userId);
         if(categoriaAgregada != null){
             return ResponseEntity.ok(categoriaAgregada);
         }

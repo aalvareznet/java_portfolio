@@ -67,4 +67,23 @@ public class ClienteServicio extends BaseService<Cliente, Integer> {
         Cliente clienteCreado = this.create(clientePorCrear);
         return clienteCreado;
     }
+
+    public Cliente actualizar(Integer id, Persona persona, Integer usuarioId){
+        Optional<Cliente> clienteEncontrado = this.findById(id);
+        if(clienteEncontrado.isPresent()){
+            Optional<Persona> personaEncontrada = personaServicio.findById(clienteEncontrado.get().getPersona().getId());
+            if(personaEncontrada.isPresent()){
+                Persona personaParaActualizar = personaEncontrada.get();
+                personaParaActualizar.setNombre(persona.getNombre());
+                personaParaActualizar.setPrimerApellido(persona.getPrimerApellido());
+                personaParaActualizar.setSegundoApellido(persona.getSegundoApellido());
+                personaParaActualizar.setTelefono(persona.getTelefono());
+                personaParaActualizar.setCorreo(persona.getCorreo());
+                personaParaActualizar.setPais(persona.getPais());
+                personaServicio.update(personaParaActualizar);
+                return this.findById(id).get();
+            }
+        }
+        return null;
+    }
 }
