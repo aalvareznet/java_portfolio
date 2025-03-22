@@ -15,23 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteCrearDto;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 
 @RestController
 @RequestMapping("/api/v1/cliente")
 public class ClienteControlador {
     @Autowired
     private ClienteServicio servicio;
-    @Autowired
-    private LogAuditoriaServicio logServicio;
     //Las cuentas solo pueden ser creadas por clientes
 
     @PostMapping
-    public ResponseEntity<Cliente> crearCliente(@RequestBody ClienteCrearDto cliente) {
-        Cliente clienteCreado = servicio.agregarClientePersonaUsuario(cliente);
+    public ResponseEntity<ClienteDto> crearCliente(@RequestBody ClienteCrearDto cliente) {
+        ClienteDto clienteCreado = servicio.agregarClientePersonaUsuario(cliente);
         if(clienteCreado != null){
             return ResponseEntity.ok(clienteCreado);
         }
@@ -39,11 +36,11 @@ public class ClienteControlador {
     }
     //Las cuentas pueden ser actualizadas por los clientes y por los administradores. La unica informacion que se va a poder actualizar es la informacion de la persona
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Cliente> actualizarCliente(@PathVariable Integer id
+    public ResponseEntity<ClienteDto> actualizarCliente(@PathVariable Integer id
                                                     , @RequestBody Persona persona
                                                     , @PathVariable Integer userId
                                                      ){
-        Cliente cliente = servicio.actualizar(id, persona, userId);
+        ClienteDto cliente = servicio.actualizar(id, persona, userId);
         if(cliente != null){
             return ResponseEntity.ok(cliente);
         }   
@@ -52,10 +49,10 @@ public class ClienteControlador {
     
     //Buscar a un cliente por ID es una operación que puede ser realizada por los administradores
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Integer id){
-        Optional<Cliente> cliente = servicio.findById(id);
-        if(cliente.isPresent()){
-            return ResponseEntity.ok(cliente.get());
+    public ResponseEntity<ClienteDto> obtenerClientePorId(@PathVariable Integer id){
+        ClienteDto cliente = servicio.obtenerClientePorId(id);
+        if(cliente != null){
+            return ResponseEntity.ok(cliente);
         }
         return ResponseEntity.notFound().build();
     }
@@ -63,22 +60,19 @@ public class ClienteControlador {
     @DeleteMapping("/{userId}/{clientId}")
     public ResponseEntity<String> borrarCliente(@PathVariable Integer userId
                                                 , @PathVariable Integer clientId){
-        Optional<Cliente> cliente = servicio.findById(clientId);
-        if(cliente.isPresent()){
-            logServicio.guardarAccion(userId, "Cliente borrado", "cliente");
-            servicio.delete(clientId);
-            return ResponseEntity.ok("Cliente eliminado");
+        String mensaje = servicio.borrar(userId, clientId);
+        if(mensaje != null){
+            return ResponseEntity.ok(mensaje);
         }
         return ResponseEntity.notFound().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> obtenerTodosLosClientes(){
-        List<Cliente> clientes = servicio.findAll();
+    public ResponseEntity<List<ClienteDto>> obtenerTodosLosClientes(){
+        List<ClienteDto> clientes = servicio.obtenerTodos();
         if(clientes.size() > 0){
             return ResponseEntity.ok(clientes);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build();
     }
-    //Endpoints adicionales x
 }
