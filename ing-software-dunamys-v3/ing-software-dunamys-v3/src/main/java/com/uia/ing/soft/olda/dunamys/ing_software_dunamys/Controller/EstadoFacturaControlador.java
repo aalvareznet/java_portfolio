@@ -1,6 +1,5 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoFacturaCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoFacturaDto;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoFactura;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.EstadoFacturaServicio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 
@@ -22,8 +20,6 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaSe
 public class EstadoFacturaControlador {
     @Autowired
     private EstadoFacturaServicio servicio;
-    @Autowired
-    private LogAuditoriaServicio auditoria;
 
     @PostMapping("/{userId}")
     public ResponseEntity<EstadoFacturaDto> agregarEstadoFactura(@PathVariable Integer userId
