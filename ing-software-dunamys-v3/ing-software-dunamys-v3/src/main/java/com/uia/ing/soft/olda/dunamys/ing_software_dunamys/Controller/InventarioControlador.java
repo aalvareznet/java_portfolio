@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.InventarioCrearDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.InventarioDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Inventario;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.InventarioServicio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
@@ -29,68 +31,56 @@ public class InventarioControlador {
     private LogAuditoriaServicio auditoria;
 
     @PostMapping("/{userId}")
-    public ResponseEntity<Inventario> agregarInventario(@PathVariable Integer userId
-                                                        , @RequestBody Inventario inventario){
-        Inventario inventarioAgragado = servicio.create(inventario);
-        if(inventarioAgragado != null){
-            return ResponseEntity.ok(inventarioAgragado);
+    public ResponseEntity<InventarioDto> agregarInventario(@PathVariable Integer userId
+                                                        , @RequestBody InventarioCrearDto inventario){
+        InventarioDto inventarioAgregado = servicio.agregar(userId, inventario);
+        if(inventarioAgregado != null){
+            return ResponseEntity.ok(inventarioAgregado);
         }
         return ResponseEntity.badRequest().build();
     }
     @GetMapping
-    public ResponseEntity<List<Inventario>> obtenerTodosLosInventarios(){
-        List<Inventario> busquedaInventario = servicio.findAll();
-        if(!busquedaInventario.isEmpty()){
-            return ResponseEntity.ok(busquedaInventario);
+    public ResponseEntity<List<InventarioDto>> obtenerTodosLosInventarios(){
+        List<InventarioDto> inventarios = servicio.obtenerInventarios();
+        if(inventarios.size() > 0){
+            return ResponseEntity.ok(inventarios);
         }
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Inventario> obtenerInventarioPorId(@PathVariable Integer id) {
-        Optional<Inventario> busquedaInventario = servicio.findById(id);
-        if(busquedaInventario.isPresent()){
-            return ResponseEntity.ok(busquedaInventario.get());
+    public ResponseEntity<InventarioDto> obtenerInventarioPorId(@PathVariable Integer id) {
+        InventarioDto inventario = servicio.obtenerInventario(id);
+        if(inventario != null){
+            return ResponseEntity.ok(inventario);
         }
         return ResponseEntity.notFound().build();
     }
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Inventario> actualizarInventario(@PathVariable Integer id
-                                                        , @RequestBody Inventario inventario
+    public ResponseEntity<InventarioDto> actualizarInventario(@PathVariable Integer id
+                                                        , @RequestBody InventarioCrearDto inventario
                                                         , @PathVariable Integer userId) {
-        Optional<Inventario> busquedaInventario = servicio.findById(id);
-        if(busquedaInventario.isPresent()){
-            Inventario inventarioParaActualizar = busquedaInventario.get();
-            inventarioParaActualizar.setNombreItem(inventario.getNombreItem());
-            inventarioParaActualizar.setCategoriaInventario(inventario.getCategoriaInventario());
-            inventarioParaActualizar.setPrecio(inventario.getPrecio());
-            inventarioParaActualizar.setProveedor(inventario.getProveedor());
-            Inventario inventarioActualizado = servicio.update(inventarioParaActualizar);
-            auditoria.guardarAccion(userId, "Inventario con el id " + inventarioActualizado.getId() + " ha sido actualizado", "inventario");
+        InventarioDto inventarioActualizado = servicio.actualizar(id, inventario, userId);
+        if(inventarioActualizado != null){
             return ResponseEntity.ok(inventarioActualizado);
         }
         return ResponseEntity.notFound().build();
     }
     @PutMapping("/{id}/{cantidad}/{userId}")
-    public ResponseEntity<Inventario> agregarPedidos(@PathVariable Integer id
+    public ResponseEntity<InventarioDto> agregarPedidos(@PathVariable Integer id
                                                     , @PathVariable Integer cantidad
                                                     , @PathVariable Integer userId) {
-        Optional<Inventario> busquedaInventario = servicio.findById(id);
-        if(busquedaInventario.isPresent()){
-            Inventario inventarioParaActualizar = busquedaInventario.get();
-            inventarioParaActualizar.setStock(inventarioParaActualizar.getStock()+cantidad);
-            Inventario inventarioActualizado = servicio.update(inventarioParaActualizar);
-            return ResponseEntity.ok(inventarioActualizado);
+        InventarioDto inventario = servicio.obtenerInventario(id);
+        if(inventario != null){
+            return ResponseEntity.ok(inventario);
         }
         return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}/{userId}")
     public ResponseEntity<String> eliminarInventario(@PathVariable Integer id
                                                     , @PathVariable Integer userId){
-        Optional<Inventario> busquedaInventario = servicio.findById(id);
-        if(busquedaInventario.isPresent()){
-            servicio.delete(id);
-            auditoria.guardarAccion(userId, "Inventario ID " + busquedaInventario.get().getId() + " ha sido eliminado", "inventario");
-            return ResponseEntity.ok("Inventario eliminado");
+        String mensaje = servicio.borrar(id, userId);
+        if(mensaje != null){
+            return ResponseEntity.ok(mensaje);
         }
         return ResponseEntity.notFound().build();
     }

@@ -1,7 +1,6 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionDto;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Habitacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.HabitacionServicio;
 
 @RestController
