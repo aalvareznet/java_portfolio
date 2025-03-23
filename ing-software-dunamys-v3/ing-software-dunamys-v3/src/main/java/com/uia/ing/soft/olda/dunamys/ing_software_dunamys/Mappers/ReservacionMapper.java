@@ -36,7 +36,7 @@ public class ReservacionMapper {
         this.clienteServicio = clienteServicio;
         this.modelMapper = modelMapper;
     }
-    public Reservacion convertToEntity(ReservacionDto reservacionDto) {
+    public Reservacion ConvertDTOToEntity(ReservacionDto reservacionDto) {
         Reservacion reservacion = modelMapper.map(reservacionDto, Reservacion.class);
         Optional<Habitacion> habitacion = habitacionServicio.findById(reservacionDto.getHabitacionId());
         Optional<EstadoReservacion> estadoReservacion = estadoReservacionServicio.findById(reservacionDto.getEstadoReservacionId());
@@ -48,7 +48,7 @@ public class ReservacionMapper {
         reservacion.setCliente(cliente.get());
         return reservacion;
     }
-    public Reservacion convertToEntity(ReservacionCrearDto reservacionDto) {
+    public Reservacion ConvertDTOToEntity(ReservacionCrearDto reservacionDto) {
         Reservacion reservacion = modelMapper.map(reservacionDto, Reservacion.class);
         Optional<Habitacion> habitacion = habitacionServicio.findById(reservacionDto.getHabitacionId());
         Optional<EstadoReservacion> estadoReservacion = estadoReservacionServicio.findById(reservacionDto.getEstadoReservacionId());
@@ -60,7 +60,7 @@ public class ReservacionMapper {
         reservacion.setCliente(cliente.get());
         return reservacion;
     }
-    public ReservacionDto convertToDto(Reservacion reservacion) {
+    public ReservacionDto ConvertEntityToDto(Reservacion reservacion) {
         ReservacionDto reservacionDto = modelMapper.map(reservacion, ReservacionDto.class);
         reservacionDto.setHabitacionId(reservacion.getHabitacion().getId());
         reservacionDto.setEstadoReservacionId(reservacion.getEstadoReservacion().getId());

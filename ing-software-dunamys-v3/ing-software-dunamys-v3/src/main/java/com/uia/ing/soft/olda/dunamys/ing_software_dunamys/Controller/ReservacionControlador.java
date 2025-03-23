@@ -2,7 +2,6 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoReservacion;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ReservacionCrearDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ReservacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Habitacion;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Reservacion;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ReservacionServicio;
 
 @RestController
@@ -28,12 +26,10 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ReservacionSer
 public class ReservacionControlador {
     @Autowired
     private ReservacionServicio servicio;
-    @Autowired
-    private LogAuditoriaServicio auditoria;
 
     @PostMapping
-    public ResponseEntity<Reservacion> agregarReservacion(@RequestBody Reservacion reservacion) {
-        Reservacion reservacionAgregada = servicio.create(reservacion);
+    public ResponseEntity<ReservacionDto> agregarReservacion(@RequestBody ReservacionCrearDto reservacion) {
+        ReservacionDto reservacionAgregada = servicio.agregar(reservacion);
         if (reservacionAgregada != null) {
             return ResponseEntity.ok(reservacionAgregada);
         }
@@ -41,56 +37,34 @@ public class ReservacionControlador {
     }
 
     @GetMapping
-    public ResponseEntity<List<Reservacion>> obtenerTodasLasReservaciones() {
-        List<Reservacion> busquedaReservacion = servicio.findAll();
-        if (!busquedaReservacion.isEmpty()) {
-            return ResponseEntity.ok(busquedaReservacion);
+    public ResponseEntity<List<ReservacionDto>> obtenerTodasLasReservaciones() {
+        List<ReservacionDto> reservaciones = servicio.obtenerReservaciones();
+        if(reservaciones.size() > 0){
+            return ResponseEntity.ok(reservaciones);
         }
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reservacion> obtenerReservacionPorId(@PathVariable Integer id) {
-        Optional<Reservacion> busquedaReservacion = servicio.findById(id);
-        if (busquedaReservacion.isPresent()) {
-            return ResponseEntity.ok(busquedaReservacion.get());
+    public ResponseEntity<ReservacionDto> obtenerReservacionPorId(@PathVariable Integer id) {
+        ReservacionDto reservacion = servicio.obtenerReservacion(id);
+        if(reservacion != null){
+            return ResponseEntity.ok(reservacion);
         }
         return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Reservacion> actualizarReservacion(@PathVariable Integer id,
-            @RequestBody Reservacion reservacion, @PathVariable Integer userId) {
-        Optional<Reservacion> busquedaReservacion = servicio.findById(id);
-        if (busquedaReservacion.isPresent()) {
-            Reservacion reservacionParaActualizar = busquedaReservacion.get();
-            reservacionParaActualizar.setFechaIngreso(reservacion.getFechaIngreso());
-            reservacionParaActualizar.setFechaSalida(reservacion.getFechaSalida());
-            reservacionParaActualizar.setCantidadPersonas(reservacion.getCantidadPersonas());
-            reservacionParaActualizar.setHabitacion(reservacion.getHabitacion());
-            reservacionParaActualizar.setTipoReservacion(reservacion.getTipoReservacion());
-            Reservacion reservacionActualizada = servicio.update(reservacionParaActualizar);
-            auditoria.guardarAccion(userId, "Reservacion ID " + reservacionActualizada.getId() + " actualizada",
-                    "reservacion");
+    public ResponseEntity<ReservacionDto> actualizarReservacion(@PathVariable Integer id,
+            @RequestBody ReservacionCrearDto reservacion, @PathVariable Integer userId) {
+        ReservacionDto reservacionActualizada = servicio.actualizar(userId, reservacion, id);
+        if(reservacionActualizada != null){
             return ResponseEntity.ok(reservacionActualizada);
         }
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{id}/cancelar/{userId}")
-    public ResponseEntity<Reservacion> cancelarReservacion(@PathVariable Integer id,
-            @RequestBody EstadoReservacion estadoReservacion, @PathVariable Integer userId) {
-        Optional<Reservacion> busquedaReservacion = servicio.findById(id);
-        if (busquedaReservacion.isPresent()) {
-            Reservacion reservacionParaActualizar = busquedaReservacion.get();
-            reservacionParaActualizar.setEstadoReservacion(estadoReservacion);
-            Reservacion reservacionActualizada = servicio.update(reservacionParaActualizar);
-            auditoria.guardarAccion(userId, "Reservacion ID " + reservacionActualizada.getId() + " cancelada",
-                    "reservacion");
-            return ResponseEntity.ok(reservacionActualizada);
-        }
-        return ResponseEntity.notFound().build();
-    }
+    //TODO: pensar en pasar estos dos endpoints al controlador habitacion
 
     @GetMapping("/disponibilidad/{habitacionId}")
     public ResponseEntity<Boolean> verificarDisponibilidadHabitacion(
