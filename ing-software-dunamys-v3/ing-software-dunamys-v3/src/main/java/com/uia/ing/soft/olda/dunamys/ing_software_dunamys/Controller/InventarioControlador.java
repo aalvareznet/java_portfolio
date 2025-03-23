@@ -1,7 +1,6 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,23 +11,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.InventarioCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.InventarioDto;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Inventario;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.InventarioServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
-import org.springframework.web.bind.annotation.PutMapping;
-
-
 
 @RestController
 @RequestMapping("/api/v1/inventario")
 public class InventarioControlador {
     @Autowired
     private InventarioServicio servicio;
-    @Autowired
-    private LogAuditoriaServicio auditoria;
 
     @PostMapping("/{userId}")
     public ResponseEntity<InventarioDto> agregarInventario(@PathVariable Integer userId
