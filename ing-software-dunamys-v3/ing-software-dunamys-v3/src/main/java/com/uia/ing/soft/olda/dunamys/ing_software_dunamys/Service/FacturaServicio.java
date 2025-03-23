@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.DetalleFacturaCrearDto;
@@ -26,6 +27,7 @@ public class FacturaServicio extends BaseService<Factura, Integer>{
     @Autowired
     private LogAuditoriaServicio auditoria;
     @Autowired
+    @Lazy
     private DetalleFacturaServicio detalleFacturaServicio;
     @Autowired
     private EstadoFacturaServicio estadoFacturaServicio;

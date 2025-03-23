@@ -3,6 +3,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import jakarta.transaction.Transactional;
 @RequestMapping("/api/v1/factura")
 public class FacturaControlador {
     @Autowired
+    @Lazy
     private FacturaServicio servicio;
 
     @PostMapping("/{userId}")
