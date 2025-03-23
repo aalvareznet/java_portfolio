@@ -1,7 +1,6 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.DetalleFacturaCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.FacturaCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.FacturaDto;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.DetalleFactura;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Factura;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.DetalleFacturaServicio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.FacturaServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 
 import jakarta.transaction.Transactional;
 
@@ -28,10 +23,6 @@ import jakarta.transaction.Transactional;
 public class FacturaControlador {
     @Autowired
     private FacturaServicio servicio;
-    @Autowired
-    private LogAuditoriaServicio auditoria;
-    @Autowired
-    private DetalleFacturaServicio detalleFacturaServicio;
 
     @PostMapping("/{userId}")
     public ResponseEntity<FacturaDto> crearFactura(@PathVariable Integer userId
