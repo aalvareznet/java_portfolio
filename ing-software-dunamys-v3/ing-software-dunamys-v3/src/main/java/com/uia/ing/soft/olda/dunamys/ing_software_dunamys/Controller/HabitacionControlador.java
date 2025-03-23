@@ -14,70 +14,59 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionCrearDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Habitacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.HabitacionServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 
 @RestController
 @RequestMapping("/api/v1/habitacion")
 public class HabitacionControlador {
     @Autowired
     private HabitacionServicio servicio;
-    @Autowired
-    private LogAuditoriaServicio auditoria;
 
     @PostMapping("/{userId}")
-    public ResponseEntity<Habitacion> crearHabitacion(@RequestBody Habitacion habitacion
+    public ResponseEntity<HabitacionDto> crearHabitacion(@RequestBody HabitacionCrearDto habitacion
                                                     , @PathVariable Integer userId) {
-        Habitacion nuevaHabitacion = servicio.create(habitacion);
-        if (nuevaHabitacion != null) {
-            auditoria.guardarAccion(userId, "Crear nueva habitacion con el ID " + nuevaHabitacion.getId(), "habitacion");
-            return ResponseEntity.ok(nuevaHabitacion);
+        HabitacionDto habitacionCreada = servicio.crear(habitacion, userId);
+        if (habitacionCreada != null) {
+            return ResponseEntity.ok(habitacionCreada);
         }
         return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Habitacion> actualizarHabitacion(@PathVariable Integer id
-                                                        , @RequestBody Habitacion habitacion
+    public ResponseEntity<HabitacionDto> actualizarHabitacion(@PathVariable Integer id
+                                                        , @RequestBody HabitacionCrearDto habitacion
                                                         , @PathVariable Integer userId) {
-        Optional<Habitacion> busquedaHabitacion = servicio.findById(id);
-        if(busquedaHabitacion.isPresent()){
-            Habitacion habitacionParaActualizar = busquedaHabitacion.get();
-            habitacionParaActualizar.setCapacidad(habitacion.getCapacidad());
-            habitacionParaActualizar.setEstadoHabitacion(habitacion.getEstadoHabitacion());
-            habitacionParaActualizar.setNumeroHabitacion(habitacion.getNumeroHabitacion());
-            habitacionParaActualizar.setTipoHabitacion(habitacion.getTipoHabitacion());
-            Habitacion habitacionActualizada = servicio.update(habitacionParaActualizar);
-            auditoria.guardarAccion(userId, "Habitacion numero " + habitacionActualizada.getId() + " actualizada", "habitacion");
+        HabitacionDto habitacionActualizada = servicio.actualizar(id, habitacion, userId);
+        if (habitacionActualizada != null) {
             return ResponseEntity.ok(habitacionActualizada);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Habitacion> obtenerHabitacion(@PathVariable Integer id) {
-        Optional<Habitacion> habitacion = servicio.findById(id);
-        if (habitacion != null) {
-            return ResponseEntity.ok(habitacion.get());
+    public ResponseEntity<HabitacionDto> obtenerHabitacion(@PathVariable Integer id) {
+        HabitacionDto habitacion = servicio.obtenerHabitacionPorId(id);
+        if(habitacion != null){
+            return ResponseEntity.ok(habitacion);
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.noContent().build();
     }
     @GetMapping
-    public ResponseEntity<List<Habitacion>> obtenerHabitaciones() {
-        List<Habitacion> habitaciones = servicio.findAll();
-        if (habitaciones != null) {
+    public ResponseEntity<List<HabitacionDto>> obtenerHabitaciones() {
+        List<HabitacionDto> habitaciones = servicio.obtenerHabitaciones();
+        if(habitaciones.size() > 0){
             return ResponseEntity.ok(habitaciones);
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.noContent().build();
     }
     @DeleteMapping("/{id}/{userId}")
-    public ResponseEntity<Habitacion> eliminarHabitacion(@PathVariable Integer id
+    public ResponseEntity<String> eliminarHabitacion(@PathVariable Integer id
                                                         , @PathVariable Integer userId) {
-        Optional<Habitacion> habitacion = servicio.findById(id);
-        if (habitacion.isPresent()) {
-            servicio.delete(id);
-            auditoria.guardarAccion(userId, "Eliminar habitacion con el ID " + habitacion.get().getId(), "habitacion");
-            return ResponseEntity.ok(habitacion.get());
+        String mensaje = servicio.eliminar(id, userId);
+        if (mensaje != null) {
+            return ResponseEntity.ok(mensaje);
         }
         return ResponseEntity.badRequest().build();
     }
