@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoHabitacionCrearDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoHabitacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoHabitacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.EstadoHabitacionServicio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
@@ -24,25 +26,22 @@ public class EstadoHabitacionControlador {
     private LogAuditoriaServicio auditoria;
 
     @PostMapping("/{userId}")
-    public ResponseEntity<EstadoHabitacion> crearEstadoHabitacion(@PathVariable Integer userId
-                                                                , @RequestBody EstadoHabitacion estadoHabitacion){
-        EstadoHabitacion nuevoEstadoHabitacion = servicio.create(estadoHabitacion);
-        if (nuevoEstadoHabitacion != null) {
-            auditoria.guardarAccion(userId, "Crear nuevo estado de habitacion", "estadoHabitacion");
-            return ResponseEntity.ok(nuevoEstadoHabitacion);
-        }
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<EstadoHabitacionDto> crearEstadoHabitacion(@PathVariable Integer userId
+                                                                , @RequestBody EstadoHabitacionCrearDto estadoHabitacion){
+            EstadoHabitacionDto estadoHabitacionCreado = servicio.crear(userId, estadoHabitacion);
+            if (estadoHabitacionCreado != null) {
+                return ResponseEntity.ok(estadoHabitacionCreado);
+            }
+            return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/{id}/{userId}")
     public ResponseEntity<String> eliminarEstadoHabitacion(@PathVariable Integer id
                                                                     , @PathVariable Integer userId){
-        Optional<EstadoHabitacion> estadoHabitacion = servicio.findById(id);
-        if (estadoHabitacion.isPresent()) {
-            servicio.delete(id);
-            auditoria.guardarAccion(userId, "Eliminar estado de habitacion", "estadoHabitacion");
-            return ResponseEntity.ok("Estado de habitacion eliminado");
+        String estadoHabitacionEliminado = servicio.borrar(id, userId);
+        if (estadoHabitacionEliminado != null) {
+            return ResponseEntity.ok(estadoHabitacionEliminado);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
     }
 
 }

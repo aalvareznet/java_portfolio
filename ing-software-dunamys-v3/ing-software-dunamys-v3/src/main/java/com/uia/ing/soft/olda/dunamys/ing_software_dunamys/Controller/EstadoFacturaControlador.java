@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoFacturaCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoFacturaDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.EstadoFacturaServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 
 @RestController
 @RequestMapping("/api/v1/estadoFactura")
