@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ConsumoCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ConsumoDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Consumo;
@@ -28,6 +29,14 @@ public class ConsumoMapper {
     }
 
     public Consumo ConvertDTOToEntity(ConsumoDto consumoDto) {
+        Consumo consumo = modelMapper.map(consumoDto, Consumo.class);
+        Optional<Inventario> inventario = inventarioServicio.findById(consumoDto.getInventarioId());
+        Optional<Cliente> cliente = clienteServicio.findById(consumoDto.getClienteId());
+        consumo.setCliente(cliente.get());
+        consumo.setInventario(inventario.get());
+        return consumo;
+    }
+    public Consumo ConvertDTOToEntity(ConsumoCrearDto consumoDto) {
         Consumo consumo = modelMapper.map(consumoDto, Consumo.class);
         Optional<Inventario> inventario = inventarioServicio.findById(consumoDto.getInventarioId());
         Optional<Cliente> cliente = clienteServicio.findById(consumoDto.getClienteId());

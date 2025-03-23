@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoHabitacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Habitacion;
@@ -26,13 +27,6 @@ public class HabitacionMapper {
         this.modelMapper = modelMapper;
     }
 
-    public HabitacionDto ConvertEntityToDTO(Habitacion habitacion) {
-        HabitacionDto habitacionDto = modelMapper.map(habitacion, HabitacionDto.class);
-        habitacionDto.setEstadoHabitacionId(habitacion.getEstadoHabitacion().getId());
-        habitacionDto.setTipoHabitacionId(habitacion.getTipoHabitacion().getId());
-        return habitacionDto;
-    }
-
     public Habitacion ConvertDTOToEntity(HabitacionDto habitacionDto) {
         Habitacion habitacion = modelMapper.map(habitacionDto, Habitacion.class);
         Optional<EstadoHabitacion> estadoHabitacion = estadoHabitacionServicio.findById(habitacionDto.getEstadoHabitacionId());
@@ -41,4 +35,21 @@ public class HabitacionMapper {
         habitacion.setTipoHabitacion(tipoHabitacion.get());
         return habitacion;
     }
+    public Habitacion ConvertDTOToEntity(HabitacionCrearDto habitacionDto) {
+        Habitacion habitacion = modelMapper.map(habitacionDto, Habitacion.class);
+        Optional<EstadoHabitacion> estadoHabitacion = estadoHabitacionServicio.findById(habitacionDto.getEstadoHabitacionId());
+        Optional<TipoHabitacion> tipoHabitacion = tipoHabitacionServicio.findById(habitacionDto.getTipoHabitacionId());
+        habitacion.setEstadoHabitacion(estadoHabitacion.get());
+        habitacion.setTipoHabitacion(tipoHabitacion.get());
+        return habitacion;
+    }
+
+    public HabitacionDto ConvertEntityToDTO(Habitacion habitacion) {
+        HabitacionDto habitacionDto = modelMapper.map(habitacion, HabitacionDto.class);
+        habitacionDto.setEstadoHabitacionId(habitacion.getEstadoHabitacion().getId());
+        habitacionDto.setTipoHabitacionId(habitacion.getTipoHabitacion().getId());
+        return habitacionDto;
+    }
+
+
 }

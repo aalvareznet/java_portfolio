@@ -31,9 +31,7 @@ public class ConsumoServicio extends BaseService<Consumo, Integer>{
         return repo;
     }
 
-    public ConsumoDto agregarConsumo(ConsumoCrearDto cosumoCrearDto, Integer userId){
-        
-    }
+
 
     public List<Consumo> obtenerConsumosPorFechaYCliente(Date fecha, Integer cliente){
         Optional<Cliente> clienteEncontrado = Optional.ofNullable(clienteRepo.findById(cliente).orElseThrow(()-> new ClientNotFoundException("No se encontro cliente con el ID " + cliente)));

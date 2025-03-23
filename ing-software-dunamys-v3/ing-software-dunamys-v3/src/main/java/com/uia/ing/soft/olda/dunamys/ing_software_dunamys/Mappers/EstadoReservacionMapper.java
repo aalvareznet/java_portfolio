@@ -3,6 +3,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Mappers;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoReservacionCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoReservacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoReservacion;
 
@@ -12,11 +13,14 @@ public class EstadoReservacionMapper {
     public EstadoReservacionMapper(ModelMapper modelMapper){
         this.modelMapper = modelMapper;
     }
-
-    public EstadoReservacionDto ConvertEntityToDTO(EstadoReservacion estadoReservacion) {
-        return modelMapper.map(estadoReservacion, EstadoReservacionDto.class);
-    }
     public EstadoReservacion ConvertDTOToEntity(EstadoReservacionDto estadoReservacionDto) {
         return modelMapper.map(estadoReservacionDto, EstadoReservacion.class);
     }
+    public EstadoReservacion ConvertDTOToEntity(EstadoReservacionCrearDto estadoReservacionDto) {
+        return modelMapper.map(estadoReservacionDto, EstadoReservacion.class);
+    }
+    public EstadoReservacionDto ConvertEntityToDTO(EstadoReservacion estadoReservacion) {
+        return modelMapper.map(estadoReservacion, EstadoReservacionDto.class);
+    }
+
 }

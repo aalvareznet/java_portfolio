@@ -3,6 +3,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Mappers;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CategoriaInventarioCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CategoriaInventarioDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.CategoriaInventario;
 
@@ -15,7 +16,11 @@ public class CategoriaInventarioMapper {
         this.modelMapper = modelMapper;
     }
 
-    public CategoriaInventario ConvertDTOToEntity(CategoriaInventario categoriaInventarioDTO) {
+    public CategoriaInventario ConvertDTOToEntity(CategoriaInventarioDto categoriaInventarioDTO) {
+        return modelMapper.map(categoriaInventarioDTO, CategoriaInventario.class);
+    }
+
+    public CategoriaInventario ConvertDTOToEntity(CategoriaInventarioCrearDto categoriaInventarioDTO) {
         return modelMapper.map(categoriaInventarioDTO, CategoriaInventario.class);
     }
     public CategoriaInventarioDto ConvertEntityToDTO(CategoriaInventario categoriaInventario) {

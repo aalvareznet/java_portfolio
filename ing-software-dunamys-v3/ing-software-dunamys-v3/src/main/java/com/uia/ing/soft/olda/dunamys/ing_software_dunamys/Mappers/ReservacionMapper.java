@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ReservacionCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ReservacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoReservacion;
@@ -35,16 +36,6 @@ public class ReservacionMapper {
         this.clienteServicio = clienteServicio;
         this.modelMapper = modelMapper;
     }
-
-    public ReservacionDto convertToDto(Reservacion reservacion) {
-        ReservacionDto reservacionDto = modelMapper.map(reservacion, ReservacionDto.class);
-        reservacionDto.setHabitacionId(reservacion.getHabitacion().getId());
-        reservacionDto.setEstadoReservacionId(reservacion.getEstadoReservacion().getId());
-        reservacionDto.setTipoReservacionId(reservacion.getTipoReservacion().getId());
-        reservacionDto.setClienteId(reservacion.getCliente().getId());
-        return reservacionDto;
-    }
-
     public Reservacion convertToEntity(ReservacionDto reservacionDto) {
         Reservacion reservacion = modelMapper.map(reservacionDto, Reservacion.class);
         Optional<Habitacion> habitacion = habitacionServicio.findById(reservacionDto.getHabitacionId());
@@ -57,4 +48,26 @@ public class ReservacionMapper {
         reservacion.setCliente(cliente.get());
         return reservacion;
     }
+    public Reservacion convertToEntity(ReservacionCrearDto reservacionDto) {
+        Reservacion reservacion = modelMapper.map(reservacionDto, Reservacion.class);
+        Optional<Habitacion> habitacion = habitacionServicio.findById(reservacionDto.getHabitacionId());
+        Optional<EstadoReservacion> estadoReservacion = estadoReservacionServicio.findById(reservacionDto.getEstadoReservacionId());
+        Optional<TipoReservacion> tipoReservacion = tipoReservacionServicio.findById(reservacionDto.getTipoReservacionId());
+        Optional<Cliente> cliente = clienteServicio.findById(reservacionDto.getClienteId());
+        reservacion.setHabitacion(habitacion.get());
+        reservacion.setEstadoReservacion(estadoReservacion.get());
+        reservacion.setTipoReservacion(tipoReservacion.get());
+        reservacion.setCliente(cliente.get());
+        return reservacion;
+    }
+    public ReservacionDto convertToDto(Reservacion reservacion) {
+        ReservacionDto reservacionDto = modelMapper.map(reservacion, ReservacionDto.class);
+        reservacionDto.setHabitacionId(reservacion.getHabitacion().getId());
+        reservacionDto.setEstadoReservacionId(reservacion.getEstadoReservacion().getId());
+        reservacionDto.setTipoReservacionId(reservacion.getTipoReservacion().getId());
+        reservacionDto.setClienteId(reservacion.getCliente().getId());
+        return reservacionDto;
+    }
+
+
 }

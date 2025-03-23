@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.InventarioCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.InventarioDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.CategoriaInventario;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Inventario;
@@ -26,14 +27,6 @@ public class InventarioMapper {
         this.proveedorServicio = proveedorServicio;
         this.modelMapper = modelMapper;
     }
-
-    public InventarioDto convertToDto(Inventario inventario) {
-        InventarioDto inventarioDTO = modelMapper.map(inventario, InventarioDto.class);
-        inventarioDTO.setCategoriaInventarioId(inventario.getCategoriaInventario().getId());
-        inventarioDTO.setProveedorId(inventario.getProveedor().getId());
-        return inventarioDTO;
-    }
-
     public Inventario convertToEntity(InventarioDto inventarioDTO) {
         Inventario inventario = modelMapper.map(inventarioDTO, Inventario.class);
         Optional<CategoriaInventario> categoriaInventario = categoriaInventarioServicio.findById(inventarioDTO.getCategoriaInventarioId());
@@ -42,4 +35,20 @@ public class InventarioMapper {
         inventario.setProveedor(proveedor.get());
         return inventario;
     }
+    public Inventario convertToEntity(InventarioCrearDto inventarioDTO) {
+        Inventario inventario = modelMapper.map(inventarioDTO, Inventario.class);
+        Optional<CategoriaInventario> categoriaInventario = categoriaInventarioServicio.findById(inventarioDTO.getCategoriaInventarioId());
+        Optional<Proveedor> proveedor = proveedorServicio.findById(inventarioDTO.getProveedorId());
+        inventario.setCategoriaInventario(categoriaInventario.get());
+        inventario.setProveedor(proveedor.get());
+        return inventario;
+    }
+    public InventarioDto convertToDto(Inventario inventario) {
+        InventarioDto inventarioDTO = modelMapper.map(inventario, InventarioDto.class);
+        inventarioDTO.setCategoriaInventarioId(inventario.getCategoriaInventario().getId());
+        inventarioDTO.setProveedorId(inventario.getProveedor().getId());
+        return inventarioDTO;
+    }
+
+
 }
