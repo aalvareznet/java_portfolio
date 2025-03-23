@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionCrearDto;
@@ -16,6 +17,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.TipoHabitacion
 
 @Component
 public class HabitacionMapper {
+    @Lazy
     private final ModelMapper modelMapper;
     private final EstadoHabitacionServicio estadoHabitacionServicio;
     private final TipoHabitacionServicio tipoHabitacionServicio;

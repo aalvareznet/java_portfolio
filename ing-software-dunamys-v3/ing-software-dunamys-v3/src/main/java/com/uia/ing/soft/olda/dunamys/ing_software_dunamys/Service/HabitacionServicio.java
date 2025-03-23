@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionCrearDto;
@@ -22,6 +23,7 @@ public class HabitacionServicio extends BaseService<Habitacion, Integer>{
     private LogAuditoriaServicio auditoria;
 
     @Autowired
+    @Lazy
     private HabitacionMapper mapper;
 
     protected HabitacionRepositorio getRepository() {

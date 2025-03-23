@@ -35,12 +35,31 @@ public class InventarioMapper {
         inventario.setProveedor(proveedor.get());
         return inventario;
     }
-    public Inventario convertCreateToEntity(InventarioCrearDto inventarioDTO) {
-        Inventario inventario = modelMapper.map(inventarioDTO, Inventario.class);
-        Optional<CategoriaInventario> categoriaInventario = categoriaInventarioServicio.findById(inventarioDTO.getCategoriaInventarioId());
-        Optional<Proveedor> proveedor = proveedorServicio.findById(inventarioDTO.getProveedorId());
-        inventario.setCategoriaInventario(categoriaInventario.get());
-        inventario.setProveedor(proveedor.get());
+    
+    public Inventario convertCreateDtoToEntity(InventarioCrearDto dto) {
+        Inventario inventario = new Inventario();
+        // Se asignan los campos directos
+        inventario.setNombreItem(dto.getNombreItem());
+        inventario.setStock(dto.getStock());
+        inventario.setPrecio(dto.getPrecio());
+        // No se asigna ningún id ni campo de versión, para que Hibernate genere la entidad nueva
+
+        // Mapeo de la categoría: se consulta y se asigna, de lo contrario se lanza una excepción controlada.
+        Optional<CategoriaInventario> categoriaOpt = categoriaInventarioServicio.findById(dto.getCategoriaInventarioId());
+        if(categoriaOpt.isPresent()) {
+            inventario.setCategoriaInventario(categoriaOpt.get());
+        } else {
+            throw new IllegalArgumentException("No se encontró CategoriaInventario con id: " + dto.getCategoriaInventarioId());
+        }
+
+        // Mapeo del proveedor de forma similar
+        Optional<Proveedor> proveedorOpt = proveedorServicio.findById(dto.getProveedorId());
+        if(proveedorOpt.isPresent()) {
+            inventario.setProveedor(proveedorOpt.get());
+        } else {
+            throw new IllegalArgumentException("No se encontró Proveedor con id: " + dto.getProveedorId());
+        }
+
         return inventario;
     }
     public InventarioDto convertToDto(Inventario inventario) {
