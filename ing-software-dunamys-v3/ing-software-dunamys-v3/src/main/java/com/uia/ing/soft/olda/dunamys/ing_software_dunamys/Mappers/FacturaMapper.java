@@ -41,7 +41,7 @@ public class FacturaMapper {
         factura.setCliente(cliente.get());
         return factura;
     }
-    public Factura ConvertDTOToEntity(FacturaCrearDto facturaDto) {
+    public Factura ConvertCreateDTOToEntity(FacturaCrearDto facturaDto) {
         Factura factura = modelMapper.map(facturaDto, Factura.class);
         Optional<Reservacion> reservacion = reservacionServicio.findById(facturaDto.getReservacionId());
         Optional<EstadoFactura> estadoFactura = estadoFacturaServicio.findById(facturaDto.getEstadoFacturaId());

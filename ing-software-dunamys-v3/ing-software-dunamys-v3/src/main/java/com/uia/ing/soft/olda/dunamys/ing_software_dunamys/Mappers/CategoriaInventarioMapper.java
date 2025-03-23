@@ -19,8 +19,7 @@ public class CategoriaInventarioMapper {
     public CategoriaInventario ConvertDTOToEntity(CategoriaInventarioDto categoriaInventarioDTO) {
         return modelMapper.map(categoriaInventarioDTO, CategoriaInventario.class);
     }
-
-    public CategoriaInventario ConvertDTOToEntity(CategoriaInventarioCrearDto categoriaInventarioDTO) {
+    public CategoriaInventario ConvertCreateDTOToEntity(CategoriaInventarioCrearDto categoriaInventarioDTO) {
         return modelMapper.map(categoriaInventarioDTO, CategoriaInventario.class);
     }
     public CategoriaInventarioDto ConvertEntityToDTO(CategoriaInventario categoriaInventario) {

@@ -16,7 +16,7 @@ public class EstadoReservacionMapper {
     public EstadoReservacion ConvertDTOToEntity(EstadoReservacionDto estadoReservacionDto) {
         return modelMapper.map(estadoReservacionDto, EstadoReservacion.class);
     }
-    public EstadoReservacion ConvertDTOToEntity(EstadoReservacionCrearDto estadoReservacionDto) {
+    public EstadoReservacion ConvertCreateDTOToEntity(EstadoReservacionCrearDto estadoReservacionDto) {
         return modelMapper.map(estadoReservacionDto, EstadoReservacion.class);
     }
     public EstadoReservacionDto ConvertEntityToDTO(EstadoReservacion estadoReservacion) {

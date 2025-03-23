@@ -28,7 +28,7 @@ public class InventarioServicio extends BaseService<Inventario, Integer>{
         return repo;
     }
     public InventarioDto agregar(Integer usuarioId, InventarioCrearDto inventarioDto){
-        Inventario inventario = mapper.convertToEntity(inventarioDto);
+        Inventario inventario = mapper.convertCreateToEntity(inventarioDto);
         Inventario inventarioAgregado = create(inventario);
         if(inventarioAgregado != null){
             auditoria.guardarAccion(usuarioId, "Item de inventario agregado", "Inventario");
@@ -53,7 +53,7 @@ public class InventarioServicio extends BaseService<Inventario, Integer>{
     public InventarioDto actualizar(Integer id, InventarioCrearDto inventarioDto, Integer usuarioId){
         Optional<Inventario> busquedaInventario = this.findById(id);
         if(busquedaInventario.isPresent()){
-            Inventario inventarioConvertido = mapper.convertToEntity(inventarioDto);
+            Inventario inventarioConvertido = mapper.convertCreateToEntity(inventarioDto);
             Inventario inventarioParaActualizar = busquedaInventario.get();
             inventarioParaActualizar.setNombreItem(inventarioConvertido.getNombreItem());     
             inventarioParaActualizar.setStock(inventarioConvertido.getStock());

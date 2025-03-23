@@ -32,7 +32,7 @@ public class ReservacionServicio extends BaseService<Reservacion, Integer>{
         return repo;
     }
     public ReservacionDto agregar(ReservacionCrearDto reservacionDto){
-        Reservacion reservacion = mapper.ConvertDTOToEntity(reservacionDto);
+        Reservacion reservacion = mapper.ConvertCreateDTOToEntity(reservacionDto);
         Reservacion reservacionAgregada = this.create(reservacion);
         if(reservacionAgregada != null){
             return mapper.ConvertEntityToDto(reservacionAgregada);
@@ -59,7 +59,7 @@ public class ReservacionServicio extends BaseService<Reservacion, Integer>{
     public ReservacionDto actualizar(Integer id, ReservacionCrearDto reservacionDto, Integer usuarioId){
         Optional<Reservacion> reservacionBuscada = this.findById(id);
         if(reservacionBuscada.isPresent()){
-            Reservacion reservacionEntrante = mapper.ConvertDTOToEntity(reservacionDto);
+            Reservacion reservacionEntrante = mapper.ConvertCreateDTOToEntity(reservacionDto);
             Reservacion reservacionParaActualizar = reservacionBuscada.get();
             reservacionParaActualizar.setCantidadPersonas(reservacionEntrante.getCantidadPersonas());
             reservacionParaActualizar.setCliente(reservacionEntrante.getCliente());

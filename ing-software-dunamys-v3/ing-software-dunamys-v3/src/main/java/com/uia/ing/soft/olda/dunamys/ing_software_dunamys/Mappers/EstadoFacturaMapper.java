@@ -18,7 +18,7 @@ public class EstadoFacturaMapper {
     public EstadoFactura ConvertDTOToEntity(EstadoFacturaDto estadoFacturaDto) {
         return modelMapper.map(estadoFacturaDto, EstadoFactura.class);
     }
-    public EstadoFactura ConvertDTOToEntity(EstadoFacturaCrearDto estadoFacturaDto) {
+    public EstadoFactura ConvertCreateDTOToEntity(EstadoFacturaCrearDto estadoFacturaDto) {
         return modelMapper.map(estadoFacturaDto, EstadoFactura.class);
     }
     public EstadoFacturaDto ConvertEntityToDTO(EstadoFactura estadoFactura) {

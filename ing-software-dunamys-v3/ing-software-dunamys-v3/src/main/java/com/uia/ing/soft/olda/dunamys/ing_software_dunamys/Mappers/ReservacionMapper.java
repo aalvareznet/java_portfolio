@@ -48,7 +48,7 @@ public class ReservacionMapper {
         reservacion.setCliente(cliente.get());
         return reservacion;
     }
-    public Reservacion ConvertDTOToEntity(ReservacionCrearDto reservacionDto) {
+    public Reservacion ConvertCreateDTOToEntity(ReservacionCrearDto reservacionDto) {
         Reservacion reservacion = modelMapper.map(reservacionDto, Reservacion.class);
         Optional<Habitacion> habitacion = habitacionServicio.findById(reservacionDto.getHabitacionId());
         Optional<EstadoReservacion> estadoReservacion = estadoReservacionServicio.findById(reservacionDto.getEstadoReservacionId());

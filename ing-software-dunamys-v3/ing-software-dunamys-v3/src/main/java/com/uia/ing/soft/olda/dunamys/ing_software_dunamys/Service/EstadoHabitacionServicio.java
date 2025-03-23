@@ -26,7 +26,7 @@ public class EstadoHabitacionServicio extends BaseService<EstadoHabitacion, Inte
     }
 
     public EstadoHabitacionDto crear(Integer usuarioId, EstadoHabitacionCrearDto estadoHabitacionDto){
-        EstadoHabitacion estadoHabitacion = mapper.ConvertDTOToEntity(estadoHabitacionDto);
+        EstadoHabitacion estadoHabitacion = mapper.ConvertCreateDTOToEntity(estadoHabitacionDto);
         EstadoHabitacion estadoHabitacionCreado = this.create(estadoHabitacion);
         if (estadoHabitacionCreado != null) {
             auditoria.guardarAccion(usuarioId, "Crear nuevo estado de habitacion", "estadoHabitacion");

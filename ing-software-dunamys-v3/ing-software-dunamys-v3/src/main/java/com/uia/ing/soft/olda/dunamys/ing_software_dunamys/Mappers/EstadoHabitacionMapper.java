@@ -17,7 +17,7 @@ public class EstadoHabitacionMapper {
     public EstadoHabitacion ConvertDTOToEntity(EstadoHabitacionDto estadoHabitacionDto) {
         return modelMapper.map(estadoHabitacionDto, EstadoHabitacion.class);
     }
-    public EstadoHabitacion ConvertDTOToEntity(EstadoHabitacionCrearDto estadoHabitacionDto) {
+    public EstadoHabitacion ConvertCreateDTOToEntity(EstadoHabitacionCrearDto estadoHabitacionDto) {
         return modelMapper.map(estadoHabitacionDto, EstadoHabitacion.class);
     }
     public EstadoHabitacionDto ConvertEntityToDTO(EstadoHabitacion estadoHabitacion) {

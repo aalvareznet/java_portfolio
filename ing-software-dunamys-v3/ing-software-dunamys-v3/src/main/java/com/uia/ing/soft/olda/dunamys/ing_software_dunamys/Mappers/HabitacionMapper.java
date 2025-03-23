@@ -35,8 +35,8 @@ public class HabitacionMapper {
         habitacion.setTipoHabitacion(tipoHabitacion.get());
         return habitacion;
     }
-    
-    public Habitacion ConvertDTOToEntity(HabitacionCrearDto habitacionDto) {
+
+    public Habitacion ConvertCreateDTOToEntity(HabitacionCrearDto habitacionDto) {
         Habitacion habitacion = modelMapper.map(habitacionDto, Habitacion.class);
         Optional<EstadoHabitacion> estadoHabitacion = estadoHabitacionServicio.findById(habitacionDto.getEstadoHabitacionId());
         Optional<TipoHabitacion> tipoHabitacion = tipoHabitacionServicio.findById(habitacionDto.getTipoHabitacionId());

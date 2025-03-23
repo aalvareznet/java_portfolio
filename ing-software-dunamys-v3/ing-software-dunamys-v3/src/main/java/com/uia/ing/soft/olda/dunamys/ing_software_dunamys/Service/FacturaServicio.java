@@ -36,7 +36,7 @@ public class FacturaServicio extends BaseService<Factura, Integer>{
         return repo;
     }
     public FacturaDto crear(Integer usuarioId, FacturaCrearDto facturaDto){
-        Factura factura = mapper.ConvertDTOToEntity(facturaDto);
+        Factura factura = mapper.ConvertCreateDTOToEntity(facturaDto);
         Factura nuevaFactura = create(factura);
         if (nuevaFactura != null) {
             auditoria.guardarAccion(usuarioId, "Crear nueva factura con el ID " + nuevaFactura.getId(), "factura");

@@ -33,7 +33,7 @@ public class ConsumoServicio extends BaseService<Consumo, Integer>{
     }
 
     public ConsumoDto agregar(ConsumoCrearDto consumoDto, Integer usuarioId){
-        Consumo consumo = mapper.ConvertDTOToEntity(consumoDto);
+        Consumo consumo = mapper.ConvertCreateDTOToEntity(consumoDto);
         Consumo consumoResultante = this.create(consumo);
         if(consumoResultante != null){
             auditoria.guardarAccion(usuarioId, "Crear nuevo consumo", "consumo");
@@ -43,7 +43,7 @@ public class ConsumoServicio extends BaseService<Consumo, Integer>{
     }
 
     public ConsumoDto actualizar(Integer id, ConsumoCrearDto consumoDto, Integer usuarioId){
-        Consumo consumo = mapper.ConvertDTOToEntity(consumoDto);
+        Consumo consumo = mapper.ConvertCreateDTOToEntity(consumoDto);
         Optional<Consumo> busquedaConsumo = this.findById(id);
         if(busquedaConsumo.isPresent()){
             Consumo consumoParaActualizar = busquedaConsumo.get();

@@ -26,7 +26,7 @@ public class CategoriaInventarioServicio extends BaseService<CategoriaInventario
     }
 
     public CategoriaInventarioDto crear(CategoriaInventarioCrearDto entidad, Integer usuarioId){
-        CategoriaInventario categoriaAgregada = this.create(mapper.ConvertDTOToEntity(entidad));
+        CategoriaInventario categoriaAgregada = this.create(mapper.ConvertCreateDTOToEntity(entidad));
         if(categoriaAgregada != null){
             auditoria.guardarAccion(usuarioId, "Crear nueva linea", "categoria_inventario");
             CategoriaInventarioDto categoriaDto = mapper.ConvertEntityToDTO(categoriaAgregada);

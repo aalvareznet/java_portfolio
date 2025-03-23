@@ -28,7 +28,7 @@ public class ProveedorServicio extends BaseService<Proveedor, Integer>{
     }
 
     public ProveedorDto agregar(Integer usuarioId, ProveedorCrearDto proveedorDto){
-        Proveedor proveedor = mapper.convertToEntity(proveedorDto);
+        Proveedor proveedor = mapper.convertCreateToEntity(proveedorDto);
         Proveedor proveedorCreado = create(proveedor);
         if (proveedorCreado != null) {
             auditoria.guardarAccion(usuarioId, "Proveedor creado", "proveedor");
@@ -53,7 +53,7 @@ public class ProveedorServicio extends BaseService<Proveedor, Integer>{
     public ProveedorDto actualizar(Integer id, ProveedorCrearDto proveedorDto, Integer usuarioId){
         Optional<Proveedor> proveedorEncontrado = this.findById(id);
         if(proveedorEncontrado.isPresent()){
-            Proveedor proveedorEntrante = mapper.convertToEntity(proveedorDto);
+            Proveedor proveedorEntrante = mapper.convertCreateToEntity(proveedorDto);
             Proveedor proveedorParaActualizar = proveedorEncontrado.get();
             proveedorParaActualizar.setNombre(proveedorEntrante.getNombre());
             proveedorParaActualizar.setCorreoReferencia(proveedorEntrante.getCorreoReferencia());

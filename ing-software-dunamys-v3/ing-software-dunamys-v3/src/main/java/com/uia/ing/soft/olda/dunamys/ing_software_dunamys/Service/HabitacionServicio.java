@@ -29,7 +29,7 @@ public class HabitacionServicio extends BaseService<Habitacion, Integer>{
     }
 
     public HabitacionDto crear(HabitacionCrearDto habitacionDto, Integer usuarioId){
-        Habitacion habitacion = mapper.ConvertDTOToEntity(habitacionDto);
+        Habitacion habitacion = mapper.ConvertCreateDTOToEntity(habitacionDto);
         Habitacion nueHabitacion = this.create(habitacion);
         if(nueHabitacion != null){
             auditoria.guardarAccion(usuarioId, "Crear nueva habitacion con el ID " + nueHabitacion.getId(), "habitacion");
@@ -41,7 +41,7 @@ public class HabitacionServicio extends BaseService<Habitacion, Integer>{
     public HabitacionDto actualizar(Integer id, HabitacionCrearDto habitacionDto, Integer userId){
         Optional<Habitacion> busquedaHabitacion = this.findById(id);
         if(busquedaHabitacion.isPresent()){
-            Habitacion habitacionConvertida = mapper.ConvertDTOToEntity(habitacionDto);
+            Habitacion habitacionConvertida = mapper.ConvertCreateDTOToEntity(habitacionDto);
             Habitacion habitacionParaActualizar = busquedaHabitacion.get();
             habitacionParaActualizar.setCapacidad(habitacionConvertida.getCapacidad());
             habitacionParaActualizar.setEstadoHabitacion(habitacionConvertida.getEstadoHabitacion());

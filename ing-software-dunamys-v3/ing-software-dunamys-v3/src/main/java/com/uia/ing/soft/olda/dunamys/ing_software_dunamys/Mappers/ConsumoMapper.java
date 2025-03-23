@@ -36,7 +36,7 @@ public class ConsumoMapper {
         consumo.setInventario(inventario.get());
         return consumo;
     }
-    public Consumo ConvertDTOToEntity(ConsumoCrearDto consumoDto) {
+    public Consumo ConvertCreateDTOToEntity(ConsumoCrearDto consumoDto) {
         Consumo consumo = modelMapper.map(consumoDto, Consumo.class);
         Optional<Inventario> inventario = inventarioServicio.findById(consumoDto.getInventarioId());
         Optional<Cliente> cliente = clienteServicio.findById(consumoDto.getClienteId());

@@ -29,7 +29,7 @@ public class DetalleFacturaMapper {
         return detalleFactura;
     }
 
-    public DetalleFactura ConvertDTOToEntity(DetalleFacturaCrearDto detalleFacturaDto) {
+    public DetalleFactura ConvertCreateDTOToEntity(DetalleFacturaCrearDto detalleFacturaDto) {
         DetalleFactura detalleFactura = modelMapper.map(detalleFacturaDto, DetalleFactura.class);
         Optional<Factura> factura = facturaServicio.findById(detalleFacturaDto.getFacturaId());
         detalleFactura.setFactura(factura.get());

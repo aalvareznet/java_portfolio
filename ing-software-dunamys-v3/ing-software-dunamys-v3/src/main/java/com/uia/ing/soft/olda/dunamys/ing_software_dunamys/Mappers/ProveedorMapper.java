@@ -17,7 +17,7 @@ public class ProveedorMapper {
     public Proveedor convertToEntity(ProveedorDto proveedorDto) {
         return modelMapper.map(proveedorDto, Proveedor.class);
     }
-    public Proveedor convertToEntity(ProveedorCrearDto proveedorDto) {
+    public Proveedor convertCreateToEntity(ProveedorCrearDto proveedorDto) {
         return modelMapper.map(proveedorDto, Proveedor.class);
     }
     public ProveedorDto convertToDto(Proveedor proveedor) {

@@ -24,7 +24,7 @@ public class EstadoReservacionServicio extends BaseService<EstadoReservacion, In
         return repo;    
     }
     public EstadoReservacionDto crear(Integer usuarioId, EstadoReservacionCrearDto estadoREservacionDto){
-        EstadoReservacion estadoReservacion = mapper.ConvertDTOToEntity(estadoREservacionDto);
+        EstadoReservacion estadoReservacion = mapper.ConvertCreateDTOToEntity(estadoREservacionDto);
         EstadoReservacion reservacionCreada = this.create(estadoReservacion);
         if (reservacionCreada != null) {
             auditoria.guardarAccion(usuarioId, "Crear nuevo estado de reservacion", "estadoReservacion");

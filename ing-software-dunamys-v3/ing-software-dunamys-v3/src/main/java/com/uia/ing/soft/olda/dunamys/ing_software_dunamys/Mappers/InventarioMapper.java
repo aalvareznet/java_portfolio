@@ -35,7 +35,7 @@ public class InventarioMapper {
         inventario.setProveedor(proveedor.get());
         return inventario;
     }
-    public Inventario convertToEntity(InventarioCrearDto inventarioDTO) {
+    public Inventario convertCreateToEntity(InventarioCrearDto inventarioDTO) {
         Inventario inventario = modelMapper.map(inventarioDTO, Inventario.class);
         Optional<CategoriaInventario> categoriaInventario = categoriaInventarioServicio.findById(inventarioDTO.getCategoriaInventarioId());
         Optional<Proveedor> proveedor = proveedorServicio.findById(inventarioDTO.getProveedorId());

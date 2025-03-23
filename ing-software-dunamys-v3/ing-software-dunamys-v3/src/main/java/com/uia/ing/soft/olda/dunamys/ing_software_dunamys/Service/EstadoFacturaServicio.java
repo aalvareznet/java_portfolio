@@ -26,7 +26,7 @@ public class EstadoFacturaServicio extends BaseService<EstadoFactura, Integer>{
     }
 
     public EstadoFacturaDto agregar(Integer usuarioId, EstadoFacturaCrearDto estadoFacturaDto){
-        EstadoFactura estadoFactura = mapper.ConvertDTOToEntity(estadoFacturaDto);
+        EstadoFactura estadoFactura = mapper.ConvertCreateDTOToEntity(estadoFacturaDto);
         EstadoFactura estadoFacturaResultante = this.create(estadoFactura);
         if (estadoFacturaResultante != null) {
             auditoria.guardarAccion(usuarioId, "Crear nuevo estado de factura", "estadoFactura");

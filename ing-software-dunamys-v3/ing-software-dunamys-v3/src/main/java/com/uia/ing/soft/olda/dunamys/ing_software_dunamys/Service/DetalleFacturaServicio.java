@@ -24,7 +24,7 @@ public class DetalleFacturaServicio extends BaseService<DetalleFactura, Integer>
     }
     public void agregarDetalleFactura(List<DetalleFacturaCrearDto> listaDetalleFactura){
         List<DetalleFactura> listaDetalleFacturaEntidad = listaDetalleFactura.stream()
-                                                                            .map(detalleFactura -> mapper.ConvertDTOToEntity(detalleFactura))
+                                                                            .map(detalleFactura -> mapper.ConvertCreateDTOToEntity(detalleFactura))
                                                                             .collect(Collectors.toList());
         for(DetalleFactura detalle : listaDetalleFacturaEntidad){
             this.create(detalle);
