@@ -1,7 +1,5 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,37 +9,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoReservacion;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoReservacionCrearDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoReservacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.EstadoReservacionServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 
 @RestController
 @RequestMapping("/api/v1/estadoReservacion")
 public class EstadoReservacionControlador {
     @Autowired
     private EstadoReservacionServicio servicio;
-    @Autowired
-    private LogAuditoriaServicio auditoria;
     
     @PostMapping("/{userId}")
-    public ResponseEntity<EstadoReservacion> crearEstadoReservacion(@PathVariable Integer userId
-                                                                    , @RequestBody EstadoReservacion estadoReservacion){
-        EstadoReservacion nuevoEstadoReservacion = servicio.create(estadoReservacion);
-        if (nuevoEstadoReservacion != null) {
-            auditoria.guardarAccion(userId, "Crear nuevo estado de reservacion", "estadoReservacion");
-            return ResponseEntity.ok(nuevoEstadoReservacion);
+    public ResponseEntity<EstadoReservacionDto> crearEstadoReservacion(@PathVariable Integer userId
+                                                                    , @RequestBody EstadoReservacionCrearDto estadoReservacion){
+        EstadoReservacionDto estadoReservacionCreado = servicio.crear(userId, estadoReservacion);
+        if (estadoReservacionCreado != null) {
+            return ResponseEntity.ok(estadoReservacionCreado);
         }
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/{id}/{userId}")
     public ResponseEntity<String> eliminarEstadoReservacion(@PathVariable Integer id
                                                             , @PathVariable Integer userId){
-        Optional<EstadoReservacion> estadoReservacion = servicio.findById(id);
-        if (estadoReservacion.isPresent()) {
-            servicio.delete(id);
-            auditoria.guardarAccion(userId, "Eliminar estado de reservacion", "estadoReservacion");
-            return ResponseEntity.ok("Estado de reservacion eliminado");
+        String mensaje = servicio.borrar(id, userId);
+        if (mensaje != null) {
+            return ResponseEntity.ok(mensaje);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
     }
 }
