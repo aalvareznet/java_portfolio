@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class HabitacionDto {
+    
     Integer id;
 
     Integer numeroHabitacion;

@@ -3,6 +3,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Mappers;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Component;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionCrearDto;
@@ -19,12 +20,22 @@ public class HabitacionMapper {
     private final EstadoHabitacionServicio estadoHabitacionServicio;
     private final TipoHabitacionServicio tipoHabitacionServicio;
 
-    public HabitacionMapper(ModelMapper modelMapper
-                          , EstadoHabitacionServicio estadoHabitacionServicio
-                          , TipoHabitacionServicio tipoHabitacionServicio) {
+    public HabitacionMapper(ModelMapper modelMapper,
+                            EstadoHabitacionServicio estadoHabitacionServicio,
+                            TipoHabitacionServicio tipoHabitacionServicio) {
         this.estadoHabitacionServicio = estadoHabitacionServicio;
         this.tipoHabitacionServicio = tipoHabitacionServicio;
         this.modelMapper = modelMapper;
+        configureModelMapper();
+    }
+
+    private void configureModelMapper() {
+        modelMapper.addMappings(new PropertyMap<HabitacionCrearDto, Habitacion>() {
+            @Override
+            protected void configure() {
+                skip(destination.getId()); // Skip the id property to avoid conflicts
+            }
+        });
     }
 
     public Habitacion ConvertDTOToEntity(HabitacionDto habitacionDto) {
@@ -51,6 +62,4 @@ public class HabitacionMapper {
         habitacionDto.setTipoHabitacionId(habitacion.getTipoHabitacion().getId());
         return habitacionDto;
     }
-
-
 }

@@ -24,8 +24,10 @@ public class HabitacionControlador {
     private HabitacionServicio servicio;
 
     @PostMapping("/{userId}")
-    public ResponseEntity<HabitacionDto> crearHabitacion(@RequestBody HabitacionCrearDto habitacion
-                                                    , @PathVariable Integer userId) {
+    public ResponseEntity<HabitacionDto> crearHabitacion(@RequestBody HabitacionCrearDto habitacion, @PathVariable Integer userId) {
+        if (habitacion == null || userId == null) {
+            return ResponseEntity.badRequest().build();
+        }
         HabitacionDto habitacionCreada = servicio.crear(habitacion, userId);
         if (habitacionCreada != null) {
             return ResponseEntity.ok(habitacionCreada);
@@ -34,39 +36,47 @@ public class HabitacionControlador {
     }
 
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<HabitacionDto> actualizarHabitacion(@PathVariable Integer id
-                                                        , @RequestBody HabitacionCrearDto habitacion
-                                                        , @PathVariable Integer userId) {
+    public ResponseEntity<HabitacionDto> actualizarHabitacion(@PathVariable Integer id, @RequestBody HabitacionCrearDto habitacion, @PathVariable Integer userId) {
+        if (id == null || habitacion == null || userId == null) {
+            return ResponseEntity.badRequest().build();
+        }
         HabitacionDto habitacionActualizada = servicio.actualizar(id, habitacion, userId);
         if (habitacionActualizada != null) {
             return ResponseEntity.ok(habitacionActualizada);
         }
         return ResponseEntity.badRequest().build();
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<HabitacionDto> obtenerHabitacion(@PathVariable Integer id) {
+        if (id == null) {
+            return ResponseEntity.badRequest().build();
+        }
         HabitacionDto habitacion = servicio.obtenerHabitacionPorId(id);
-        if(habitacion != null){
+        if (habitacion != null) {
             return ResponseEntity.ok(habitacion);
         }
         return ResponseEntity.noContent().build();
     }
+
     @GetMapping
     public ResponseEntity<List<HabitacionDto>> obtenerHabitaciones() {
         List<HabitacionDto> habitaciones = servicio.obtenerHabitaciones();
-        if(habitaciones.size() > 0){
+        if (habitaciones.size() > 0) {
             return ResponseEntity.ok(habitaciones);
         }
         return ResponseEntity.noContent().build();
     }
+
     @DeleteMapping("/{id}/{userId}")
-    public ResponseEntity<String> eliminarHabitacion(@PathVariable Integer id
-                                                        , @PathVariable Integer userId) {
+    public ResponseEntity<String> eliminarHabitacion(@PathVariable Integer id, @PathVariable Integer userId) {
+        if (id == null || userId == null) {
+            return ResponseEntity.badRequest().build();
+        }
         String mensaje = servicio.eliminar(id, userId);
         if (mensaje != null) {
             return ResponseEntity.ok(mensaje);
         }
         return ResponseEntity.badRequest().build();
     }
-
 }
