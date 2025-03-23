@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CategoriaInventarioCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.CategoriaInventarioDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Mappers.CategoriaInventarioMapper;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.CategoriaInventario;
@@ -24,8 +25,8 @@ public class CategoriaInventarioServicio extends BaseService<CategoriaInventario
        return repo;
     }
 
-    public CategoriaInventarioDto crear(CategoriaInventario entidad, Integer usuarioId){
-        CategoriaInventario categoriaAgregada = this.create(entidad);
+    public CategoriaInventarioDto crear(CategoriaInventarioCrearDto entidad, Integer usuarioId){
+        CategoriaInventario categoriaAgregada = this.create(mapper.ConvertDTOToEntity(entidad));
         if(categoriaAgregada != null){
             auditoria.guardarAccion(usuarioId, "Crear nueva linea", "categoria_inventario");
             CategoriaInventarioDto categoriaDto = mapper.ConvertEntityToDTO(categoriaAgregada);

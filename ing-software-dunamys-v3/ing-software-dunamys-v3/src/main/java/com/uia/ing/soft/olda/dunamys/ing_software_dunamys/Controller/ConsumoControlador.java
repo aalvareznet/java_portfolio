@@ -2,7 +2,6 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ConsumoCrearDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ConsumoDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Consumo;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ConsumoServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.LogAuditoriaServicio;
 
 @RestController
 @RequestMapping("/api/v1/consumo")
@@ -24,41 +24,31 @@ public class ConsumoControlador {
 
     @Autowired
     private ConsumoServicio servicio;
-    @Autowired
-    private LogAuditoriaServicio auditoria;
 
     @PostMapping("/{userId}")
-    public ResponseEntity<Consumo> agregarConsumo(@RequestBody Consumo consumo
+    public ResponseEntity<ConsumoDto> agregarConsumo(@RequestBody ConsumoCrearDto consumo
                                                 , @PathVariable Integer userId){
-        Consumo consumoResultante = servicio.create(consumo);
-        if (consumoResultante != null) {
-            auditoria.guardarAccion(userId, "Crear nuevo consumo", "consumo");
-            return ResponseEntity.ok(consumoResultante);
+        ConsumoDto consumoCreado = servicio.agregar(consumo, userId);
+        if(consumoCreado != null){
+            return ResponseEntity.ok(consumoCreado);
         }
         return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/{id}/actualizar/{userId}")
-    public ResponseEntity<Consumo> actualizarConsumo(@PathVariable Integer id
-                                                    , @RequestBody Consumo consumo
+    public ResponseEntity<ConsumoDto> actualizarConsumo(@PathVariable Integer id
+                                                    , @RequestBody ConsumoCrearDto consumo
                                                     , @PathVariable Integer userId){
-        Optional<Consumo> busquedaConsumo = servicio.findById(id);
-        if(busquedaConsumo.isPresent()){
-            Consumo consumoParaActualizar = busquedaConsumo.get();
-            consumoParaActualizar.setInventario(consumo.getInventario());
-            consumoParaActualizar.setCantidad(consumo.getCantidad());
-            consumoParaActualizar.setCliente(consumo.getCliente());
-            consumoParaActualizar.setFecha(consumo.getFecha());
-            Consumo consumoActualizado = servicio.update(consumoParaActualizar);
-            auditoria.guardarAccion(userId, "Actualizar consumo numero " + consumoActualizado.getId(), "consumo");
+        ConsumoDto consumoActualizado = servicio.actualizar(id, consumo, userId);
+        if(consumoActualizado != null){
             return ResponseEntity.ok(consumoActualizado);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
     }
     @GetMapping()
-    public ResponseEntity<List<Consumo>> obtenerConsumos(){
-        List<Consumo> consumos = servicio.findAll();
-        if(consumos != null){
+    public ResponseEntity<List<ConsumoDto>> obtenerConsumos(){
+        List<ConsumoDto> consumos = servicio.obtenerTodos();
+        if(consumos.size() > 0){
             return ResponseEntity.ok(consumos);
         }
         return ResponseEntity.notFound().build();
