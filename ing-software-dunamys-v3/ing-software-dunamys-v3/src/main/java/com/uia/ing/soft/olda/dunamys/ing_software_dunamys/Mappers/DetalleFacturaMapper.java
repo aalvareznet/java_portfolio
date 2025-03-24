@@ -9,29 +9,29 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.DetalleFacturaCrea
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.DetalleFacturaDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.DetalleFactura;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Factura;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.FacturaServicio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.FacturaRepositorio;
 
 @Component
 public class DetalleFacturaMapper {
     private final ModelMapper modelMapper;
-    private final FacturaServicio facturaServicio;
+    private final FacturaRepositorio facturaRepositorio;
 
     public DetalleFacturaMapper(ModelMapper modelMapper
-                                , FacturaServicio facturaServicio) {
-        this.facturaServicio = facturaServicio;
+                                , FacturaRepositorio facturaRepositorio) {
+        this.facturaRepositorio = facturaRepositorio;
         this.modelMapper = modelMapper;
     }
 
     public DetalleFactura ConvertDTOToEntity(DetalleFacturaDto detalleFacturaDto) {
         DetalleFactura detalleFactura = modelMapper.map(detalleFacturaDto, DetalleFactura.class);
-        Optional<Factura> factura = facturaServicio.findById(detalleFacturaDto.getFacturaId());
+        Optional<Factura> factura = facturaRepositorio.findById(detalleFacturaDto.getFacturaId());
         detalleFactura.setFactura(factura.get());
         return detalleFactura;
     }
 
     public DetalleFactura ConvertCreateDTOToEntity(DetalleFacturaCrearDto detalleFacturaDto) {
         DetalleFactura detalleFactura = modelMapper.map(detalleFacturaDto, DetalleFactura.class);
-        Optional<Factura> factura = facturaServicio.findById(detalleFacturaDto.getFacturaId());
+        Optional<Factura> factura = facturaRepositorio.findById(detalleFacturaDto.getFacturaId());
         detalleFactura.setFactura(factura.get());
         return detalleFactura;
     }

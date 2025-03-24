@@ -10,36 +10,36 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ConsumoDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Consumo;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Inventario;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.InventarioServicio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ClienteRepositorio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.InventarioRepositorio;
 
 @Component
 public class ConsumoMapper {
 
     private final ModelMapper modelMapper;
-    private final InventarioServicio inventarioServicio;
-    private final ClienteServicio clienteServicio;
+    private final InventarioRepositorio inventarioRepositorio;
+    private final ClienteRepositorio clienteRepositorio;
 
     public ConsumoMapper(ModelMapper modelMapper
-                        , InventarioServicio inventarioServicio
-                        , ClienteServicio clienteServicio) {
+                        , InventarioRepositorio inventarioRepositorio
+                        , ClienteRepositorio clienteRepositorio) {
         this.modelMapper = modelMapper;
-        this.inventarioServicio = inventarioServicio;
-        this.clienteServicio = clienteServicio;
+        this.inventarioRepositorio = inventarioRepositorio;
+        this.clienteRepositorio = clienteRepositorio;
     }
 
     public Consumo ConvertDTOToEntity(ConsumoDto consumoDto) {
         Consumo consumo = modelMapper.map(consumoDto, Consumo.class);
-        Optional<Inventario> inventario = inventarioServicio.findById(consumoDto.getInventarioId());
-        Optional<Cliente> cliente = clienteServicio.findById(consumoDto.getClienteId());
+        Optional<Inventario> inventario = inventarioRepositorio.findById(consumoDto.getInventarioId());
+        Optional<Cliente> cliente = clienteRepositorio.findById(consumoDto.getClienteId());
         consumo.setCliente(cliente.get());
         consumo.setInventario(inventario.get());
         return consumo;
     }
     public Consumo ConvertCreateDTOToEntity(ConsumoCrearDto consumoDto) {
         Consumo consumo = modelMapper.map(consumoDto, Consumo.class);
-        Optional<Inventario> inventario = inventarioServicio.findById(consumoDto.getInventarioId());
-        Optional<Cliente> cliente = clienteServicio.findById(consumoDto.getClienteId());
+        Optional<Inventario> inventario = inventarioRepositorio.findById(consumoDto.getInventarioId());
+        Optional<Cliente> cliente = clienteRepositorio.findById(consumoDto.getClienteId());
         consumo.setCliente(cliente.get());
         consumo.setInventario(inventario.get());
         return consumo;

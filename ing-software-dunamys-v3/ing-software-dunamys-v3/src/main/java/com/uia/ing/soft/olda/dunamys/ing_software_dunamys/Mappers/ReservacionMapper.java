@@ -12,36 +12,36 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoReservacio
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Habitacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Reservacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.TipoReservacion;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.EstadoReservacionServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.HabitacionServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.TipoReservacionServicio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ClienteRepositorio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.EstadoReservacionRepositorio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.HabitacionRepositorio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.TipoReservacionRepositorio;
 
 @Component
 public class ReservacionMapper {
     private final ModelMapper modelMapper;
-    private final HabitacionServicio habitacionServicio;
-    private final EstadoReservacionServicio estadoReservacionServicio;
-    private final TipoReservacionServicio tipoReservacionServicio;
-    private final ClienteServicio clienteServicio;
+    private final HabitacionRepositorio habitacionRepositorio;
+    private final EstadoReservacionRepositorio estadoReservacionRepositorio;
+    private final TipoReservacionRepositorio tipoReservacionRepositorio;
+    private final ClienteRepositorio clienteRepositorio;
 
     public ReservacionMapper(ModelMapper modelMapper
-                            , HabitacionServicio habitacionServicio
-                            , EstadoReservacionServicio estadoReservacionServicio
-                            , TipoReservacionServicio tipoReservacionServicio
-                            , ClienteServicio clienteServicio) {
-        this.habitacionServicio = habitacionServicio;
-        this.estadoReservacionServicio = estadoReservacionServicio;
-        this.tipoReservacionServicio = tipoReservacionServicio;
-        this.clienteServicio = clienteServicio;
+                            , HabitacionRepositorio habitacionRepositorio
+                            , EstadoReservacionRepositorio estadoReservacionRepositorio
+                            , TipoReservacionRepositorio tipoReservacionRepositorio
+                            , ClienteRepositorio clienteRepositorio) {
+        this.habitacionRepositorio = habitacionRepositorio;
+        this.estadoReservacionRepositorio = estadoReservacionRepositorio;
+        this.tipoReservacionRepositorio = tipoReservacionRepositorio;
+        this.clienteRepositorio = clienteRepositorio;
         this.modelMapper = modelMapper;
     }
     public Reservacion ConvertDTOToEntity(ReservacionDto reservacionDto) {
         Reservacion reservacion = modelMapper.map(reservacionDto, Reservacion.class);
-        Optional<Habitacion> habitacion = habitacionServicio.findById(reservacionDto.getHabitacionId());
-        Optional<EstadoReservacion> estadoReservacion = estadoReservacionServicio.findById(reservacionDto.getEstadoReservacionId());
-        Optional<TipoReservacion> tipoReservacion = tipoReservacionServicio.findById(reservacionDto.getTipoReservacionId());
-        Optional<Cliente> cliente = clienteServicio.findById(reservacionDto.getClienteId());
+        Optional<Habitacion> habitacion = habitacionRepositorio.findById(reservacionDto.getHabitacionId());
+        Optional<EstadoReservacion> estadoReservacion = estadoReservacionRepositorio.findById(reservacionDto.getEstadoReservacionId());
+        Optional<TipoReservacion> tipoReservacion = tipoReservacionRepositorio.findById(reservacionDto.getTipoReservacionId());
+        Optional<Cliente> cliente = clienteRepositorio.findById(reservacionDto.getClienteId());
         reservacion.setHabitacion(habitacion.get());
         reservacion.setEstadoReservacion(estadoReservacion.get());
         reservacion.setTipoReservacion(tipoReservacion.get());
@@ -50,10 +50,10 @@ public class ReservacionMapper {
     }
     public Reservacion ConvertCreateDTOToEntity(ReservacionCrearDto reservacionDto) {
         Reservacion reservacion = modelMapper.map(reservacionDto, Reservacion.class);
-        Optional<Habitacion> habitacion = habitacionServicio.findById(reservacionDto.getHabitacionId());
-        Optional<EstadoReservacion> estadoReservacion = estadoReservacionServicio.findById(reservacionDto.getEstadoReservacionId());
-        Optional<TipoReservacion> tipoReservacion = tipoReservacionServicio.findById(reservacionDto.getTipoReservacionId());
-        Optional<Cliente> cliente = clienteServicio.findById(reservacionDto.getClienteId());
+        Optional<Habitacion> habitacion = habitacionRepositorio.findById(reservacionDto.getHabitacionId());
+        Optional<EstadoReservacion> estadoReservacion = estadoReservacionRepositorio.findById(reservacionDto.getEstadoReservacionId());
+        Optional<TipoReservacion> tipoReservacion = tipoReservacionRepositorio.findById(reservacionDto.getTipoReservacionId());
+        Optional<Cliente> cliente = clienteRepositorio.findById(reservacionDto.getClienteId());
         reservacion.setHabitacion(habitacion.get());
         reservacion.setEstadoReservacion(estadoReservacion.get());
         reservacion.setTipoReservacion(tipoReservacion.get());

@@ -10,27 +10,27 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.InventarioDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.CategoriaInventario;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Inventario;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Proveedor;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.CategoriaInventarioServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ProveedorServicio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.CategoriaInventarioRepositorio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ProveedorRepositorio;
 
 
 @Component
 public class InventarioMapper {
     private final ModelMapper modelMapper;
-    private final CategoriaInventarioServicio categoriaInventarioServicio;
-    private final ProveedorServicio proveedorServicio;
+    private final CategoriaInventarioRepositorio categoriaInventarioRepositorio;
+    private final ProveedorRepositorio proveedorRepositorio;
 
     public InventarioMapper(ModelMapper modelMapper
-                            , CategoriaInventarioServicio categoriaInventarioServicio
-                            , ProveedorServicio proveedorServicio) {
-        this.categoriaInventarioServicio = categoriaInventarioServicio;
-        this.proveedorServicio = proveedorServicio;
+                            , CategoriaInventarioRepositorio categoriaInventarioRepositorio
+                            , ProveedorRepositorio proveedorRepositorio) {
+        this.categoriaInventarioRepositorio = categoriaInventarioRepositorio;
+        this.proveedorRepositorio = proveedorRepositorio;
         this.modelMapper = modelMapper;
     }
     public Inventario convertToEntity(InventarioDto inventarioDTO) {
         Inventario inventario = modelMapper.map(inventarioDTO, Inventario.class);
-        Optional<CategoriaInventario> categoriaInventario = categoriaInventarioServicio.findById(inventarioDTO.getCategoriaInventarioId());
-        Optional<Proveedor> proveedor = proveedorServicio.findById(inventarioDTO.getProveedorId());
+        Optional<CategoriaInventario> categoriaInventario = categoriaInventarioRepositorio.findById(inventarioDTO.getCategoriaInventarioId());
+        Optional<Proveedor> proveedor = proveedorRepositorio.findById(inventarioDTO.getProveedorId());
         inventario.setCategoriaInventario(categoriaInventario.get());
         inventario.setProveedor(proveedor.get());
         return inventario;
@@ -45,7 +45,7 @@ public class InventarioMapper {
         // No se asigna ningún id ni campo de versión, para que Hibernate genere la entidad nueva
 
         // Mapeo de la categoría: se consulta y se asigna, de lo contrario se lanza una excepción controlada.
-        Optional<CategoriaInventario> categoriaOpt = categoriaInventarioServicio.findById(dto.getCategoriaInventarioId());
+        Optional<CategoriaInventario> categoriaOpt = categoriaInventarioRepositorio.findById(dto.getCategoriaInventarioId());
         if(categoriaOpt.isPresent()) {
             inventario.setCategoriaInventario(categoriaOpt.get());
         } else {
@@ -53,7 +53,7 @@ public class InventarioMapper {
         }
 
         // Mapeo del proveedor de forma similar
-        Optional<Proveedor> proveedorOpt = proveedorServicio.findById(dto.getProveedorId());
+        Optional<Proveedor> proveedorOpt = proveedorRepositorio.findById(dto.getProveedorId());
         if(proveedorOpt.isPresent()) {
             inventario.setProveedor(proveedorOpt.get());
         } else {

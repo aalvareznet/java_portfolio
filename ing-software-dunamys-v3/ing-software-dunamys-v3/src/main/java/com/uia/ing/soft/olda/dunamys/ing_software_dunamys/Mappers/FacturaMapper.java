@@ -11,31 +11,31 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.EstadoFactura;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Factura;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Reservacion;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.EstadoFacturaServicio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ReservacionServicio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ClienteRepositorio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.EstadoFacturaRepositorio;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ReservacionRepositorio;
 
 @Component
 public class FacturaMapper {
     private final ModelMapper modelMapper;
-    private final ReservacionServicio reservacionServicio;
-    private final EstadoFacturaServicio estadoFacturaServicio;
-    private final ClienteServicio clienteServicio;
+    private final ReservacionRepositorio reservacionRepositorio;
+    private final EstadoFacturaRepositorio estadoFacturaRepositorio;
+    private final ClienteRepositorio clienteRepositorio;
 
     public FacturaMapper(ModelMapper modelMapper
-                        , ReservacionServicio reservacionServicio
-                        , EstadoFacturaServicio estadoFacturaServicio
-                        , ClienteServicio clienteServicio) {
-        this.reservacionServicio = reservacionServicio;
-        this.estadoFacturaServicio = estadoFacturaServicio;
-        this.clienteServicio = clienteServicio;
+                        , ReservacionRepositorio reservacionRepositorio
+                        , EstadoFacturaRepositorio estadoFacturaRepositorio
+                        , ClienteRepositorio clienteRepositorio) {
+        this.reservacionRepositorio = reservacionRepositorio;
+        this.estadoFacturaRepositorio = estadoFacturaRepositorio;
+        this.clienteRepositorio = clienteRepositorio;
         this.modelMapper = modelMapper;
     }
     public Factura ConvertDTOToEntity(FacturaDto facturaDto) {
         Factura factura = modelMapper.map(facturaDto, Factura.class);
-        Optional<Reservacion> reservacion = reservacionServicio.findById(facturaDto.getReservacionId());
-        Optional<EstadoFactura> estadoFactura = estadoFacturaServicio.findById(facturaDto.getEstadoFacturaId());
-        Optional<Cliente> cliente = clienteServicio.findById(facturaDto.getClienteId());
+        Optional<Reservacion> reservacion = reservacionRepositorio.findById(facturaDto.getReservacionId());
+        Optional<EstadoFactura> estadoFactura = estadoFacturaRepositorio.findById(facturaDto.getEstadoFacturaId());
+        Optional<Cliente> cliente = clienteRepositorio.findById(facturaDto.getClienteId());
         factura.setReservacion(reservacion.get());
         factura.setEstadoFactura(estadoFactura.get());
         factura.setCliente(cliente.get());
@@ -43,9 +43,9 @@ public class FacturaMapper {
     }
     public Factura ConvertCreateDTOToEntity(FacturaCrearDto facturaDto) {
         Factura factura = modelMapper.map(facturaDto, Factura.class);
-        Optional<Reservacion> reservacion = reservacionServicio.findById(facturaDto.getReservacionId());
-        Optional<EstadoFactura> estadoFactura = estadoFacturaServicio.findById(facturaDto.getEstadoFacturaId());
-        Optional<Cliente> cliente = clienteServicio.findById(facturaDto.getClienteId());
+        Optional<Reservacion> reservacion = reservacionRepositorio.findById(facturaDto.getReservacionId());
+        Optional<EstadoFactura> estadoFactura = estadoFacturaRepositorio.findById(facturaDto.getEstadoFacturaId());
+        Optional<Cliente> cliente = clienteRepositorio.findById(facturaDto.getClienteId());
         factura.setReservacion(reservacion.get());
         factura.setEstadoFactura(estadoFactura.get());
         factura.setCliente(cliente.get());
