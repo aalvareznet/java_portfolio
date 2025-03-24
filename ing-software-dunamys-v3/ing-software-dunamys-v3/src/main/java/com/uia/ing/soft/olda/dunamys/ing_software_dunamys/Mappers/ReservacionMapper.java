@@ -3,6 +3,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Mappers;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Component;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ReservacionCrearDto;
@@ -25,17 +26,28 @@ public class ReservacionMapper {
     private final TipoReservacionRepositorio tipoReservacionRepositorio;
     private final ClienteRepositorio clienteRepositorio;
 
-    public ReservacionMapper(ModelMapper modelMapper
-                            , HabitacionRepositorio habitacionRepositorio
-                            , EstadoReservacionRepositorio estadoReservacionRepositorio
-                            , TipoReservacionRepositorio tipoReservacionRepositorio
-                            , ClienteRepositorio clienteRepositorio) {
+    public ReservacionMapper(ModelMapper modelMapper,
+                             HabitacionRepositorio habitacionRepositorio,
+                             EstadoReservacionRepositorio estadoReservacionRepositorio,
+                             TipoReservacionRepositorio tipoReservacionRepositorio,
+                             ClienteRepositorio clienteRepositorio) {
         this.habitacionRepositorio = habitacionRepositorio;
         this.estadoReservacionRepositorio = estadoReservacionRepositorio;
         this.tipoReservacionRepositorio = tipoReservacionRepositorio;
         this.clienteRepositorio = clienteRepositorio;
         this.modelMapper = modelMapper;
+        configureModelMapper();
     }
+
+    private void configureModelMapper() {
+        modelMapper.addMappings(new PropertyMap<ReservacionCrearDto, Reservacion>() {
+            @Override
+            protected void configure() {
+                skip(destination.getId()); // Skip the id property to avoid conflicts
+            }
+        });
+    }
+
     public Reservacion ConvertDTOToEntity(ReservacionDto reservacionDto) {
         Reservacion reservacion = modelMapper.map(reservacionDto, Reservacion.class);
         Optional<Habitacion> habitacion = habitacionRepositorio.findById(reservacionDto.getHabitacionId());
@@ -48,6 +60,7 @@ public class ReservacionMapper {
         reservacion.setCliente(cliente.get());
         return reservacion;
     }
+
     public Reservacion ConvertCreateDTOToEntity(ReservacionCrearDto reservacionDto) {
         Reservacion reservacion = modelMapper.map(reservacionDto, Reservacion.class);
         Optional<Habitacion> habitacion = habitacionRepositorio.findById(reservacionDto.getHabitacionId());
@@ -60,6 +73,7 @@ public class ReservacionMapper {
         reservacion.setCliente(cliente.get());
         return reservacion;
     }
+
     public ReservacionDto ConvertEntityToDto(Reservacion reservacion) {
         ReservacionDto reservacionDto = modelMapper.map(reservacion, ReservacionDto.class);
         reservacionDto.setHabitacionId(reservacion.getHabitacion().getId());
@@ -68,6 +82,4 @@ public class ReservacionMapper {
         reservacionDto.setClienteId(reservacion.getCliente().getId());
         return reservacionDto;
     }
-
-
 }
