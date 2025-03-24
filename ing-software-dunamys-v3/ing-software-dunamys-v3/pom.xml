@@ -122,8 +122,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.4.3</version>
                 <configuration>
                     <image>
+                        <builder>paketobuildpacks/builder:tiny</builder>
                         <name>ing-software-dunamys:latest</name>
                     </image>
                 </configuration>
