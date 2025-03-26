@@ -26,7 +26,7 @@ public class ClienteControlador {
     private ClienteServicio servicio;
     //Las cuentas solo pueden ser creadas por clientes
 
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<ClienteDto> crearCliente(@RequestBody ClienteCrearDto cliente) {
         ClienteDto clienteCreado = servicio.agregarClientePersonaUsuario(cliente);
         if(clienteCreado != null){
