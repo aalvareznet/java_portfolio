@@ -1,6 +1,8 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,7 @@ public class CategoriaInventarioControlador {
     private CategoriaInventarioServicio servicio;
 
     @PostMapping("/{userId}")
-    public ResponseEntity<CategoriaInventarioDto> agregarCategoria(@RequestBody CategoriaInventarioCrearDto entidad
+    public ResponseEntity<CategoriaInventarioDto> agregarCategoria(@Valid @RequestBody CategoriaInventarioCrearDto entidad
                                                                 , @PathVariable Integer userId) {
         CategoriaInventarioDto categoriaAgregada = servicio.crear(entidad, userId);
         if(categoriaAgregada != null){
