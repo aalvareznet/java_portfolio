@@ -3,7 +3,6 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +29,7 @@ public class ReservacionControlador {
     private ReservacionServicio servicio;
 
     @PostMapping
-    public ResponseEntity<ReservacionDto> agregarReservacion(@Valid @RequestBody ReservacionCrearDto reservacion) {
+    public ResponseEntity<ReservacionDto> agregarReservacion(@RequestBody ReservacionCrearDto reservacion) {
         ReservacionDto reservacionAgregada = servicio.agregar(reservacion);
         if (reservacionAgregada != null) {
             return ResponseEntity.ok(reservacionAgregada);

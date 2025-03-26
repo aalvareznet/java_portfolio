@@ -2,25 +2,26 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto;
 
 import java.util.Date;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
-
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.FutureOrPresent;
 import lombok.Data;
 
 @Data   
 @Valid
 public class ReservacionCrearDto {
+    @Digits(fraction = 0, integer = 10)
     Integer habitacionId;
-
+    @Digits(fraction = 0, integer = 10)
     Integer estadoReservacionId;
-
+    @Digits(fraction = 0, integer = 10)
     Integer tipoReservacionId;
-
+    @Digits(fraction = 0, integer = 10)
     Integer clienteId;
-
+    @FutureOrPresent
     Date fechaIngreso;
-
+    @FutureOrPresent
     Date fechaSalida;
-    @Min(1)
+    @Digits(fraction = 0, integer = 10)
     Integer cantidadPersonas;
 }
