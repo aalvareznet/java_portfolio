@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteInfoPersonaDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.PersonaRepositorio;
@@ -38,6 +39,19 @@ public class ClienteMapper {
         ClienteDto clienteDto = modelMapper.map(cliente, ClienteDto.class);
         clienteDto.setPersonaId(cliente.getPersona().getId());
         clienteDto.setUsuarioId(cliente.getUsuario().getId());
+        return clienteDto;
+    }
+
+    public ClienteInfoPersonaDto ConvertEntityToInfoDto(Cliente cliente){
+        ClienteInfoPersonaDto clienteDto = modelMapper.map(cliente, ClienteInfoPersonaDto.class);
+        clienteDto.setPersonaId(cliente.getPersona().getId());
+        clienteDto.setUsuarioId(cliente.getUsuario().getId());
+        clienteDto.setNombrePersona(cliente.getPersona().getNombre());
+        clienteDto.setPrimerApellidoPersona(cliente.getPersona().getPrimerApellido());
+        clienteDto.setSegundoApellidoPerson(cliente.getPersona().getSegundoApellido());
+        clienteDto.setEmail(cliente.getPersona().getCorreo());
+        clienteDto.setTelefono(cliente.getPersona().getTelefono());
+        clienteDto.setPais(cliente.getPersona().getPais());
         return clienteDto;
     }
 }

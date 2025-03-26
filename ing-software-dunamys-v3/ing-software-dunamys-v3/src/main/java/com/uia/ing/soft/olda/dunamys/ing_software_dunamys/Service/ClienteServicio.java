@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteInfoPersonaDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Mappers.ClienteMapper;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
@@ -120,5 +121,13 @@ public class ClienteServicio extends BaseService<Cliente, Integer> {
                                                 .map(cliente -> mapper.ConvertEntityToDTO(cliente))
                                                 .collect(Collectors.toList());     
         return clientesDto;
+    }
+    public ClienteInfoPersonaDto obtenerClientePorIdUsuario(Integer id){
+        Optional<Cliente> cliente = repo.findByUsuarioId(id);
+        if(cliente.isPresent()){
+            ClienteInfoPersonaDto clienteRespuesta = mapper.ConvertEntityToInfoDto(cliente.get());
+            return clienteRespuesta;
+        }
+        return null;
     }
 }

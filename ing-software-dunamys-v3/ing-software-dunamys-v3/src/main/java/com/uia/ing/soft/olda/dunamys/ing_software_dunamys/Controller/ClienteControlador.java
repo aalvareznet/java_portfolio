@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteDto;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteInfoPersonaDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServicio;
 
@@ -73,5 +74,14 @@ public class ClienteControlador {
             return ResponseEntity.ok(clientes);
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/info/{id}")
+    public ResponseEntity<ClienteInfoPersonaDto> obtenerClientePorIdUsuario(@PathVariable Integer id){
+        ClienteInfoPersonaDto cliente = servicio.obtenerClientePorIdUsuario(id);
+        if(cliente != null){
+            return ResponseEntity.ok(cliente);
+        }
+        return ResponseEntity.notFound().build();
     }
 }
