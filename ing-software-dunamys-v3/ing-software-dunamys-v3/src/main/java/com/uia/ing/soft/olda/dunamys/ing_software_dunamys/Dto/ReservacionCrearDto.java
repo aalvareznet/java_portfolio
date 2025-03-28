@@ -18,9 +18,7 @@ public class ReservacionCrearDto {
     Integer tipoReservacionId;
     @Digits(fraction = 0, integer = 10)
     Integer clienteId;
-    @FutureOrPresent
-    Date fechaIngreso;
-    @FutureOrPresent
+    Date fechaIngreso; //TODO: cambiar a LocalDateTime
     Date fechaSalida;
     @Digits(fraction = 0, integer = 10)
     Integer cantidadPersonas;
