@@ -20,6 +20,9 @@ public class Habitacion {
     @Column(name = "capacidad", nullable = false)
     private Integer capacidad;
 
+    @Column(name = "precio", nullable = false)
+    private Double precio;
+
     @ManyToOne
     @JoinColumn(name = "estado_habitacion_id", nullable = false)
     private EstadoHabitacion estadoHabitacion;

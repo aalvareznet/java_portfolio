@@ -10,6 +10,8 @@ public class HabitacionDto {
 
     Integer numeroHabitacion;
 
+    Double precio;
+
     Integer capacidad;
 
     Integer estadoHabitacionId;

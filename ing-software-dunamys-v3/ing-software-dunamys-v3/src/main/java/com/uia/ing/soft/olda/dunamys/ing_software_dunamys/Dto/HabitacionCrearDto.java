@@ -6,6 +6,8 @@ import lombok.Data;
 public class HabitacionCrearDto {
     Integer numeroHabitacion;
 
+    Double precio;
+
     Integer capacidad;
 
     Integer estadoHabitacionId;
