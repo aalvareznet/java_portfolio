@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reporte de Clientes</title>
+  <style>
+    /* Fondo general y tipografía */
+    body { 
+      font-family: Arial, sans-serif; 
+      background-color: #D8EFD3; 
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Encabezado fijo en la parte superior */
+    .header {
+      position: relative;
+      text-align: center;
+      padding: 10px;
+      background-color: #95D2B3;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    /* Logo en la esquina superior derecha */
+    .logo {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 50px; /* Ajusta el tamaño deseado */
+      height: auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    
+    th, td {
+      border: 1px solid #cccccc;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #95D2B3;
+      color: white;
+    }
+    
+    tr:nth-child(even) { 
+      background-color: #F1F8E8; 
+    }
+    
+    /* Evita que las filas se dividan entre páginas */
+    tr { page-break-inside: avoid; }
+    thead { display: table-header-group; }
+    tfoot { display: table-footer-group; }
+    
+    /* Definir numeración de páginas en la parte superior derecha */
+    @page {
+      @top-right {
+        content: "Página " counter(page) " de " counter(pages);
+        font-size: 10px;
+        color: #55AD9B;
+        margin-top: 5px;
+        margin-right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Encabezado: Nombre del hotel, logo y nombre del reporte -->
+  <div class="header">
+    <img class="logo" th:src="@{../logo.png}" alt="Logo" />
+    Hotel Dunamys<br/>
+    Reporte de Clientes
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Cantidad de Visitas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="cliente : ${clientes}">
+        <td th:text="${cliente.id}">1</td>
+        <td th:text="${cliente.persona.nombre}">Nombre Cliente</td>
+        <td th:text="${cliente.cantidadVisitas}">10</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
