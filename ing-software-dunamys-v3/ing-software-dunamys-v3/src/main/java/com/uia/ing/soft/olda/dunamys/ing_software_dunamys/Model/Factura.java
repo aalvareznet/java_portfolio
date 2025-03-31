@@ -1,5 +1,9 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model;
 
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +17,10 @@ public class Factura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "fecha", nullable = false)
+    @JsonFormat(pattern = "dd/MMM/yyyy")
+    private LocalDateTime fecha;
 
     @ManyToOne
     @JoinColumn(name = "reservacion_id", nullable = false)

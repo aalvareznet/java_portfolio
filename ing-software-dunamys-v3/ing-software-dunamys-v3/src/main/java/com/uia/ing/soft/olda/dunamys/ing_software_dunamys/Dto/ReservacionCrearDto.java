@@ -1,5 +1,6 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.validation.Valid;
@@ -18,8 +19,8 @@ public class ReservacionCrearDto {
     Integer tipoReservacionId;
     @Digits(fraction = 0, integer = 10)
     Integer clienteId;
-    Date fechaIngreso; //TODO: cambiar a LocalDateTime
-    Date fechaSalida;
+    LocalDateTime fechaIngreso; //TODO: cambiar a LocalDateTime
+    LocalDateTime fechaSalida;
     @Digits(fraction = 0, integer = 10)
     Integer cantidadPersonas;
 }

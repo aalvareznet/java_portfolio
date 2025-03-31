@@ -2,7 +2,9 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "consumo")
@@ -27,5 +29,6 @@ public class Consumo {
     private Integer cantidad;
 
     @Column(name = "fecha", nullable = false)
-    private Date fecha;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime fecha;
 }

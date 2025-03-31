@@ -1,6 +1,6 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
@@ -14,6 +14,6 @@ public class ConsumoDto {
 
     Integer cantidad;
 
-    Date fecha;
+    LocalDateTime fecha;
 
 }

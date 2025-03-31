@@ -3,6 +3,9 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "reservacion")
@@ -32,10 +35,12 @@ public class Reservacion {
     private Cliente cliente;
 
     @Column(name = "fecha_ingreso", nullable = false)
-    private Date fechaIngreso;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime fechaIngreso;
 
     @Column(name = "fecha_salida", nullable = false)
-    private Date fechaSalida;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime fechaSalida;
 
     @Column(name = "cantidad_personas", nullable = false)
     private Integer cantidadPersonas;
