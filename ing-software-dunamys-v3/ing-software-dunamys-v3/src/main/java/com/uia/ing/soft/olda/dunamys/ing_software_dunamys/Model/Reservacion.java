@@ -2,7 +2,6 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

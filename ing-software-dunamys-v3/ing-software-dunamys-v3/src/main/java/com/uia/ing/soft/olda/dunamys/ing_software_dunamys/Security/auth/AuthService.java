@@ -1,6 +1,5 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.auth;
 
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.Role;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.jwt.JwtService;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.User;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.UserRepository;

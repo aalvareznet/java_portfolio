@@ -1,11 +1,9 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.FutureOrPresent;
 import lombok.Data;
 
 @Data   
