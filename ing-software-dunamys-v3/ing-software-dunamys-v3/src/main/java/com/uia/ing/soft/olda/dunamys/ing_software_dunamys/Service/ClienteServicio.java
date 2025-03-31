@@ -17,6 +17,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ClienteRepo
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.auth.AuthResponse;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.auth.AuthService;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.auth.RegisterRequest;
+import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.Role;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.User;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.UserRepository;
 
@@ -47,6 +48,7 @@ public class ClienteServicio extends BaseService<Cliente, Integer> {
         RegisterRequest registerRequest = RegisterRequest.builder()
                 .username(cliente.getUsername())
                 .password(cliente.getPassword())
+                .role(Role.CLIENT)
                 .build();
         AuthResponse userAgregado = authService.register(registerRequest);
         if (userAgregado == null) {
@@ -77,6 +79,44 @@ public class ClienteServicio extends BaseService<Cliente, Integer> {
         ClienteDto clienteDto = mapper.ConvertEntityToDTO(clienteCreado);
         return clienteDto;
     }
+
+    @Transactional
+    public ClienteDto agregarUsuarioOtrosRoles(ClienteCrearDto cliente, Role role) {
+        RegisterRequest registerRequest = RegisterRequest.builder()
+                .username(cliente.getUsername())
+                .password(cliente.getPassword())
+                .role(role)
+                .build();
+        AuthResponse userAgregado = authService.register(registerRequest);
+        if (userAgregado == null) {
+            throw new IllegalStateException("Error al crear el usuario");
+        }
+        Optional<User> busquedaUser = userRepo.findByUsername(cliente.getUsername());
+        if (!busquedaUser.isPresent()) {
+            throw new IllegalStateException("Error al buscar usuario");
+        }
+        Persona personaPorAgregar = Persona.builder()
+                .nombre(cliente.getNombre())
+                .primerApellido(cliente.getPrimerApellido())
+                .segundoApellido(cliente.getSegundoApellido())
+                .telefono(cliente.getTelefono())
+                .correo(cliente.getCorreo())
+                .pais(cliente.getPais())
+                .build();
+        Persona personaAgregada = personaServicio.create(personaPorAgregar);
+        if (personaAgregada == null) {
+            throw new IllegalStateException("Error crear la persona usuario");
+        }
+        Cliente clientePorCrear = Cliente.builder()
+                .cantidadVisitas(0)
+                .persona(personaAgregada)
+                .usuario(busquedaUser.get())
+                .build();
+        Cliente clienteCreado = this.create(clientePorCrear);
+        ClienteDto clienteDto = mapper.ConvertEntityToDTO(clienteCreado);
+        return clienteDto;
+    }
+
 
     public ClienteDto actualizar(Integer id, Persona persona, Integer usuarioId){
         Optional<Cliente> clienteEncontrado = this.findById(id);

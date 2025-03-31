@@ -25,6 +25,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     String username;
     String password;
+    @Enumerated(EnumType.STRING)
     Role role;
 
     @Override
