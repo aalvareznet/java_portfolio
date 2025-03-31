@@ -1,6 +1,7 @@
 package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServici
 
 @RestController
 @RequestMapping("/api/v1/admin")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     private final ClienteServicio clienteServicio;
