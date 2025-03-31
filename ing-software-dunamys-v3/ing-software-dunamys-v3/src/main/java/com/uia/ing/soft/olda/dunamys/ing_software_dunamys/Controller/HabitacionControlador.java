@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ public class HabitacionControlador {
     private HabitacionServicio servicio;
 
     @PostMapping("/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<HabitacionDto> crearHabitacion(@RequestBody HabitacionCrearDto habitacion, @PathVariable Integer userId) {
         if (habitacion == null || userId == null) {
             return ResponseEntity.badRequest().build();
@@ -36,6 +38,7 @@ public class HabitacionControlador {
     }
 
     @PutMapping("/{id}/actualizar/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<HabitacionDto> actualizarHabitacion(@PathVariable Integer id, @RequestBody HabitacionCrearDto habitacion, @PathVariable Integer userId) {
         if (id == null || habitacion == null || userId == null) {
             return ResponseEntity.badRequest().build();
@@ -69,6 +72,7 @@ public class HabitacionControlador {
     }
 
     @DeleteMapping("/{id}/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> eliminarHabitacion(@PathVariable Integer id, @PathVariable Integer userId) {
         if (id == null || userId == null) {
             return ResponseEntity.badRequest().build();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ public class InventarioControlador {
     private InventarioServicio servicio;
 
     @PostMapping("/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<InventarioDto> agregarInventario(@PathVariable Integer userId
                                                         , @RequestBody InventarioCrearDto inventario){
         InventarioDto inventarioAgregado = servicio.agregar(userId, inventario);
@@ -33,6 +35,7 @@ public class InventarioControlador {
         return ResponseEntity.badRequest().build();
     }
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<List<InventarioDto>> obtenerTodosLosInventarios(){
         List<InventarioDto> inventarios = servicio.obtenerInventarios();
         if(inventarios.size() > 0){
@@ -41,6 +44,7 @@ public class InventarioControlador {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<InventarioDto> obtenerInventarioPorId(@PathVariable Integer id) {
         InventarioDto inventario = servicio.obtenerInventario(id);
         if(inventario != null){
@@ -49,6 +53,7 @@ public class InventarioControlador {
         return ResponseEntity.notFound().build();
     }
     @PutMapping("/{id}/actualizar/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<InventarioDto> actualizarInventario(@PathVariable Integer id
                                                         , @RequestBody InventarioCrearDto inventario
                                                         , @PathVariable Integer userId) {
@@ -59,6 +64,7 @@ public class InventarioControlador {
         return ResponseEntity.notFound().build();
     }
     @PutMapping("/{id}/{cantidad}/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<InventarioDto> agregarPedidos(@PathVariable Integer id
                                                     , @PathVariable Integer cantidad
                                                     , @PathVariable Integer userId) {
@@ -69,6 +75,7 @@ public class InventarioControlador {
         return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<String> eliminarInventario(@PathVariable Integer id
                                                     , @PathVariable Integer userId){
         String mensaje = servicio.borrar(id, userId);

@@ -4,6 +4,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ public class EstadoHabitacionControlador {
     private EstadoHabitacionServicio servicio;
 
     @PostMapping("/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<EstadoHabitacionDto> crearEstadoHabitacion(@PathVariable Integer userId
                                                                 , @RequestBody EstadoHabitacionCrearDto estadoHabitacion){
             EstadoHabitacionDto estadoHabitacionCreado = servicio.crear(userId, estadoHabitacion);
@@ -30,6 +32,7 @@ public class EstadoHabitacionControlador {
             return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/{id}/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<String> eliminarEstadoHabitacion(@PathVariable Integer id
                                                                     , @PathVariable Integer userId){
         String estadoHabitacionEliminado = servicio.borrar(id, userId);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ public class ConsumoControlador {
     private ConsumoServicio servicio;
 
     @PostMapping("/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<ConsumoDto> agregarConsumo(@RequestBody ConsumoCrearDto consumo
                                                 , @PathVariable Integer userId){
         ConsumoDto consumoCreado = servicio.agregar(consumo, userId);
@@ -36,6 +38,7 @@ public class ConsumoControlador {
     }
 
     @PutMapping("/{id}/actualizar/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<ConsumoDto> actualizarConsumo(@PathVariable Integer id
                                                     , @RequestBody ConsumoCrearDto consumo
                                                     , @PathVariable Integer userId){
@@ -46,6 +49,7 @@ public class ConsumoControlador {
         return ResponseEntity.badRequest().build();
     }
     @GetMapping()
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<List<ConsumoDto>> obtenerConsumos(){
         List<ConsumoDto> consumos = servicio.obtenerTodos();
         if(consumos.size() > 0){
@@ -54,6 +58,7 @@ public class ConsumoControlador {
         return ResponseEntity.notFound().build();
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<List<Consumo>> obtenerConsumosPorFechaActualYCliente(@PathVariable Integer id){
         Date fecha = new Date();
         List<Consumo> consumos = servicio.obtenerConsumosPorFechaYCliente(fecha, id);
@@ -63,6 +68,7 @@ public class ConsumoControlador {
         return ResponseEntity.notFound().build();
     }
     @GetMapping("/{id}/{fechaInicio}/{fechaFin}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<List<Consumo>> obtenerConsumosPorFechasYCliente(@PathVariable Integer id
                                                                         , @PathVariable Date fechaInicio
                                                                         , @PathVariable Date fechaFin){

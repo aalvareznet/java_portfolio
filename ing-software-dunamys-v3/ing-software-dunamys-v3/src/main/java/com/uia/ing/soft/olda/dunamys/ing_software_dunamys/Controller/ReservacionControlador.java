@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,7 @@ public class ReservacionControlador {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<List<ReservacionDto>> obtenerTodasLasReservaciones() {
         List<ReservacionDto> reservaciones = servicio.obtenerReservaciones();
         if(reservaciones.size() > 0){
@@ -47,6 +49,7 @@ public class ReservacionControlador {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<ReservacionDto> obtenerReservacionPorId(@PathVariable Integer id) {
         ReservacionDto reservacion = servicio.obtenerReservacion(id);
         if(reservacion != null){

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ public class ProveedorControlador {
     private ProveedorServicio servicio;
     
     @PostMapping("/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<ProveedorDto> agregarProveedor(@PathVariable Integer userId
                                                     , @RequestBody ProveedorCrearDto proveedor){
         ProveedorDto proveedorCreado = servicio.agregar(userId, proveedor);
@@ -34,6 +36,7 @@ public class ProveedorControlador {
 
     }
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<List<ProveedorDto>> obtenerTodosLosProveedores(){
         List<ProveedorDto> proveedores = servicio.obtenerProveedores();
         if(proveedores.size() > 0){
@@ -42,6 +45,7 @@ public class ProveedorControlador {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<ProveedorDto> obtenerProveedorPorId(@PathVariable Integer id){
         ProveedorDto proveedor = servicio.obtenerProveedor(id);
         if(proveedor != null){
@@ -50,6 +54,7 @@ public class ProveedorControlador {
         return ResponseEntity.notFound().build();
     }
     @PutMapping("/{id}/actualizar/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<ProveedorDto> actualizarProveedor(@PathVariable Integer id
                                                         , @RequestBody ProveedorCrearDto proveedor
                                                         , @PathVariable Integer userId){
@@ -60,6 +65,7 @@ public class ProveedorControlador {
         return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<String> borrarProveedor(@PathVariable Integer id
                                                 , @PathVariable Integer userId){
         String mensaje = servicio.borrar(id, userId);

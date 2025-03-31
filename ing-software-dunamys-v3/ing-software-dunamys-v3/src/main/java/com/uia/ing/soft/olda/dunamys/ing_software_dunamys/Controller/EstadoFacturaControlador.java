@@ -3,6 +3,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ public class EstadoFacturaControlador {
     private EstadoFacturaServicio servicio;
 
     @PostMapping("/{userId}")
+        @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<EstadoFacturaDto> agregarEstadoFactura(@PathVariable Integer userId
                                                             , @RequestBody EstadoFacturaCrearDto estadoFactura){
         EstadoFacturaDto estadoFacturaDto = servicio.agregar(userId, estadoFactura);
@@ -30,6 +32,7 @@ public class EstadoFacturaControlador {
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/{userId}/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<String> eliminarEstadoFactura(@PathVariable Integer userId
                                                       , @PathVariable Integer id){
         String mensaje = servicio.eliminar(userId, id);

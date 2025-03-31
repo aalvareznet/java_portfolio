@@ -2,6 +2,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,7 @@ public class CategoriaInventarioControlador {
     private CategoriaInventarioServicio servicio;
 
     @PostMapping("/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<CategoriaInventarioDto> agregarCategoria(@Valid @RequestBody CategoriaInventarioCrearDto entidad
                                                                 , @PathVariable Integer userId) {
         CategoriaInventarioDto categoriaAgregada = servicio.crear(entidad, userId);
@@ -34,6 +36,7 @@ public class CategoriaInventarioControlador {
     }
 
     @DeleteMapping("/{userId}/{categoryId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> borrarCategoria(@PathVariable Integer userId
                                                 , @PathVariable Integer categoryId){
         String mensaje = servicio.borrar(userId, categoryId);

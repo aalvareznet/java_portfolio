@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,6 +28,7 @@ public class FacturaControlador {
     private FacturaServicio servicio;
 
     @PostMapping("/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<FacturaDto> crearFactura(@PathVariable Integer userId
                                                 , @RequestBody FacturaCrearDto factura){
             FacturaDto nuevaFactura = servicio.crear(userId, factura); //tener cuidado de crear siempre la factura con status pendiente de pago
@@ -37,6 +39,7 @@ public class FacturaControlador {
         }
     @Transactional
     @PostMapping("/{id}/detalle/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<FacturaDto> agregarDetalleFactura(@PathVariable Integer id
                                                         , @PathVariable Integer userId
                                                         , @RequestBody List<DetalleFacturaCrearDto> detalleFactura){
@@ -47,6 +50,7 @@ public class FacturaControlador {
         return ResponseEntity.badRequest().build();
     }
     @PutMapping("/{facturaId}/{userId}") 
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<FacturaDto> pagarFactura(@PathVariable Integer facturaId
                                                 , @PathVariable Integer userId){
         FacturaDto facturaPagada = servicio.pagarFactura(facturaId, userId);
