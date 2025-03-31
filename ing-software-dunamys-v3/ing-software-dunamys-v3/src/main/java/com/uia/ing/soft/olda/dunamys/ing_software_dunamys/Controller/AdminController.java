@@ -23,7 +23,6 @@ public class AdminController {
     public AdminController(ClienteServicio clienteServicio){
         this.clienteServicio = clienteServicio;
     }
-    
     @PostMapping("/crear/{rol}")
     public ResponseEntity<ClienteDto> crearCliente(@RequestBody ClienteCrearDto cliente, @PathVariable String rol) {
         Role rolEntrante = Role.valueOf(rol);
