@@ -13,28 +13,27 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ClienteRepo
 
 @Service
 public class ReporteServicio {
-        private final TemplateEngine templateEngine;
-        private final ClienteRepositorio clienteRepositorio;
-    
-        public ReporteServicio(TemplateEngine templateEngine, ClienteRepositorio clienteRepositorio){
-            this.templateEngine = templateEngine;
-            this.clienteRepositorio = clienteRepositorio;
-        }
-    
-        public byte[] generarReporteClientesPdf() throws IOException{
-            java.util.List<Cliente> clientes = clienteRepositorio.findAll();
+    private final TemplateEngine templateEngine;
+    private final ClienteRepositorio clienteRepositorio;
 
-            Context context = new Context();
-            context.setVariable("clientes", clientes);
+    public ReporteServicio(TemplateEngine templateEngine, ClienteRepositorio clienteRepositorio){
+        this.templateEngine = templateEngine;
+        this.clienteRepositorio = clienteRepositorio;
+    }
 
-            String htmlContent = templateEngine.process("reporteClientes", context);
+    public byte[] generarReporteClientesPdf() throws IOException{
+        java.util.List<Cliente> clientes = clienteRepositorio.findAll();
 
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            PdfRendererBuilder builder = new PdfRendererBuilder();
-            builder.withHtmlContent(htmlContent, "");
-            builder.toStream(outputStream);
-            builder.run();
+        Context context = new Context();
+        context.setVariable("clientes", clientes);
 
-            return outputStream.toByteArray();
+        String htmlContent = templateEngine.process("reporteClientes", context);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PdfRendererBuilder builder = new PdfRendererBuilder();
+        builder.withHtmlContent(htmlContent, "");
+        builder.toStream(outputStream);
+        builder.run();
+
+        return outputStream.toByteArray();
     }
 }

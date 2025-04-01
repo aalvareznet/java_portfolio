@@ -68,8 +68,6 @@ public class ReservacionControlador {
         return ResponseEntity.notFound().build();
     }
 
-    //TODO: pensar en pasar estos dos endpoints al controlador habitacion
-
     @GetMapping("/disponibilidad/{habitacionId}")
     public ResponseEntity<Boolean> verificarDisponibilidadHabitacion(
             @PathVariable Integer habitacionId,
@@ -79,7 +77,7 @@ public class ReservacionControlador {
         boolean disponible = servicio.verificarDisponibilidadHabitacion(habitacionId, fechaIngreso, fechaSalida);
         return ResponseEntity.ok(disponible);
     }
-
+    
     // Obtiene una lista de habitaciones disponibles en un rango de fechas
     @GetMapping("/habitaciones-disponibles")
     public ResponseEntity<List<Habitacion>> obtenerHabitacionesDisponibles(

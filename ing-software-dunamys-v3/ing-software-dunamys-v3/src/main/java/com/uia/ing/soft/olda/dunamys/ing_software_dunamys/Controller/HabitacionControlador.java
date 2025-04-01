@@ -36,7 +36,6 @@ public class HabitacionControlador {
         }
         return ResponseEntity.badRequest().build();
     }
-
     @PutMapping("/{id}/actualizar/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<HabitacionDto> actualizarHabitacion(@PathVariable Integer id, @RequestBody HabitacionCrearDto habitacion, @PathVariable Integer userId) {
@@ -49,7 +48,6 @@ public class HabitacionControlador {
         }
         return ResponseEntity.badRequest().build();
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<HabitacionDto> obtenerHabitacion(@PathVariable Integer id) {
         if (id == null) {
@@ -61,7 +59,6 @@ public class HabitacionControlador {
         }
         return ResponseEntity.noContent().build();
     }
-
     @GetMapping
     public ResponseEntity<List<HabitacionDto>> obtenerHabitaciones() {
         List<HabitacionDto> habitaciones = servicio.obtenerHabitaciones();
@@ -70,9 +67,8 @@ public class HabitacionControlador {
         }
         return ResponseEntity.noContent().build();
     }
-
     @DeleteMapping("/{id}/{userId}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<String> eliminarHabitacion(@PathVariable Integer id, @PathVariable Integer userId) {
         if (id == null || userId == null) {
             return ResponseEntity.badRequest().build();
