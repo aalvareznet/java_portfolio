@@ -14,4 +14,6 @@ public class HabitacionCrearDto {
 
     Integer tipoHabitacionId;
 
+    String imagenUrl;
+
 }

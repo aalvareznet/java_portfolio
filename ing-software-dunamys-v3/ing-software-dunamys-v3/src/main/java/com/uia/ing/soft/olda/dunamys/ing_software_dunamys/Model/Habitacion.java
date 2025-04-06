@@ -22,6 +22,9 @@ public class Habitacion {
 
     @Column(name = "precio", nullable = false)
     private Double precio;
+    
+    @Column(name = "imagen_url", nullable = false)
+    private String imagenUrl;
 
     @ManyToOne
     @JoinColumn(name = "estado_habitacion_id", nullable = false)
