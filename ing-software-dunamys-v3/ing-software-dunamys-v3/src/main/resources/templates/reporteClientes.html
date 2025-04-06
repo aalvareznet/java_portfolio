@@ -83,6 +83,9 @@
       <tr>
         <th>ID</th>
         <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Telefono</th>
+        <th>Email</th>
         <th>Cantidad de Visitas</th>
       </tr>
     </thead>
@@ -90,6 +93,9 @@
       <tr th:each="cliente : ${clientes}">
         <td th:text="${cliente.id}">1</td>
         <td th:text="${cliente.persona.nombre}">Nombre Cliente</td>
+        <td th:text="${cliente.persona.primerApellido}">Apellido</td>
+        <td th:text="${cliente.persona.telefono}">Telefono</td>
+        <td th:text="${cliente.persona.correo}">Correo</td>
         <td th:text="${cliente.cantidadVisitas}">10</td>
       </tr>
     </tbody>
