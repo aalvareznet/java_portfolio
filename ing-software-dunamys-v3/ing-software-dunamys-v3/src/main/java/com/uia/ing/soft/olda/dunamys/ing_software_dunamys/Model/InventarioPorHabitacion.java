@@ -34,4 +34,6 @@ public class InventarioPorHabitacion {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)
     private InventarioPorHabitacionTipo tipo;
+    @Column(name = "cantidad", nullable = false)
+    private Integer cantidad;
 }

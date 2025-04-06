@@ -8,4 +8,5 @@ public class InventarioPorHabitacionDto {
     private Integer reservacionId;
     private Integer inventarioId;
     private String tipo;
+    private Integer cantidad;
 }

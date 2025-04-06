@@ -7,4 +7,5 @@ public class InventarioPorHabitacionCrearDto {
     private Integer reservacionId;
     private Integer inventarioId;
     private String tipo;
+    private Integer cantidad;
 }
