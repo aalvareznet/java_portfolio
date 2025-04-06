@@ -29,17 +29,17 @@ public class InventarioPorHabitacionServicio extends BaseService<InventarioPorHa
         return repo;
     }
     
-    public InventarioPorHabitacionDto crear(List<InventarioPorHabitacionCrearDto> entidad, Integer usuarioId){
-        for (InventarioPorHabitacionCrearDto inventarioPorHabitacionCrearDto : entidad) {
-            InventarioPorHabitacion inventarioAgregado = this.create(mapper.ConvertCreateDtoToEntity(inventarioPorHabitacionCrearDto));
-            if(inventarioAgregado != null){
-                auditoria.guardarAccion(usuarioId, "Crear nueva linea", "inventario_por_habitacion");
-                InventarioPorHabitacionDto inventarioDto = mapper.ConvertEntityToDto(inventarioAgregado);
-                return inventarioDto;
-            }
+    public List<InventarioPorHabitacionDto> crear(List<InventarioPorHabitacionCrearDto> entidad, Integer usuarioId){
+        List<InventarioPorHabitacion> inventarioPorHabitacion = entidad.stream().map(inventario -> mapper.ConvertCreateDtoToEntity(inventario)).toList();
+        List<InventarioPorHabitacion> inventarioPorHabitacionResultante = inventarioPorHabitacion.stream().map(inventario -> this.create(inventario)).toList();
+        if(inventarioPorHabitacionResultante.isEmpty()){
+            return null;
         }
-        return null;
+        auditoria.guardarAccion(usuarioId, "Crear nuevo inventario por habitacion", "inventarioPorHabitacion");
+        List<InventarioPorHabitacionDto> inventarioPorHabitacionDto = inventarioPorHabitacionResultante.stream().map(inventario -> mapper.ConvertEntityToDto(inventario)).toList();
+        return inventarioPorHabitacionDto;
     }
+    
     public List<InventarioPorHabitacionDto> listarPorReservacion(Integer id){
         List<InventarioPorHabitacion> inventarioPorHabitacion = repo.findByReservacionId(id);
         if(inventarioPorHabitacion.isEmpty()){
@@ -50,42 +50,35 @@ public class InventarioPorHabitacionServicio extends BaseService<InventarioPorHa
     }
 
     public List<InventarioConsumidoDto> listarProductosConsumidosPorReservacion(Integer reservacionId){
-    List<InventarioPorHabitacion> entrada = repo.findByReservacionIdAndTipo(reservacionId, InventarioPorHabitacionTipo.CONFIRMADO_ENTRADA);
-    List<InventarioPorHabitacion> salida = repo.findByReservacionIdAndTipo(reservacionId, InventarioPorHabitacionTipo.CONFIRMADO_SALIDA);
+        List<InventarioPorHabitacion> entrada = repo.findByReservacionIdAndTipo(reservacionId, InventarioPorHabitacionTipo.CONFIRMADO_ENTRADA);
+        List<InventarioPorHabitacion> salida = repo.findByReservacionIdAndTipo(reservacionId, InventarioPorHabitacionTipo.CONFIRMADO_SALIDA);
 
-    // Validar que existen ambos registros
-    if (entrada.isEmpty() || salida.isEmpty()) {
-        throw new IllegalStateException("Inventario de entrada o salida no registrado");
-    }
-
-    // Mapa para comparar cantidades (ID del Inventario -> Cantidad)
-    Map<Integer, Integer> consumo = new HashMap<>();
-
-    // Procesar entrada: sumar cantidades iniciales
-    for (InventarioPorHabitacion item : entrada) {
-        consumo.put(item.getInventario().getId(), item.getCantidad());
-    }
-
-    // Procesar salida: restar cantidades finales
-    for (InventarioPorHabitacion item : salida) {
-        int cantidadEntrada = consumo.getOrDefault(item.getInventario().getId(), 0);
-        int diferencia = cantidadEntrada - item.getCantidad();
-        
-        if (diferencia > 0) {
-            consumo.put(item.getInventario().getId(), diferencia);
-        } else {
-            consumo.remove(item.getInventario().getId()); // No hubo consumo
+        if (entrada.isEmpty() || salida.isEmpty()) {
+            throw new IllegalStateException("Inventario de entrada o salida no registrado");
         }
-    }
 
-    // Convertir a DTOs
-    return consumo.entrySet().stream()
-            .map(entry -> new InventarioConsumidoDto(
-                    entry.getKey(),
-                    entry.getValue()
-            ))
-            .toList();
-        
+        Map<Integer, Integer> consumo = new HashMap<>();
+
+        // Paso 1: Almacenar cantidad inicial de la entrada
+        for (InventarioPorHabitacion itemEntrada : entrada) {
+            consumo.put(itemEntrada.getInventario().getId(), itemEntrada.getCantidad());
+        }
+
+        // Paso 2: Restar la cantidad de la salida para obtener lo consumido
+        for (InventarioPorHabitacion itemSalida : salida) {
+            int cantidadEntrada = consumo.getOrDefault(itemSalida.getInventario().getId(), 0);
+            int cantidadConsumida = cantidadEntrada - itemSalida.getCantidad(); // ✅ Entrada - Salida = Consumo
+            
+            if (cantidadConsumida > 0) {
+                consumo.put(itemSalida.getInventario().getId(), cantidadConsumida);
+            } else {
+                consumo.remove(itemSalida.getInventario().getId());
+            }
+        }
+
+        return consumo.entrySet().stream()
+                .map(entry -> new InventarioConsumidoDto(entry.getKey(), entry.getValue()))
+                .toList();  
     }
 
 }
