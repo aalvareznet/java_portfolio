@@ -70,7 +70,6 @@ public class ConsumoServicio extends BaseService<Consumo, Integer>{
         Optional<Cliente> clienteEncontrado = Optional.ofNullable(clienteRepo.findById(cliente).orElseThrow(()-> new ClientNotFoundException("No se encontro cliente con el ID " + cliente)));
         return repo.findByFechaAndCliente(fecha, clienteEncontrado.get());
     }
-    
     public List<Consumo> obtenerConsumosEntreFechasYCliente(Date fechaInicio, Date fechaFin, Integer cliente){
         Optional<Cliente> clienteEncontrado = Optional.ofNullable(clienteRepo.findById(cliente).orElseThrow(()-> new ClientNotFoundException("No se encontro cliente con el ID " + cliente)));
         return repo.findByFechaBetweenAndCliente(fechaInicio, fechaFin, clienteEncontrado.get());
