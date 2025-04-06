@@ -15,24 +15,18 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Reservacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.InventarioRepositorio;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ReservacionRepositorio;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
-
-
 @Component
 public class InventarioPorHabitacionMapper {
     private final ModelMapper modelMapper;
     private final ReservacionRepositorio reservacionRepositorio;
     private final InventarioRepositorio inventarioRepositorio;
-    private final InventarioPorHabitacionTipo inventarioPorHabitacionTipo;
 
     public InventarioPorHabitacionMapper(ModelMapper modelMapper, 
                                          ReservacionRepositorio reservacionRepositorio,
-                                         InventarioRepositorio inventarioRepositorio,
-                                         InventarioPorHabitacionTipo inventarioPorHabitacionTipo) {
+                                         InventarioRepositorio inventarioRepositorio) {
         this.modelMapper = modelMapper;
         this.reservacionRepositorio = reservacionRepositorio;
         this.inventarioRepositorio = inventarioRepositorio;
-        this.inventarioPorHabitacionTipo = inventarioPorHabitacionTipo;
         configureModelMapper();
     }
 

@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,8 +25,10 @@ public class InventarioPorHabitacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @JoinColumn(name = "habitacion_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "reservacion_id", nullable = false)
     private Reservacion reservacion;
+    @ManyToOne
     @JoinColumn(name = "inventario_id", nullable = false)
     private Inventario inventario;
     @Enumerated(EnumType.STRING)
