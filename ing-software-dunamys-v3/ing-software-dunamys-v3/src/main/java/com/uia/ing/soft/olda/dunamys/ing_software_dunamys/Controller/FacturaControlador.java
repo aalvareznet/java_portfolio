@@ -19,6 +19,7 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.FacturaDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.FacturaServicio;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/factura")
@@ -30,7 +31,7 @@ public class FacturaControlador {
     @PostMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
     public ResponseEntity<FacturaDto> crearFactura(@PathVariable Integer userId
-                                                , @RequestBody FacturaCrearDto factura){
+                                                , @Valid @RequestBody FacturaCrearDto factura){
             FacturaDto nuevaFactura = servicio.crear(userId, factura); //tener cuidado de crear siempre la factura con status pendiente de pago
             if (nuevaFactura != null) {
                 return ResponseEntity.ok(nuevaFactura);

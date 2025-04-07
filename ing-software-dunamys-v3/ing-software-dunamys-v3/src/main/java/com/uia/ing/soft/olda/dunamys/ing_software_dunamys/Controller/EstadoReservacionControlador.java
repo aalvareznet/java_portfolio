@@ -14,6 +14,8 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoReservacionC
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoReservacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.EstadoReservacionServicio;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/estadoReservacion")
 public class EstadoReservacionControlador {
@@ -23,7 +25,7 @@ public class EstadoReservacionControlador {
     @PostMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<EstadoReservacionDto> crearEstadoReservacion(@PathVariable Integer userId
-                                                                    , @RequestBody EstadoReservacionCrearDto estadoReservacion){
+                                                                    , @Valid @RequestBody EstadoReservacionCrearDto estadoReservacion){
         EstadoReservacionDto estadoReservacionCreado = servicio.crear(userId, estadoReservacion);
         if (estadoReservacionCreado != null) {
             return ResponseEntity.ok(estadoReservacionCreado);

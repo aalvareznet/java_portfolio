@@ -18,6 +18,8 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionCrearDto
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.HabitacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.HabitacionServicio;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/habitacion")
 public class HabitacionControlador {
@@ -26,7 +28,7 @@ public class HabitacionControlador {
 
     @PostMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-    public ResponseEntity<HabitacionDto> crearHabitacion(@RequestBody HabitacionCrearDto habitacion, @PathVariable Integer userId) {
+    public ResponseEntity<HabitacionDto> crearHabitacion(@Valid @RequestBody HabitacionCrearDto habitacion, @PathVariable Integer userId) {
         if (habitacion == null || userId == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -38,7 +40,7 @@ public class HabitacionControlador {
     }
     @PutMapping("/{id}/actualizar/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-    public ResponseEntity<HabitacionDto> actualizarHabitacion(@PathVariable Integer id, @RequestBody HabitacionCrearDto habitacion, @PathVariable Integer userId) {
+    public ResponseEntity<HabitacionDto> actualizarHabitacion(@PathVariable Integer id, @Valid @RequestBody HabitacionCrearDto habitacion, @PathVariable Integer userId) {
         if (id == null || habitacion == null || userId == null) {
             return ResponseEntity.badRequest().build();
         }

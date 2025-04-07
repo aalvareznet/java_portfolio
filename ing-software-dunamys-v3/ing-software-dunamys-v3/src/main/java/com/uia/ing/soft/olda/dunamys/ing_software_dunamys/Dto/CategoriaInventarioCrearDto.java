@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 @Valid
 public class CategoriaInventarioCrearDto {
-    @NotEmpty
+    @NotEmpty(message = "El id de la categoria de inventario no puede estar vacío")
     String categoria;
 }

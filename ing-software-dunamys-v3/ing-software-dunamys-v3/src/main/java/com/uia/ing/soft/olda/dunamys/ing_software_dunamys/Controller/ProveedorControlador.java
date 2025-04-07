@@ -18,6 +18,8 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ProveedorCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ProveedorDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ProveedorServicio;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/proveedor")
 public class ProveedorControlador {
@@ -27,7 +29,7 @@ public class ProveedorControlador {
     @PostMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<ProveedorDto> agregarProveedor(@PathVariable Integer userId
-                                                    , @RequestBody ProveedorCrearDto proveedor){
+                                                    ,@Valid @RequestBody ProveedorCrearDto proveedor){
         ProveedorDto proveedorCreado = servicio.agregar(userId, proveedor);
         if(proveedorCreado != null){
             return ResponseEntity.ok(proveedorCreado);
@@ -56,7 +58,7 @@ public class ProveedorControlador {
     @PutMapping("/{id}/actualizar/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<ProveedorDto> actualizarProveedor(@PathVariable Integer id
-                                                        , @RequestBody ProveedorCrearDto proveedor
+                                                        ,@Valid @RequestBody ProveedorCrearDto proveedor
                                                         , @PathVariable Integer userId){
         ProveedorDto proveedorActualizado = servicio.actualizar(id, proveedor, userId);
         if(proveedorActualizado != null){

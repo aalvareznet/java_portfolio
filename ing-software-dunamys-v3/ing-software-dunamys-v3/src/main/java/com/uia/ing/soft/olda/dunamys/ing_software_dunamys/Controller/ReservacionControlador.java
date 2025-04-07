@@ -22,6 +22,8 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ReservacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Habitacion;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ReservacionServicio;
 
+import jakarta.validation.Valid;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/v1/reservacion")
@@ -30,7 +32,7 @@ public class ReservacionControlador {
     private ReservacionServicio servicio;
 
     @PostMapping
-    public ResponseEntity<ReservacionDto> agregarReservacion(@RequestBody ReservacionCrearDto reservacion) {
+    public ResponseEntity<ReservacionDto> agregarReservacion(@Valid @RequestBody ReservacionCrearDto reservacion) {
         ReservacionDto reservacionAgregada = servicio.agregar(reservacion);
         if (reservacionAgregada != null) {
             return ResponseEntity.ok(reservacionAgregada);

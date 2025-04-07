@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoHabitacionCrearDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoHabitacionDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.EstadoHabitacionServicio;
+
+import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/v1/estadoHabitacion")
 public class EstadoHabitacionControlador {
@@ -24,7 +26,7 @@ public class EstadoHabitacionControlador {
     @PostMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<EstadoHabitacionDto> crearEstadoHabitacion(@PathVariable Integer userId
-                                                                , @RequestBody EstadoHabitacionCrearDto estadoHabitacion){
+                                                                , @Valid @RequestBody EstadoHabitacionCrearDto estadoHabitacion){
             EstadoHabitacionDto estadoHabitacionCreado = servicio.crear(userId, estadoHabitacion);
             if (estadoHabitacionCreado != null) {
                 return ResponseEntity.ok(estadoHabitacionCreado);

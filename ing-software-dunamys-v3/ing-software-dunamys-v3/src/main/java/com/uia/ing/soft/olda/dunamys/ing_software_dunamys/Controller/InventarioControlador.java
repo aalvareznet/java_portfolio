@@ -18,6 +18,8 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.InventarioCrearDto
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.InventarioDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.InventarioServicio;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/inventario")
 public class InventarioControlador {
@@ -27,7 +29,7 @@ public class InventarioControlador {
     @PostMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<InventarioDto> agregarInventario(@PathVariable Integer userId
-                                                        , @RequestBody InventarioCrearDto inventario){
+                                                        , @Valid @RequestBody InventarioCrearDto inventario){
         InventarioDto inventarioAgregado = servicio.agregar(userId, inventario);
         if(inventarioAgregado != null){
             return ResponseEntity.ok(inventarioAgregado);
@@ -55,7 +57,7 @@ public class InventarioControlador {
     @PutMapping("/{id}/actualizar/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<InventarioDto> actualizarInventario(@PathVariable Integer id
-                                                        , @RequestBody InventarioCrearDto inventario
+                                                        , @Valid @RequestBody InventarioCrearDto inventario
                                                         , @PathVariable Integer userId) {
         InventarioDto inventarioActualizado = servicio.actualizar(id, inventario, userId);
         if(inventarioActualizado != null){

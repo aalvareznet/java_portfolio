@@ -19,6 +19,8 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ClienteInfoPersona
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ClienteServicio;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/cliente")
 public class ClienteControlador {
@@ -27,7 +29,7 @@ public class ClienteControlador {
     //Las cuentas solo pueden ser creadas por clientes
 
     @PostMapping("/crear")
-    public ResponseEntity<ClienteDto> crearCliente(@RequestBody ClienteCrearDto cliente) {
+    public ResponseEntity<ClienteDto> crearCliente(@Valid @RequestBody ClienteCrearDto cliente) {
         ClienteDto clienteCreado = servicio.agregarClientePersonaUsuario(cliente);
         if(clienteCreado != null){
             return ResponseEntity.ok(clienteCreado);
@@ -49,7 +51,7 @@ public class ClienteControlador {
     
     //Buscar a un cliente por ID es una operación que puede ser realizada por los administradores
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteDto> obtenerClientePorId(@PathVariable Integer id){
+    public ResponseEntity<ClienteDto> obtenerClientePorId(@Valid @PathVariable Integer id){
         ClienteDto cliente = servicio.obtenerClientePorId(id);
         if(cliente != null){
             return ResponseEntity.ok(cliente);

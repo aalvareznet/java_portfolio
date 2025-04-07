@@ -19,6 +19,8 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.ConsumoDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Consumo;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.ConsumoServicio;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/consumo")
 public class ConsumoControlador {
@@ -28,7 +30,7 @@ public class ConsumoControlador {
 
     @PostMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'PAYMENTS')")
-    public ResponseEntity<ConsumoDto> agregarConsumo(@RequestBody ConsumoCrearDto consumo
+    public ResponseEntity<ConsumoDto> agregarConsumo(@Valid @RequestBody ConsumoCrearDto consumo
                                                 , @PathVariable Integer userId){
         ConsumoDto consumoCreado = servicio.agregar(consumo, userId);
         if(consumoCreado != null){
@@ -40,7 +42,7 @@ public class ConsumoControlador {
     @PutMapping("/{id}/actualizar/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<ConsumoDto> actualizarConsumo(@PathVariable Integer id
-                                                    , @RequestBody ConsumoCrearDto consumo
+                                                    , @Valid @RequestBody ConsumoCrearDto consumo
                                                     , @PathVariable Integer userId){
         ConsumoDto consumoActualizado = servicio.actualizar(id, consumo, userId);
         if(consumoActualizado != null){

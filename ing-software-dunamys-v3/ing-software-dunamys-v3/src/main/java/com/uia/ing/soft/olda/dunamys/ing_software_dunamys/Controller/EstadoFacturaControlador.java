@@ -15,6 +15,8 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoFacturaCrear
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Dto.EstadoFacturaDto;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Service.EstadoFacturaServicio;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/estadoFactura")
 public class EstadoFacturaControlador {
@@ -24,7 +26,7 @@ public class EstadoFacturaControlador {
     @PostMapping("/{userId}")
         @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<EstadoFacturaDto> agregarEstadoFactura(@PathVariable Integer userId
-                                                            , @RequestBody EstadoFacturaCrearDto estadoFactura){
+                                                            , @Valid @RequestBody EstadoFacturaCrearDto estadoFactura){
         EstadoFacturaDto estadoFacturaDto = servicio.agregar(userId, estadoFactura);
         if (estadoFacturaDto != null) {
             return ResponseEntity.ok(estadoFacturaDto);
