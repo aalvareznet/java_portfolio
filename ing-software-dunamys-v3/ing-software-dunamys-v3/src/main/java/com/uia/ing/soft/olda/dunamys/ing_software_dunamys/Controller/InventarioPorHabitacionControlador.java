@@ -3,6 +3,7 @@ package com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +25,9 @@ public class InventarioPorHabitacionControlador {
     public InventarioPorHabitacionControlador(InventarioPorHabitacionServicio servicio) {
         this.servicio = servicio;
     }
-
+    
     @PostMapping("/crear/entrada/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<List<InventarioPorHabitacionDto>> crearEntrada(@RequestBody List<InventarioPorHabitacionCrearDto> entidad, @PathVariable Integer userId){
         List<InventarioPorHabitacionDto> inventarioPorHabitacionDto = servicio.crear(entidad, userId);
         if(inventarioPorHabitacionDto != null){
@@ -34,6 +36,7 @@ public class InventarioPorHabitacionControlador {
         return ResponseEntity.badRequest().build();
     }
     @PostMapping("/crear/salida/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<List<InventarioPorHabitacionDto>> crearSalida(@RequestBody List<InventarioPorHabitacionCrearDto> entidad, @PathVariable Integer userId){
         List<InventarioPorHabitacionDto> inventarioPorHabitacionDto = servicio.crear(entidad, userId);
         if(inventarioPorHabitacionDto != null){
@@ -42,6 +45,7 @@ public class InventarioPorHabitacionControlador {
         return ResponseEntity.badRequest().build();
     }
     @PostMapping("/listarPorReservacion/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<List<InventarioPorHabitacionDto>> listarPorReservacion(@PathVariable Integer id){
         List<InventarioPorHabitacionDto> inventarioPorHabitacionDto = servicio.listarPorReservacion(id);
         if(inventarioPorHabitacionDto != null){
@@ -50,6 +54,7 @@ public class InventarioPorHabitacionControlador {
         return ResponseEntity.badRequest().build();
     }
     @GetMapping("/consumidos/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<List<InventarioConsumidoDto>> listarProductosConsumidosPorReservacion(@PathVariable Integer id){
         List<InventarioConsumidoDto> inventarioConsumidoDto = servicio.listarProductosConsumidosPorReservacion(id);
         if(inventarioConsumidoDto != null){
