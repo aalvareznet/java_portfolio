@@ -75,7 +75,7 @@ public class ClienteServicio extends BaseService<Cliente, Integer> {
                 .persona(personaAgregada)
                 .usuario(busquedaUser.get())
                 .build();
-        Cliente clienteCreado = this.create(clientePorCrear);
+        Cliente clienteCreado = repo.save(clientePorCrear);
         ClienteDto clienteDto = mapper.ConvertEntityToDTO(clienteCreado);
         return clienteDto;
     }

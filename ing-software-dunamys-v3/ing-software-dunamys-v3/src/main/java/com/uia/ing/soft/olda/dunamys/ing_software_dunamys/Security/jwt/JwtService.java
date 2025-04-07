@@ -37,7 +37,10 @@ public class JwtService {
     }
 
     private String getToken(HashMap<String,Object> extraClaims, User user) {
-        Optional<Cliente> clienteOptional = clienteRepositorio.findById(user.getId());
+        Optional<Cliente> clienteOptional = clienteRepositorio.findByUsuarioId(user.getId());
+        if (clienteOptional.isEmpty()) {
+            throw new IllegalStateException("Cliente no encontrado para el usuario: " + user.getUsername());
+        }
         ClienteInfoPersonaDto cliente = clienteMapper.ConvertEntityToInfoDto(clienteOptional.get());
         return Jwts.builder()
                 .claims(extraClaims)
