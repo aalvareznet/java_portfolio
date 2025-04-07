@@ -50,13 +50,9 @@ public class ClienteServicio extends BaseService<Cliente, Integer> {
                 .password(cliente.getPassword())
                 .role(Role.CLIENT)
                 .build();
-        AuthResponse userAgregado = authService.register(registerRequest);
+        User userAgregado = authService.register(registerRequest);
         if (userAgregado == null) {
             throw new IllegalStateException("Error al crear el usuario");
-        }
-        Optional<User> busquedaUser = userRepo.findByUsername(cliente.getUsername());
-        if (!busquedaUser.isPresent()) {
-            throw new IllegalStateException("Error al buscar usuario");
         }
         Persona personaPorAgregar = Persona.builder()
                 .nombre(cliente.getNombre())
@@ -73,7 +69,7 @@ public class ClienteServicio extends BaseService<Cliente, Integer> {
         Cliente clientePorCrear = Cliente.builder()
                 .cantidadVisitas(0)
                 .persona(personaAgregada)
-                .usuario(busquedaUser.get())
+                .usuario(userAgregado)
                 .build();
         Cliente clienteCreado = repo.save(clientePorCrear);
         ClienteDto clienteDto = mapper.ConvertEntityToDTO(clienteCreado);
@@ -87,13 +83,9 @@ public class ClienteServicio extends BaseService<Cliente, Integer> {
                 .password(cliente.getPassword())
                 .role(role)
                 .build();
-        AuthResponse userAgregado = authService.register(registerRequest);
+        User userAgregado = authService.register(registerRequest);
         if (userAgregado == null) {
             throw new IllegalStateException("Error al crear el usuario");
-        }
-        Optional<User> busquedaUser = userRepo.findByUsername(cliente.getUsername());
-        if (!busquedaUser.isPresent()) {
-            throw new IllegalStateException("Error al buscar usuario");
         }
         Persona personaPorAgregar = Persona.builder()
                 .nombre(cliente.getNombre())
@@ -110,7 +102,7 @@ public class ClienteServicio extends BaseService<Cliente, Integer> {
         Cliente clientePorCrear = Cliente.builder()
                 .cantidadVisitas(0)
                 .persona(personaAgregada)
-                .usuario(busquedaUser.get())
+                .usuario(userAgregado)
                 .build();
         Cliente clienteCreado = this.create(clientePorCrear);
         ClienteDto clienteDto = mapper.ConvertEntityToDTO(clienteCreado);
