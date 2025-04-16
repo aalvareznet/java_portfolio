@@ -14,12 +14,10 @@ import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Mappers.ClienteMapper;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Cliente;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Model.Persona;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Repository.ClienteRepositorio;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.auth.AuthResponse;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.auth.AuthService;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.auth.RegisterRequest;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.Role;
 import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.User;
-import com.uia.ing.soft.olda.dunamys.ing_software_dunamys.Security.user.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -32,8 +30,6 @@ public class ClienteServicio extends BaseService<Cliente, Integer> {
     private AuthService authService;
     @Autowired
     private PersonaServicio personaServicio;
-    @Autowired
-    private UserRepository userRepo;
     @Autowired
     private ClienteMapper mapper;
     @Autowired
