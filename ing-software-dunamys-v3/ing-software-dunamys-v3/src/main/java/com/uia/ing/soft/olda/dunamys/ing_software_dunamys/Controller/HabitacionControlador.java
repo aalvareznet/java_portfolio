@@ -61,7 +61,7 @@ public class HabitacionControlador {
         }
         return ResponseEntity.noContent().build();
     }
-    @GetMapping
+    @GetMapping("/obtener")
     public ResponseEntity<List<HabitacionDto>> obtenerHabitaciones() {
         List<HabitacionDto> habitaciones = servicio.obtenerHabitaciones();
         if (habitaciones.size() > 0) {
